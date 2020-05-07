@@ -2,35 +2,39 @@ package com.sisvuelo.aplication.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Usuario {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	@Column(name = "id")
 	private Integer id;
 	
-	@Column
+	@Column (name="email", nullable = false, length = 150 )
 	private String email;
 	
-	@Column
+	@Column (name="password", nullable = false, length = 8 )
 	private String password;
 	
-    @JsonFormat(pattern="dd/mm/aaaa")
-	@Column
+    @Column(name = "fechaCreacion", updatable = false, nullable = true)
+	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
 	
-	@ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Rol rol;
 
 	public Usuario() {

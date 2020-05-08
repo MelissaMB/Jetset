@@ -55,6 +55,14 @@ public class AvionRepositoryImpl implements AvionHelper {
 				criteria.add(Restrictions.eq("id", avionFilter.getId()));
 			}
 
+            if (avionFilter.getModelo() != null) {
+				criteria.add(Restrictions.eq("modelo", avionFilter.getModelo()));
+			}
+
+            if (avionFilter.getAerolinea() != null) {
+				criteria.add(Restrictions.eq("aerolinea", avionFilter.getAerolinea()));
+			}
+
            if (!StringUtils.isEmpty(avionFilter.getNombre())) {
 				criteria.add(Restrictions.ilike("nombre", avionFilter.getNombre(), MatchMode.ANYWHERE));
 			}
@@ -64,7 +72,7 @@ public class AvionRepositoryImpl implements AvionHelper {
 				criteria.add(Restrictions.eq("anioFabricacion", avionFilter.getAnioFabricacion()));
 			}
 
-           // criteria.add(Restrictions.eq("estado", avionFilter.isEstado()));
+criteria.add(Restrictions.eq("estado", avionFilter.isEstado()));
 			
 
 

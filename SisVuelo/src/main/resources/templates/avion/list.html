@@ -3,7 +3,7 @@
  layout:decorator="'layout/MainlyLayout'">
 
 <head>
-	<title>Aviones</title>
+	<title>Blank page</title>
 
 </head>
 
@@ -42,11 +42,51 @@
 
 							<div class="container">
 
-								<div class="form-group" th:classappend="${#fields.hasErrors('nombre')} ? has-error">
+								<div class="form-group" th:classappend="${#fields.hasErrors('modelo')} ? has-error">
+	<label for="modelo" class="col-sm-2 col-xs-12  control-label">Modelo
+	</label>
+	<div class="col-sm-4 col-xs-12 ">
+		<select class="form-control" th:field="*{modelo}">
+			<option value="">Select</option>
+			<option th:each="gclass : ${modeloList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+		</select>
+
+	</div>
+</div>
+
+<div class="form-group" th:classappend="${#fields.hasErrors('aerolinea')} ? has-error">
+	<label for="aerolinea" class="col-sm-2 col-xs-12  control-label">Aerolinea
+	</label>
+	<div class="col-sm-4 col-xs-12 ">
+		<select class="form-control" th:field="*{aerolinea}">
+			<option value="">Select</option>
+			<option th:each="gclass : ${aerolineaList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+		</select>
+
+	</div>
+</div>
+
+<div class="form-group" th:classappend="${#fields.hasErrors('nombre')} ? has-error">
 	<label for="nombre" class="col-sm-2 col-xs-12  control-label">Nombre
 	</label>
 	<div class="col-sm-4 col-xs-12 ">
 		<input type="text" class="form-control" th:field="*{nombre}" id="nombre" />
+	</div>
+</div>
+
+<div class="form-group" th:classappend="${#fields.hasErrors('anioFabricacion')} ? has-error">
+	<label for="anioFabricacion" class="col-sm-2 col-xs-12  control-label">AnioFabricacion
+	</label>
+	<div class="col-sm-4 col-xs-12 ">
+		<input type="text" class="form-control" th:field="*{anioFabricacion}" id="anioFabricacion" />
+	</div>
+</div>
+
+<div class="form-group" th:classappend="${#fields.hasErrors('estado')} ? has-error">
+	<label for="estado" class="col-sm-2 col-xs-12  control-label">Estado
+	</label>
+	<div class="col-sm-4 col-xs-12 ">
+		<input type="checkbox" th:field="*{estado}" id="estado" />
 	</div>
 </div>
 
@@ -69,16 +109,21 @@
 
 
 										<td>id</td>
-											<td>Nombre</td>
-											<td>Año de fabricación</td>
-											<td>Estado</td>
-											<td>#</td>
-			
+<td>modelo</td>
+<td>aerolinea</td>
+<td>nombre</td>
+<td>anioFabricacion</td>
+<td>estado</td>
+<td>#</td>
+
+
+
+
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="obj : ${pagina.conteudo}">
-										<td th:text="${obj.id}" ></td><td th:text="${obj.nombre}" ></td><td th:text="${obj.anioFabricacion}" ></td><td th:text="${obj.estado}" ></td>
+										<td th:text="${obj.id}" ></td><td th:text="${obj.modelo.Id}" ></td><td th:text="${obj.aerolinea.Id}" ></td><td th:text="${obj.nombre}" ></td><td th:text="${obj.anioFabricacion}" ></td><td th:text="${obj.estado}" ></td>
 										<td class="text-center">
 
 											<form method="POST" th:action="@{/avion/delete/{code}(code=${obj.id})}">

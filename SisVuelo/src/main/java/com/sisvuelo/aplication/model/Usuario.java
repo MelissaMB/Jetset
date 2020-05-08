@@ -21,21 +21,24 @@ public class Usuario {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@Column(name = "id")
+	@Column(name = "idUsuario")
 	private Integer id;
+	
+	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="IdRol", nullable=false)
+	private Rol rol;
 	
 	@Column (name="email", nullable = false, length = 150 )
 	private String email;
 	
-	@Column (name="password", nullable = false, length = 8 )
+	@Column (name="Password", nullable = false, length = 8 )
 	private String password;
 	
-    @Column(name = "fechaCreacion", updatable = false, nullable = true)
+    @Column(name = "FechaCreacion", updatable = false, nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Rol rol;
+	
 
 	public Usuario() {
 		super();

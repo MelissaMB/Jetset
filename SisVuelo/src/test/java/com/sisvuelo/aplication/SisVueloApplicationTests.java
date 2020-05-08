@@ -6,8 +6,8 @@ import java.net.URISyntaxException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.jeasier.app.JeasierAplication;
-import com.jeasier.templates.Gentelella;
+//import com.jeasier.app.JeasierAplication;
+//import com.jeasier.templates.Gentelella;
 
 class SisVueloApplicationTests {
 

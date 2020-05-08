@@ -1,10 +1,14 @@
 package com.sisvuelo.aplication.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Avion {
@@ -13,13 +17,21 @@ public class Avion {
 	@GeneratedValue(strategy=GenerationType.AUTO, generator ="native")
 	private Integer id;
 	
-	@Column
+	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="IdModelo", nullable=false)
+	private Modelo modelo;
+	
+	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="IdAerolinea", nullable=false)
+	private Aerolinea aerolinea;
+	
+	@Column (name="NombreAvion", nullable = false, length = 50 )
 	private String nombre;
 	
-	@Column
+	@Column (name="AnioFrabricacion", nullable = true)
 	private Integer anioFabricacion;
 	
-	@Column
+	@Column (name="EstadoAvion", nullable = true  )
 	private boolean estado;
 
 	public Avion() {

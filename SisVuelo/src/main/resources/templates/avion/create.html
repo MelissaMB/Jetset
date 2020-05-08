@@ -33,13 +33,37 @@
 
 							<div class="clearfix">
 								<h2 style="float: left;" th:text="${title}"></h2>
-								<a style="float: right;" class="btn btn-link aw-link-panel" href="/avion/list">Avión List</a>
+								<a style="float: right;" class="btn btn-link aw-link-panel" href="/avion/list">Avion List</a>
 							</div>
 						</div>
 					</div>
 
 					<div class="panel-body">
-						<input type="hidden" th:field="*{id}" /> <div class="form-group" th:classappend="${#fields.hasErrors('nombre')} ? has-error">
+						<input type="hidden" th:field="*{id}" /> <div class="form-group" th:classappend="${#fields.hasErrors('modelo')} ? has-error">
+	<label for="modelo" class="col-sm-2 col-xs-12  control-label">Modelo
+	</label>
+	<div class="col-sm-4 col-xs-12 ">
+		<select class="form-control" th:field="*{modelo}">
+			<option value="">Select</option>
+			<option th:each="gclass : ${modeloList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+		</select>
+
+	</div>
+</div>
+
+<div class="form-group" th:classappend="${#fields.hasErrors('aerolinea')} ? has-error">
+	<label for="aerolinea" class="col-sm-2 col-xs-12  control-label">Aerolinea
+	</label>
+	<div class="col-sm-4 col-xs-12 ">
+		<select class="form-control" th:field="*{aerolinea}">
+			<option value="">Select</option>
+			<option th:each="gclass : ${aerolineaList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+		</select>
+
+	</div>
+</div>
+
+<div class="form-group" th:classappend="${#fields.hasErrors('nombre')} ? has-error">
 	<label for="nombre" class="col-sm-2 col-xs-12  control-label">Nombre
 	</label>
 	<div class="col-sm-4 col-xs-12 ">
@@ -48,7 +72,7 @@
 </div>
 
 <div class="form-group" th:classappend="${#fields.hasErrors('anioFabricacion')} ? has-error">
-	<label for="anioFabricacion" class="col-sm-2 col-xs-12  control-label">Año de Fabricación
+	<label for="anioFabricacion" class="col-sm-2 col-xs-12  control-label">AnioFabricacion
 	</label>
 	<div class="col-sm-4 col-xs-12 ">
 		<input type="text" class="form-control" th:field="*{anioFabricacion}" id="anioFabricacion" />

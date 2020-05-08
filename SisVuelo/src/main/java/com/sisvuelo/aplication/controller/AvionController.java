@@ -22,7 +22,7 @@ import com.sisvuelo.aplication.model.Avion;
 import com.sisvuelo.aplication.repository.AvionRepository;
 import com.sisvuelo.aplication.service.AvionService;
 
-
+import com.sisvuelo.aplication.repository.ModeloRepository;import com.sisvuelo.aplication.repository.AerolineaRepository;
 import com.sisvuelo.aplication.model.PageWrapper;
 
 @Controller
@@ -41,7 +41,7 @@ public class AvionController {
 
 	private String msgSucessoCriacao = "Avion created successfully !";
 	
-	
+	@Autowired private ModeloRepository modeloRepository;@Autowired private AerolineaRepository aerolineaRepository;
 
 	@GetMapping("/create")
 	public ModelAndView create(Avion avion) {
@@ -56,7 +56,7 @@ public class AvionController {
 		mv.addObject(avion);
 	
 		
-		
+		mv.addObject("modeloList",modeloRepository.findAll());mv.addObject("aerolineaList",aerolineaRepository.findAll());
 
 		return mv;
 	}
@@ -78,7 +78,6 @@ public class AvionController {
 	public ModelAndView edit(@PathVariable("code") Integer code) {
 		Avion avion = new Avion();
 		avion = avionRepository.findById(code).get();
-		System.out.println(avion);
 
 		return create(avion);
 
@@ -91,7 +90,7 @@ public class AvionController {
 		ModelAndView mv = new ModelAndView("avion/list");
 		mv.addObject("pagina", new PageWrapper<>(avionService.filter(avionFilter, pageable),httpServletRequest));
         
-		
+		mv.addObject("modeloList",modeloRepository.findAll());mv.addObject("aerolineaList",aerolineaRepository.findAll());
 		return mv;
 	}
 

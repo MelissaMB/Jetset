@@ -9,38 +9,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "TBL_AVION")
 public class Avion {
-    
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO, generator ="native")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Integer id;
-	
+
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="IdModelo", nullable=false)
+	@JoinColumn(name = "IdModelo", nullable = false)
 	private Modelo modelo;
-	
+
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="IdAerolinea", nullable=false)
+	@JoinColumn(name = "IdAerolinea", nullable = false)
 	private Aerolinea aerolinea;
-	
-	@Column (name="NombreAvion", nullable = false, length = 50 )
+
+	@Column(name = "NombreAvion", nullable = false, length = 50)
 	private String nombre;
-	
-	@Column (name="AnioFrabricacion", nullable = true)
+
+	@Column(name = "AnioFabricacion", updatable = true, nullable = true)
 	private Integer anioFabricacion;
-	
-	@Column (name="EstadoAvion", nullable = true  )
+
+	@Column(name = "EstadoAvion", nullable = true)
 	private boolean estado;
 
 	public Avion() {
 		super();
 	}
 
-	public Avion(Integer id, String nombre, Integer anioFabricacion, boolean estado) {
+	public Avion(Integer id, Modelo modelo, Aerolinea aerolinea, String nombre, Integer anioFabricacion,
+			boolean estado) {
 		super();
 		this.id = id;
+		this.modelo = modelo;
+		this.aerolinea = aerolinea;
 		this.nombre = nombre;
 		this.anioFabricacion = anioFabricacion;
 		this.estado = estado;
@@ -52,6 +59,22 @@ public class Avion {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
+	public Aerolinea getAerolinea() {
+		return aerolinea;
+	}
+
+	public void setAerolinea(Aerolinea aerolinea) {
+		this.aerolinea = aerolinea;
 	}
 
 	public String getNombre() {
@@ -77,8 +100,7 @@ public class Avion {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+
 	
-	
-	
-	
+
 }

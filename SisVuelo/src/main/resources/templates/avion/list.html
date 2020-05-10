@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
- layout:decorator="'layout/MainlyLayout'">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/MainlyLayout'">
 
 <head>
-	<title>Blank page</title>
+<title>Blank page</title>
 
 </head>
 
@@ -16,20 +18,24 @@
 					<div class="panel-heading">
 						<div class="clearfix">
 							<h2 style="float: left;">Avion List</h2>
-							<a style="float: right;" class="btn btn-link aw-link-panel" href="/avion/create">Avion Create</a>
+							<a style="float: right;" class="btn btn-link aw-link-panel"
+								href="/avion/create">Avion Create</a>
 						</div>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" method="GET" action="/avion/list" th:object="${avionFilter}">
+						<form class="form-horizontal" method="GET" action="/avion/list"
+							th:object="${avionFilter}">
 
 
 
 
-							<div th:fragment="mensagemGeral" class="alert alert-success" th:if="${!#strings.isEmpty(message)}">
-					          <span th:text="${message}"></span>
-				           </div>
+							<div th:fragment="mensagemGeral" class="alert alert-success"
+								th:if="${!#strings.isEmpty(message)}">
+								<span th:text="${message}"></span>
+							</div>
 
-							<div th:fragment="mensagemErro" class="alert alert-danger" th:if="${!#strings.isEmpty(messageErro)}">
+							<div th:fragment="mensagemErro" class="alert alert-danger"
+								th:if="${!#strings.isEmpty(messageErro)}">
 								<span th:text="${messageErro}"></span>
 							</div>
 
@@ -42,55 +48,30 @@
 
 							<div class="container">
 
-								<div class="form-group" th:classappend="${#fields.hasErrors('modelo')} ? has-error">
-	<label for="modelo" class="col-sm-2 col-xs-12  control-label">Modelo
-	</label>
-	<div class="col-sm-4 col-xs-12 ">
-		<select class="form-control" th:field="*{modelo}">
-			<option value="">Select</option>
-			<option th:each="gclass : ${modeloList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
-		</select>
 
-	</div>
-</div>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('aerolinea')} ? has-error">
+									<label for="aerolinea"
+										class="col-sm-2 col-xs-12  control-label">Aerolinea </label>
+									<div class="col-sm-4 col-xs-12 ">
+										<select class="form-control" th:field="*{aerolinea}">
+											<option value="">Select</option>
+											<option th:each="gclass : ${aerolineaList}"
+												th:value="${gclass.id}" th:text="${gclass.nombreCorto}"></option>
+										</select>
 
-<div class="form-group" th:classappend="${#fields.hasErrors('aerolinea')} ? has-error">
-	<label for="aerolinea" class="col-sm-2 col-xs-12  control-label">Aerolinea
-	</label>
-	<div class="col-sm-4 col-xs-12 ">
-		<select class="form-control" th:field="*{aerolinea}">
-			<option value="">Select</option>
-			<option th:each="gclass : ${aerolineaList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
-		</select>
+									</div>
+								</div>
 
-	</div>
-</div>
-
-<div class="form-group" th:classappend="${#fields.hasErrors('nombre')} ? has-error">
-	<label for="nombre" class="col-sm-2 col-xs-12  control-label">Nombre
-	</label>
-	<div class="col-sm-4 col-xs-12 ">
-		<input type="text" class="form-control" th:field="*{nombre}" id="nombre" />
-	</div>
-</div>
-
-<div class="form-group" th:classappend="${#fields.hasErrors('anioFabricacion')} ? has-error">
-	<label for="anioFabricacion" class="col-sm-2 col-xs-12  control-label">AnioFabricacion
-	</label>
-	<div class="col-sm-4 col-xs-12 ">
-		<input type="text" class="form-control" th:field="*{anioFabricacion}" id="anioFabricacion" />
-	</div>
-</div>
-
-<div class="form-group" th:classappend="${#fields.hasErrors('estado')} ? has-error">
-	<label for="estado" class="col-sm-2 col-xs-12  control-label">Estado
-	</label>
-	<div class="col-sm-4 col-xs-12 ">
-		<input type="checkbox" th:field="*{estado}" id="estado" />
-	</div>
-</div>
-
-
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('nombre')} ? has-error">
+									<label for="nombre" class="col-sm-2 col-xs-12  control-label">Nombre
+									</label>
+									<div class="col-sm-4 col-xs-12 ">
+										<input type="text" class="form-control" th:field="*{nombre}"
+											id="nombre" />
+									</div>
+								</div>
 
 
 								<div class="form-group">
@@ -102,19 +83,20 @@
 							</div>
 						</form>
 						<div class="table-responsive" th:if="${pagina != null}">
-							<table class="table table-bordered table-striped " style="margin-top: 60px;">
+							<table class="table table-bordered table-striped "
+								style="margin-top: 60px;">
 								<thead>
 									<tr>
 
 
 
-										<td>id</td>
-<td>modelo</td>
-<td>aerolinea</td>
-<td>nombre</td>
-<td>anioFabricacion</td>
-<td>estado</td>
-<td>#</td>
+										<td>ID</td>
+										<td>Modelo</td>
+										<td>Aerolínea</td>
+										<td>Nombre</td>
+										<td>Año Fabricación</td>
+										<td>Estado</td>
+										<td>#</td>
 
 
 
@@ -123,19 +105,26 @@
 								</thead>
 								<tbody>
 									<tr th:each="obj : ${pagina.conteudo}">
-										<td th:text="${obj.id}" ></td><td th:text="${obj.modelo.Id}" ></td><td th:text="${obj.aerolinea.Id}" ></td><td th:text="${obj.nombre}" ></td><td th:text="${obj.anioFabricacion}" ></td><td th:text="${obj.estado}" ></td>
+										<td th:text="${obj.id}"></td>
+										<td th:text="${obj.modelo.nombre}"></td>
+										<td th:text="${obj.aerolinea.nombreCorto}"></td>
+										<td th:text="${obj.nombre}"></td>
+										<td th:text="${obj.anioFabricacion}"></td>
+										<td th:text="${obj.estado}"></td>
 										<td class="text-center">
 
-											<form method="POST" th:action="@{/avion/delete/{code}(code=${obj.id})}">
-												<input type="hidden" name="_method" value="DELETE" />
-
-												<a class="btn btn-link btn-xs" th:href="@{/avion/{code}(code=${obj.id})}" title="Editar" rel="tooltip"
-												 data-placement="top">
-													<span class="glyphicon glyphicon-pencil"></span>
+											<form method="POST"
+												th:action="@{/avion/delete/{code}(code=${obj.id})}">
+												<input type="hidden" name="_method" value="DELETE" /> <a
+													class="btn btn-link btn-xs"
+													th:href="@{/avion/{code}(code=${obj.id})}" title="Editar"
+													rel="tooltip" data-placement="top"> <span
+													class="glyphicon glyphicon-pencil"></span>
 												</a>
 
 
-												<button class="btn btn-link btn-xs" title="Delete" type="submit" data-placement="top">
+												<button class="btn btn-link btn-xs" title="Delete"
+													type="submit" data-placement="top">
 													<span class="glyphicon glyphicon-remove"></span>
 												</button>
 											</form>
@@ -144,43 +133,46 @@
 
 									</tr>
 									<tr>
-										<td colspan="12" th:if="${#lists.isEmpty(pagina.conteudo)}">No records found</td>
+										<td colspan="12" th:if="${#lists.isEmpty(pagina.conteudo)}">No
+											records found</td>
 									</tr>
 								</tbody>
 							</table>
-							<div class="col-sm-12  text-center" th:if="${not #lists.isEmpty(pagina.conteudo)}">
+							<div class="col-sm-12  text-center"
+								th:if="${not #lists.isEmpty(pagina.conteudo)}">
 								<nav>
-									<ul class="center pagination" th:if="${not pagina.vazia}" th:with="paginaAtual=${pagina.atual}">
-										<li th:if="${not pagina.primeira}" th:class="${pagina.primeira} ? disabled">
-											<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag">
-												<i>
-													<</i>
-											</a>
-										</li>
+									<ul class="center pagination" th:if="${not pagina.vazia}"
+										th:with="paginaAtual=${pagina.atual}">
+										<li th:if="${not pagina.primeira}"
+											th:class="${pagina.primeira} ? disabled"><a
+											th:href="${pagina.urlParaPagina(paginaAtual - 1)}"
+											th:remove="${pagina.primeira} ? tag"> <i> <</i>
+										</a></li>
 
-										<li th:if="${(paginaAtual - 2) > 0}">
-											<a th:href="${pagina.urlParaPagina(0)}">1
-												<span>...</span>
-											</a>
-										</li>
+										<li th:if="${(paginaAtual - 2) > 0}"><a
+											th:href="${pagina.urlParaPagina(0)}">1 <span>...</span>
+										</a></li>
 
-										<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina = ${p - 1} ">
-											<li th:if="${(p + 1 >= paginaAtual and p - 1 <= paginaAtual + 2)}" th:class="${paginaAtual == numeroPagina} ? 'active deep-purple darken-4' : 'waves-effect' ">
-												<a th:href="${pagina.urlParaPagina(numeroPagina)}" th:text="${p}">1</a>
+										<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}"
+											th:with="numeroPagina = ${p - 1} ">
+											<li
+												th:if="${(p + 1 >= paginaAtual and p - 1 <= paginaAtual + 2)}"
+												th:class="${paginaAtual == numeroPagina} ? 'active deep-purple darken-4' : 'waves-effect' ">
+												<a th:href="${pagina.urlParaPagina(numeroPagina)}"
+												th:text="${p}">1</a>
 											</li>
 										</th:block>
 
-										<li th:if="${(paginaAtual + 3) < pagina.total}">
-											<a th:href="${pagina.urlParaPagina(pagina.total - 1)}"> ...
+										<li th:if="${(paginaAtual + 3) < pagina.total}"><a
+											th:href="${pagina.urlParaPagina(pagina.total - 1)}"> ...
 												<span th:text="${pagina.total}"></span>
-											</a>
-										</li>
+										</a></li>
 
-										<li th:class="${pagina.ultima} ? disabled">
-											<a th:if="${not pagina.ultima}" th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag">
-												<i>></i>
-											</a>
-										</li>
+										<li th:class="${pagina.ultima} ? disabled"><a
+											th:if="${not pagina.ultima}"
+											th:href="${pagina.urlParaPagina(paginaAtual + 1)}"
+											th:remove="${pagina.ultima} ? tag"> <i>></i>
+										</a></li>
 									</ul>
 								</nav>
 							</div>

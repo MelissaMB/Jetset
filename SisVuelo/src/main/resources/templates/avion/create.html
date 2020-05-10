@@ -45,7 +45,7 @@
 	<div class="col-sm-4 col-xs-12 ">
 		<select class="form-control" th:field="*{modelo}">
 			<option value="">Select</option>
-			<option th:each="gclass : ${modeloList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+			<option th:each="gclass : ${modeloList}" th:value="${gclass.id}" th:text="${gclass.nombre}"></option>
 		</select>
 
 	</div>
@@ -57,7 +57,7 @@
 	<div class="col-sm-4 col-xs-12 ">
 		<select class="form-control" th:field="*{aerolinea}">
 			<option value="">Select</option>
-			<option th:each="gclass : ${aerolineaList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+			<option th:each="gclass : ${aerolineaList}" th:value="${gclass.id}" th:text="${gclass.nombreLargo}"></option>
 		</select>
 
 	</div>
@@ -72,7 +72,7 @@
 </div>
 
 <div class="form-group" th:classappend="${#fields.hasErrors('anioFabricacion')} ? has-error">
-	<label for="anioFabricacion" class="col-sm-2 col-xs-12  control-label">AnioFabricacion
+	<label for="text" class="col-sm-2 col-xs-12  control-label">Año Fabricación
 	</label>
 	<div class="col-sm-4 col-xs-12 ">
 		<input type="text" class="form-control" th:field="*{anioFabricacion}" id="anioFabricacion" />

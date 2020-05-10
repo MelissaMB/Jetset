@@ -72,7 +72,6 @@ public class AvionRepositoryImpl implements AvionHelper {
 				criteria.add(Restrictions.eq("anioFabricacion", avionFilter.getAnioFabricacion()));
 			}
 
-criteria.add(Restrictions.eq("estado", avionFilter.isEstado()));
 			
 
 

@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "TBL_ROL")
 public class Rol implements Serializable {
 	
 	private static final long serialVersionUID = 3118632738004642420L;

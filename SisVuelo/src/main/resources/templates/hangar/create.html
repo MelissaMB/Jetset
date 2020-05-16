@@ -53,17 +53,9 @@
 	<div class="col-sm-4 col-xs-12 ">
 		<select class="form-control" th:field="*{aeropuerto}">
 			<option value="">Select</option>
-			<option th:each="gclass : ${aeropuertoList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+			<option th:each="gclass : ${aeropuertoList}" th:value="${gclass.id}" th:text="${gclass.nombre}"></option>
 		</select>
 
-	</div>
-</div>
-
-<div class="form-group" th:classappend="${#fields.hasErrors('estado')} ? has-error">
-	<label for="estado" class="col-sm-2 col-xs-12  control-label">Estado
-	</label>
-	<div class="col-sm-4 col-xs-12 ">
-		<input type="checkbox" th:field="*{estado}" id="estado" />
 	</div>
 </div>
 
@@ -74,6 +66,16 @@
 		<input type="text" class="form-control" th:field="*{capacidad}" id="capacidad" />
 	</div>
 </div>
+
+
+<div class="form-group" th:classappend="${#fields.hasErrors('estado')} ? has-error">
+	<label for="estado" class="col-sm-2 col-xs-12  control-label">Estado
+	</label>
+	<div class="col-sm-4 col-xs-12 ">
+		<input type="checkbox" th:field="*{estado}" id="estado" />
+	</div>
+</div>
+
 
 
 

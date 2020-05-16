@@ -64,7 +64,7 @@ public class HangarRepositoryImpl implements HangarHelper {
 				criteria.add(Restrictions.eq("aeropuerto", hangarFilter.getAeropuerto()));
 			}
 
-criteria.add(Restrictions.eq("estado", hangarFilter.isEstado()));
+
 			
 
             if (hangarFilter.getCapacidad() != null) {

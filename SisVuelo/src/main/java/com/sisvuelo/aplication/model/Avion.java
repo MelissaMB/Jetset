@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "TBL_AVION")
+@Table(name = "TB_AVION")
 public class Avion {
 
 	@Id
@@ -22,20 +22,20 @@ public class Avion {
 	private Integer id;
 
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "IdModelo", nullable = false)
+	@JoinColumn(name = "id_modelo", nullable = false)
 	private Modelo modelo;
 
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "IdAerolinea", nullable = false)
+	@JoinColumn(name = "id_aerolinea", nullable = false)
 	private Aerolinea aerolinea;
 
-	@Column(name = "NombreAvion", nullable = false, length = 50)
+	@Column(name = "nombre_avion", nullable = false, length = 50)
 	private String nombre;
 
-	@Column(name = "AnioFabricacion", updatable = true, nullable = true)
+	@Column(name = "anio_fabricacion", updatable = true, nullable = true)
 	private Integer anioFabricacion;
 
-	@Column(name = "EstadoAvion", nullable = true)
+	@Column(name = "estado_avion", nullable = true)
 	private boolean estado;
 
 	public Avion() {

@@ -5,25 +5,29 @@
 	layout:decorator="'layout/MainlyLayout'">
 
 <head>
-<title>Usuario</title>
+<title>Blank page</title>
 
 </head>
 
 <body>
+
 	<section layout:fragment="content">
 		<div class="container-fluid">
 			<div style="margin-top: 60px;">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="clearfix">
-							<h2 style="float: left;">Usuario List</h2>
+							<h2 style="float: left;">Vuelo List</h2>
 							<a style="float: right;" class="btn btn-link aw-link-panel"
-								href="/usuario/create">Usuario Create</a>
+								href="/vuelo/create">Vuelo Create</a>
 						</div>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" method="GET" action="/usuario/list"
-							th:object="${usuarioFilter}">
+						<form class="form-horizontal" method="GET" action="/vuelo/list"
+							th:object="${vueloFilter}">
+
+
+
 
 							<div th:fragment="mensagemGeral" class="alert alert-success"
 								th:if="${!#strings.isEmpty(message)}">
@@ -43,69 +47,116 @@
 
 
 							<div class="container">
+
 								<div class="form-group"
-									th:classappend="${#fields.hasErrors('email')} ? has-error">
-
-
-									<div class="form-group"
-										th:classappend="${#fields.hasErrors('rol')} ? has-error">
-										<label for="rol" class="col-sm-2 col-xs-12  control-label">Rol
-										</label>
-										<div class="col-sm-4 col-xs-12 ">
-											<select class="form-control" th:field="*{rol}">
-												<option value="">Select</option>
-												<option th:each="gclass : ${rolList}"
-													th:value="${gclass.id}" th:text="${gclass.nombre}"></option>
-											</select>
-
-										</div>
-									</div>
-
-									<div class="form-group">
-										<br>
-										<div class="col-sm-offset-2 col-sm-10">
-											<button type="submit" class="btn  btn-primary">Search</button>
-										</div>
+									th:classappend="${#fields.hasErrors('codigo')} ? has-error">
+									<label for="codigo" class="col-sm-2 col-xs-12  control-label">Codigo
+									</label>
+									<div class="col-sm-4 col-xs-12 ">
+										<input type="text" class="form-control" th:field="*{codigo}"
+											id="codigo" />
 									</div>
 								</div>
+
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('origen')} ? has-error">
+									<label for="origen" class="col-sm-2 col-xs-12  control-label">Origen
+									</label>
+									<div class="col-sm-4 col-xs-12 ">
+										<select class="form-control" th:field="*{origen}">
+											<option value="">Select</option>
+											<option th:each="gclass : ${origenList}"
+												th:value="${gclass.id}" th:text="${gclass.id}"></option>
+										</select>
+
+									</div>
+								</div>
+
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('destino')} ? has-error">
+									<label for="destino" class="col-sm-2 col-xs-12  control-label">Destino
+									</label>
+									<div class="col-sm-4 col-xs-12 ">
+										<select class="form-control" th:field="*{destino}">
+											<option value="">Select</option>
+											<option th:each="gclass : ${destinoList}"
+												th:value="${gclass.id}" th:text="${gclass.id}"></option>
+										</select>
+
+									</div>
+								</div>
+
+	
+
+								<div class="form-group">
+									<br>
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn  btn-primary">Search</button>
+									</div>
+								</div>
+							</div>
 						</form>
 						<div class="table-responsive" th:if="${pagina != null}">
 							<table class="table table-bordered table-striped "
 								style="margin-top: 60px;">
 								<thead>
 									<tr>
+
+
+
 										<td>id</td>
-										<td>email</td>
-										<td>rol</td>
+										<td>codigo</td>
+										<td>origen</td>
+										<td>destino</td>
+										<td>aerolinea</td>
+										<td>costo</td>
+										<td>millasReales</td>
+										<td>millasPasajeros</td>
+										<td>fecha</td>
+										<td>horaDespegue</td>
+										<td>horaAterrizaje</td>
+										<td>tieneEscala</td>
 										<td>#</td>
+
+
+
+
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="obj : ${pagina.conteudo}">
 										<td th:text="${obj.id}"></td>
-										<td th:text="${obj.email}"></td>
-										<td th:text="${obj.rol.nombre}"></td>
+										<td th:text="${obj.codigo}"></td>
+										<td th:text="${obj.origen.Id}"></td>
+										<td th:text="${obj.destino.Id}"></td>
+										<td th:text="${obj.aerolinea.Id}"></td>
+										<td th:text="${obj.costo}"></td>
+										<td th:text="${obj.millasReales}"></td>
+										<td th:text="${obj.millasPasajeros}"></td>
+										<td th:text="${obj.fecha}"></td>
+										<td th:text="${obj.horaDespegue}"></td>
+										<td th:text="${obj.horaAterrizaje}"></td>
+										<td th:text="${obj.tieneEscala}"></td>
 										<td class="text-center">
 
-											
-										
-											
+											<form method="POST"
+												th:action="@{/vuelo/delete/{code}(code=${obj.id})}">
 												<input type="hidden" name="_method" value="DELETE" /> <a
 													class="btn btn-link btn-xs"
-													th:href="@{/usuario/{code}(code=${obj.id})}" title="Editar"
+													th:href="@{/vuelo/{code}(code=${obj.id})}" title="Editar"
 													rel="tooltip" data-placement="top"> <span
 													class="glyphicon glyphicon-pencil"></span>
 												</a>
 
 
-												<input type="hidden" name="_method" value="DELETE" /> <a
-													class="btn btn-link btn-xs"
-													th:href="@{/usuario/delete/{code}(code=${obj.id})}" title="Delete"
-													rel="tooltip" data-placement="top"> <span
-													class="glyphicon glyphicon-pencil"></span>
-												</a>
-									
+												<button class="btn btn-link btn-xs" title="Delete"
+													type="submit" data-placement="top">
+													<span class="glyphicon glyphicon-remove"></span>
+												</button>
+											</form>
 										</td>
+
+
 									</tr>
 									<tr>
 										<td colspan="12" th:if="${#lists.isEmpty(pagina.conteudo)}">No
@@ -113,7 +164,6 @@
 									</tr>
 								</tbody>
 							</table>
-							
 							<div class="col-sm-12  text-center"
 								th:if="${not #lists.isEmpty(pagina.conteudo)}">
 								<nav>
@@ -152,16 +202,25 @@
 									</ul>
 								</nav>
 							</div>
+
 						</div>
 					</div>
 
+
+
 				</div>
+
+
+
+
 
 			</div>
 		</div>
 
 	</section>
 	<th:block layout:fragment="javascript-extra">
+
+
 
 	</th:block>
 </body>

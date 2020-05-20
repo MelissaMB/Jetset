@@ -5,25 +5,26 @@
 	layout:decorator="'layout/MainlyLayout'">
 
 <head>
-<title>Usuario</title>
+<title>Aerolíneas</title>
 
 </head>
 
 <body>
+
 	<section layout:fragment="content">
 		<div class="container-fluid">
 			<div style="margin-top: 60px;">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="clearfix">
-							<h2 style="float: left;">Usuario List</h2>
+							<h2 style="float: left;">Aerolinea List</h2>
 							<a style="float: right;" class="btn btn-link aw-link-panel"
-								href="/usuario/create">Usuario Create</a>
+								href="/aerolinea/create">Aerolinea Create</a>
 						</div>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" method="GET" action="/usuario/list"
-							th:object="${usuarioFilter}">
+						<form class="form-horizontal" method="GET"
+							action="/aerolinea/list" th:object="${aerolineaFilter}">
 
 							<div th:fragment="mensagemGeral" class="alert alert-success"
 								th:if="${!#strings.isEmpty(message)}">
@@ -43,69 +44,84 @@
 
 
 							<div class="container">
+
 								<div class="form-group"
-									th:classappend="${#fields.hasErrors('email')} ? has-error">
+									th:classappend="${#fields.hasErrors('pais')} ? has-error">
+									<label for="pais" class="col-sm-2 col-xs-12  control-label">Pais
+									</label>
+									<div class="col-sm-4 col-xs-12 ">
+										<select class="form-control" th:field="*{pais}">
+											<option value="">Select</option>
+											<option th:each="gclass : ${paisList}"
+												th:value="${gclass.id}" th:text="${gclass.nombre}"></option>
+										</select>
 
-
-									<div class="form-group"
-										th:classappend="${#fields.hasErrors('rol')} ? has-error">
-										<label for="rol" class="col-sm-2 col-xs-12  control-label">Rol
-										</label>
-										<div class="col-sm-4 col-xs-12 ">
-											<select class="form-control" th:field="*{rol}">
-												<option value="">Select</option>
-												<option th:each="gclass : ${rolList}"
-													th:value="${gclass.id}" th:text="${gclass.nombre}"></option>
-											</select>
-
-										</div>
-									</div>
-
-									<div class="form-group">
-										<br>
-										<div class="col-sm-offset-2 col-sm-10">
-											<button type="submit" class="btn  btn-primary">Search</button>
-										</div>
 									</div>
 								</div>
+
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('codigo')} ? has-error">
+									<label for="codigo" class="col-sm-2 col-xs-12  control-label">Codigo
+									</label>
+									<div class="col-sm-4 col-xs-12 ">
+										<input type="text" class="form-control" th:field="*{codigo}"
+											id="codigo" />
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<br>
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn  btn-primary">Search</button>
+									</div>
+								</div>
+							</div>
 						</form>
 						<div class="table-responsive" th:if="${pagina != null}">
 							<table class="table table-bordered table-striped "
 								style="margin-top: 60px;">
 								<thead>
 									<tr>
-										<td>id</td>
-										<td>email</td>
-										<td>rol</td>
+										<td>Código</td>
+										<td>Siglas</td>
+										<td>Nombre</td>
+										<td>Pais</td>
+										<td>Representante</td>
+										<td>Email</td>
+										<td>Estado</td>
 										<td>#</td>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="obj : ${pagina.conteudo}">
-										<td th:text="${obj.id}"></td>
+				                        <td th:text="${obj.codigo}"></td> 
+										<td th:text="${obj.nombreCorto}"></td>
+										<td th:text="${obj.nombreLargo}"></td>
+										<td th:text="${obj.pais.codigo}"></td>		
+										<td th:text="${obj.representante}"></td>
 										<td th:text="${obj.email}"></td>
-										<td th:text="${obj.rol.nombre}"></td>
+										<td th:text="${obj.estado}"></td>
 										<td class="text-center">
 
-											
-										
-											
+											<form method="POST"
+												th:action="@{/aerolinea/delete/{code}(code=${obj.id})}">
 												<input type="hidden" name="_method" value="DELETE" /> <a
 													class="btn btn-link btn-xs"
-													th:href="@{/usuario/{code}(code=${obj.id})}" title="Editar"
-													rel="tooltip" data-placement="top"> <span
+													th:href="@{/aerolinea/{code}(code=${obj.id})}"
+													title="Editar" rel="tooltip" data-placement="top"> <span
 													class="glyphicon glyphicon-pencil"></span>
 												</a>
 
 
-												<input type="hidden" name="_method" value="DELETE" /> <a
-													class="btn btn-link btn-xs"
-													th:href="@{/usuario/delete/{code}(code=${obj.id})}" title="Delete"
-													rel="tooltip" data-placement="top"> <span
-													class="glyphicon glyphicon-pencil"></span>
-												</a>
-									
+												<button class="btn btn-link btn-xs" title="Delete"
+													type="submit" data-placement="top">
+													<span class="glyphicon glyphicon-remove"></span>
+												</button>
+											</form>
 										</td>
+
+
 									</tr>
 									<tr>
 										<td colspan="12" th:if="${#lists.isEmpty(pagina.conteudo)}">No
@@ -113,7 +129,6 @@
 									</tr>
 								</tbody>
 							</table>
-							
 							<div class="col-sm-12  text-center"
 								th:if="${not #lists.isEmpty(pagina.conteudo)}">
 								<nav>
@@ -152,16 +167,25 @@
 									</ul>
 								</nav>
 							</div>
+
 						</div>
 					</div>
 
+
+
 				</div>
+
+
+
+
 
 			</div>
 		</div>
 
 	</section>
 	<th:block layout:fragment="javascript-extra">
+
+
 
 	</th:block>
 </body>

@@ -16,37 +16,37 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "TBL_AEROLINEA")
+@Table(name = "TB_AEROLINEA")
 public class Aerolinea {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@Column(name = "IdAerolinea")
+	@Column(name = "id_aerolinea")
 	private Integer id;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="IdPais", nullable=false)
+	@JoinColumn(name="id_pais", nullable=false)
 	private Pais pais;
 	
-	@Column(name = "CodigoAerolinea", nullable = false, length = 10)
+	@Column(name = "codigo_aerolinea", nullable = false, length = 10)
 	private String codigo;
 	
-	@Column(name = "NombreCorto", nullable = true, length = 50)
+	@Column(name = "nombre_corto", nullable = true, length = 50)
 	private String nombreCorto;
 	
-	@Column(name = "NombreLargo", nullable = true, length = 250)
+	@Column(name = "nombre_largo", nullable = true, length = 250)
 	private String nombreLargo;
 	
-	@Column(name = "Representante", nullable = true, length = 250)
+	@Column(name = "representante", nullable = true, length = 250)
 	private String representante;
 	
-	@Column(name = "Email", nullable = true, length = 50)
+	@Column(name = "email", nullable = true, length = 50)
 	private String email;
 	
-	@Column(name = "FechaFundacion", updatable = true, nullable = true)
+	@Column(name = "fecha_fundacion", updatable = true, nullable = true)
 	private Date fechaFundacion;
 	
-	@Column(name = "EstadoAerolinea", updatable = true, nullable = true)
+	@Column(name = "estado_aerolinea", updatable = true, nullable = true)
 	private boolean estado;
 
 	public Aerolinea() {

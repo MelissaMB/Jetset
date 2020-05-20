@@ -9,32 +9,31 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.sisvuelo.aplication.model.Usuario;
-import com.sisvuelo.aplication.repository.UsuarioRepository;
-import com.sisvuelo.aplication.filter.UsuarioFilter;
+import com.sisvuelo.aplication.model.Marca;
+import com.sisvuelo.aplication.repository.MarcaRepository;
+import com.sisvuelo.aplication.filter.MarcaFilter;
 
 @Service
-public class UsuarioService {
+public class MarcaService {
 
 	private String errorDelete = "this record is related to other tables.";
 
     @Autowired
-	private UsuarioRepository usuarioRepository;
+	private MarcaRepository marcaRepository;
 
 	@Transactional
-	public void save(Usuario usuario) {
-		usuarioRepository.save(usuario);
+	public void save(Marca marca) {
+		marcaRepository.save(marca);
 	}
 	
-	public Page<Usuario> filter(UsuarioFilter usuarioFilter, Pageable pageable) {
-		return usuarioRepository.filtrar(usuarioFilter, pageable);
+	public Page<Marca> filter(MarcaFilter marcaFilter, Pageable pageable) {
+		return marcaRepository.filtrar(marcaFilter, pageable);
 	}
 
 	@Transactional
-	public void delete(Usuario usuario) {
-		
+	public void delete(Marca marca) {
 		try {
-			usuarioRepository.delete(usuario);
+			marcaRepository.delete(marca);
 		} catch (Exception e) {
 			if (e instanceof org.hibernate.exception.ConstraintViolationException
 					|| e instanceof DataIntegrityViolationException) {

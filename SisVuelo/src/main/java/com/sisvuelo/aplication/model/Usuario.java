@@ -18,25 +18,25 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@Table(name = "TBL_USUARIO")
+@Table(name = "TB_USUARIO")
 public class Usuario {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@Column(name = "idUsuario")
+	@Column(name = "id_usuario")
 	private Integer id;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="IdRol", nullable=false)
+	@JoinColumn(name="id_rol", nullable=false)
 	private Rol rol;
 	
 	@Column (name="email", nullable = false, length = 150 )
 	private String email;
 	
-	@Column (name="Password", nullable = false, length = 8 )
+	@Column (name="password", nullable = false, length = 8 )
 	private String password;
 	
-    @Column(name = "FechaCreacion", updatable = false, nullable = true)
+    @Column(name = "fecha_creacion", updatable = false, nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
 	

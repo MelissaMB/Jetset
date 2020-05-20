@@ -12,37 +12,37 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TBL_AEROPUERTO")
+@Table(name = "TB_AEROPUERTO")
 public class Aeropuerto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@Column(name = "IdAeropuerto")
+	@Column(name = "id_aeropuerto")
 	private Integer id;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "IdCiudad", nullable = false)
+	@JoinColumn(name = "id_ciudad", nullable = false)
 	private Ciudad ciudad;
 	
-	@Column(name = "CodigoAeropuerto", nullable = false, length = 10)
+	@Column(name = "codigo_aeropuerto", nullable = false, length = 10)
 	private String codigo;
 	
-	@Column(name = "NombreAeropuerto", nullable = false, length = 250)
+	@Column(name = "nombre_aeropuerto", nullable = false, length = 250)
 	private String nombre;
 
-	@Column(name = "Telefono", nullable = true, length = 10)
+	@Column(name = "telefono", nullable = true, length = 10)
 	private String telefono;
 	
-	@Column(name = "NombreResponsable", nullable = true, length = 250)
+	@Column(name = "nombre_responsable", nullable = true, length = 250)
 	private String Responsable;
 	
-	@Column(name = "NumeroBahias", nullable = true)
+	@Column(name = "numero_bahias", nullable = true)
 	private Integer numeroBahias;
 	
-	@Column(name = "NumeroHangares", nullable = true)
+	@Column(name = "numero_hangares", nullable = true)
 	private Integer numeroHangares;
 	
-	@Column(name = "EstadoAeropuerto", nullable = true)
+	@Column(name = "estado_aeropuerto", nullable = true)
 	private boolean estado;
 	
 	public Aeropuerto(Integer id, Ciudad ciudad, String codigo, String nombre, String telefono, String responsable,

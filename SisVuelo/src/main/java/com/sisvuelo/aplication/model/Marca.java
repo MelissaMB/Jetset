@@ -8,15 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TBL_MARCA")
+@Table(name = "TB_MARCA")
 public class Marca {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@Column(name = "IdMarca")
+	@Column(name = "id_marca")
 	private Integer id;
 	
-	@Column (name="NombreMarca", nullable = false, length = 50 )
+	@Column (name="nombre_marca", nullable = false, length = 50 )
 	private String nombre;
 
 	public Marca() {

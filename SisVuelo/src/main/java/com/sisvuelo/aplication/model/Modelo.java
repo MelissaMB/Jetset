@@ -12,20 +12,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TBL_MODELO")
+@Table(name = "TB_MODELO")
 public class Modelo {
 	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@Column(name = "IdModelo")
+	@Column(name = "id_modelo")
 	private Integer id;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="IdMarca", nullable=false)
+	@JoinColumn(name="id_marca", nullable=false)
 	private Marca marca;
 	
-	@Column (name="NombreModelo", nullable = false, length = 50 )
+	@Column (name="nombre_modelo", nullable = false, length = 50 )
 	private String nombre;
 
 	public Modelo() {

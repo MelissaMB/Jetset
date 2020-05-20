@@ -11,25 +11,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name = "TBL_HANGAR")
+@Table(name = "TB_HANGAR")
 public class Hangar {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@Column(name = "IdHangar")
+	@Column(name = "id_hangar")
 	private Integer id;
 	
-	@Column(name = "CodigoHangar", nullable = false, length = 10)
+	@Column(name = "codigo_hangar", nullable = false, length = 10)
 	private String codigo;
 
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "IdCiudad", nullable = false)
+	@JoinColumn(name = "id_ciudad", nullable = false)
 	private Aeropuerto aeropuerto;
 	
-	@Column(name = "EstadoHangar", nullable = false)
+	@Column(name = "estado_hangar", nullable = false)
 	private boolean estado;
 	
-	@Column(name = "Capacidad", nullable = false)
+	@Column(name = "capacidad", nullable = false)
 	private Integer capacidad;
 
 	public Hangar(Integer id, String codigo, Aeropuerto aeropuerto, boolean estado, Integer capacidad) {

@@ -8,18 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TBL_PAIS")
+@Table(name = "TB_PAIS")
 public class Pais {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@Column(name = "IdPais")
+	@Column(name = "id_pais")
 	private Integer id;
 
-	@Column(name = "CodigoPais", nullable = false, length = 3)
+	@Column(name = "codigo_pais", nullable = false, length = 3)
 	private String codigo;
 
-	@Column(name = "NombrePais", nullable = false, length = 50)
+	@Column(name = "nombre_pais", nullable = false, length = 50)
 	private String nombre;
 
 	public Pais() {

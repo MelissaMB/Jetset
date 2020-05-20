@@ -4,50 +4,50 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "TBL_VUELO")
+@Table(name = "TB_VUELO")
 public class Vuelo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @Column(name = "IdVuelo")
+    @Column(name = "id_vuelo")
     private Integer id;
 
-    @Column(name = "Codigo", nullable = false, length = 10)
+    @Column(name = "codigo", nullable = false, length = 10)
     private String codigo;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "IdOrigen", nullable = false)
+    @JoinColumn(name = "id_origen", nullable = false)
     private Destino origen;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "IdDestino", nullable = false)
+    @JoinColumn(name = "id_destino", nullable = false)
     private Destino destino;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "IdAerolinea", nullable = false)
+    @JoinColumn(name = "id_aerolinea", nullable = false)
     private Aerolinea aerolinea;
 
     @Column(name = "Costo", nullable = false)
     private double costo;
 
-    @Column(name = "MillasReales", nullable = false)
+    @Column(name = "millas_reales", nullable = false)
     private double millasReales;
 
-    @Column(name = "MillasPasajeros", nullable = false)
+    @Column(name = "millas_pasajeros", nullable = false)
     private double millasPasajeros;
 
-    @Column(name = "Fecha", updatable = true, nullable = true)
+    @Column(name = "fecha", updatable = true, nullable = true)
     private Date fecha;
 
-    @Column(name = "HoraDespegue", updatable = true, nullable = true)
+    @Column(name = "hora_despegue", updatable = true, nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaDespegue;
 
-    @Column(name = "HoraAterrizaje", updatable = true, nullable = true)
+    @Column(name = "hora_aterrizaje", updatable = true, nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaAterrizaje;
 
-    @Column(name = "TieneEscala", nullable = false)
+    @Column(name = "tiene_escala", nullable = false)
     private boolean tieneEscala;
 
     public Vuelo() {

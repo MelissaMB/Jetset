@@ -36,11 +36,11 @@ public class AerolineaController {
 	@Autowired
 	private AerolineaRepository aerolineaRepository;
 
-	private String msgDeleteSucesso = "Aerolinea deleted successfully !";
+	private String msgDeleteSucess = "Aerolinea deleted successfully !";
 
 	private String msgDeleteError = "Aerolinea an error has occurred !";
 
-	private String msgSucessoCriacao = "Aerolinea created successfully !";
+	private String msgSucessoCreate = "Aerolinea created successfully !";
 	
 	@Autowired private PaisRepository paisRepository;
 
@@ -70,7 +70,7 @@ public class AerolineaController {
 		}
 
 		aerolineaService.save(aerolinea);
-		attributes.addFlashAttribute("message", msgSucessoCriacao);
+		attributes.addFlashAttribute("message", msgSucessoCreate);
 		return new ModelAndView("redirect:/aerolinea/create");
 
 	}
@@ -102,7 +102,7 @@ public class AerolineaController {
 		aerolinea.setId(code);
 		try {
 			aerolineaService.delete(aerolinea);
-			attributes.addFlashAttribute("message", msgDeleteSucesso);
+			attributes.addFlashAttribute("message", msgDeleteSucess);
 		} catch (Exception e) {
 			e.printStackTrace();
 			attributes.addFlashAttribute("messageErro", msgDeleteError);

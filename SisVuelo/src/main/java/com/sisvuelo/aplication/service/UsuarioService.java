@@ -32,6 +32,7 @@ public class UsuarioService {
 
 	@Transactional
 	public void delete(Usuario usuario) {
+		
 		try {
 			usuarioRepository.delete(usuario);
 		} catch (Exception e) {

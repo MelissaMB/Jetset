@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TBL_ROL")
+@Table(name = "TB_ROL")
 public class Rol implements Serializable {
 	
 	private static final long serialVersionUID = 3118632738004642420L;
@@ -19,10 +19,10 @@ public class Rol implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO, generator ="native")
 	private Integer id;
 	
-	@Column(name="NombreRol")
+	@Column(name="nombre_rol")
 	private String nombre;
 	
-	@Column(name="Descripcion")
+	@Column(name="descripcion")
 	private String descripcion;
 	
 	public Rol() {

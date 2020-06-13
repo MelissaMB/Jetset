@@ -2,6 +2,7 @@ package com.sisvuelo.aplication.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sisvuelo.aplication.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -9,23 +10,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisvuelo.aplication.filter.VueloFilter;
-import com.sisvuelo.aplication.model.Vuelo;
 import com.sisvuelo.aplication.repository.VueloRepository;
 import com.sisvuelo.aplication.service.VueloService;
 
-import com.sisvuelo.aplication.repository.DestinoRepository;import com.sisvuelo.aplication.repository.DestinoRepository;import com.sisvuelo.aplication.repository.AerolineaRepository;
-import com.sisvuelo.aplication.model.PageWrapper;
+import com.sisvuelo.aplication.repository.DestinoRepository;import com.sisvuelo.aplication.repository.DestinoRepository;
+import com.sisvuelo.aplication.repository.AerolineaRepository;
+import org.springframework.web.servlet.view.RedirectView;
 
-@Controller
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
 @RequestMapping("/vuelo/")
 public class VueloController {
 
@@ -46,22 +48,29 @@ public class VueloController {
 	@Autowired private AerolineaRepository aerolineaRepository;
 
 	@GetMapping("/create")
-	public ModelAndView create(Vuelo vuelo) {
+	public ModelAndView create(Vuelo vuelo, @RequestParam (required = false) Integer aerolinea) {
+
 		System.out.println(vuelo.getHoraAterrizaje());
+
 		ModelAndView mv = new ModelAndView("vuelo/create");
-		if (vuelo.getId() == null) {
-			mv.addObject("title", "Vuelo create");
-			mv.addObject("btn", "Create");
-		} else {
-			mv.addObject("title", "Vuelo edit");
-			mv.addObject("btn", "Edit");
+		boolean tieneAerolinea=false;
+
+		List<Destino> destinos= Collections.<Destino>emptyList();
+
+		if(aerolinea!=null){
+			 Optional<Aerolinea> aerolinaObj= aerolineaRepository.findById(aerolinea);
+			 destinos=destinoRepository.findDestinoByAerolinea(aerolinaObj);
+			tieneAerolinea=true;
 		}
+
 		mv.addObject(vuelo);
-	
-		
-		mv.addObject("origenList",origenRepository.findAll());
-		mv.addObject("destinoList",destinoRepository.findAll());
+		mv.addObject("title", "Vuelo create");
+		mv.addObject("btn", "Create");
+		mv.addObject("origenList",destinos);
+		mv.addObject("destinoList",destinos);
 		mv.addObject("aerolineaList",aerolineaRepository.findAll());
+		mv.addObject("aerolinea",aerolinea);
+		mv.addObject("tieneAerolinea",tieneAerolinea);
 
 		return mv;
 	}
@@ -70,10 +79,11 @@ public class VueloController {
 	public ModelAndView save(@Validated Vuelo vuelo, Errors errors, RedirectAttributes attributes) {
 		
 		System.out.println(errors);
-		System.out.println("hola");
+		System.out.println(vuelo);
+
 
 		if (errors.hasErrors()) {
-			return create(vuelo);
+			return create(vuelo,1);
 		}
 
 		vueloService.save(vuelo);
@@ -82,13 +92,38 @@ public class VueloController {
 
 	}
 
-	@GetMapping("/{code}")
-	public ModelAndView edit(@PathVariable("code") Integer code) {
-		Vuelo vuelo = new Vuelo();
-		vuelo = vueloRepository.findById(code).get();
+	@RequestMapping(value = "/edit/{code}",  method = {RequestMethod.GET, RequestMethod.PUT})
+	public ModelAndView edit(@PathVariable("code") Integer code ) {
+		//@RequestParam(required = false) Integer aerolinea
 
-		return create(vuelo);
+		boolean tieneAerolinea=true;
+		List<Destino> destinos= Collections.<Destino>emptyList();
 
+		Vuelo vuelo = vueloRepository.findById(code).get();
+		ModelAndView mv = new ModelAndView("vuelo/edit");
+		Optional<Aerolinea> aerolinea = Optional.of(vuelo.getAerolinea());
+		destinos=destinoRepository.findDestinoByAerolinea(aerolinea);
+
+		//Obtener destinos en base a aerolinea del vuelo o parámetro aerolinea
+
+		mv.addObject(vuelo);
+		mv.addObject("title", "Vuelo edit");
+		mv.addObject("btn", "Edit");
+		mv.addObject("origenList",destinos);
+		mv.addObject("destinoList",destinos);
+		mv.addObject("aerolineaList",aerolineaRepository.findAll());
+		mv.addObject("aerolinea",aerolinea);
+		mv.addObject("tieneAerolinea",tieneAerolinea);
+
+		return mv;
+
+	}
+
+	@RequestMapping(value = "/{id}",  method = {RequestMethod.GET, RequestMethod.PUT})
+	public Void update(@PathVariable("id") Integer id , Vuelo vuelo){
+		System.out.println(id);
+		System.out.println(vuelo);
+		return null;
 	}
 
 	@GetMapping("/list")
@@ -102,7 +137,8 @@ public class VueloController {
 		return mv;
 	}
 
-	@DeleteMapping("/delete/{code}")
+
+	@RequestMapping(value = "/delete/{code}", method = {RequestMethod.GET, RequestMethod.PUT})
 	public ModelAndView delete(@PathVariable("code") Integer code, RedirectAttributes attributes) {
 		System.out.println(code);
 		Vuelo vuelo = new Vuelo();

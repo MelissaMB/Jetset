@@ -23,6 +23,9 @@
 						</div>
 					</div>
 					<div class="panel-body">
+
+
+						<!--/*@thymesVar id="vueloFilter" type="templates"*/-->
 						<form class="form-horizontal" method="GET" action="/vuelo/list"
 							th:object="${vueloFilter}">
 
@@ -31,11 +34,15 @@
 
 							<div th:fragment="mensagemGeral" class="alert alert-success"
 								th:if="${!#strings.isEmpty(message)}">
+
+						
+								<!--/*@thymesVar id="message" type="templates"*/-->
 								<span th:text="${message}"></span>
 							</div>
 
 							<div th:fragment="mensagemErro" class="alert alert-danger"
 								th:if="${!#strings.isEmpty(messageErro)}">
+								<!--/*@thymesVar id="messageErro" type="templates"*/-->
 								<span th:text="${messageErro}"></span>
 							</div>
 
@@ -101,21 +108,18 @@
 								style="margin-top: 60px;">
 								<thead>
 									<tr>
-
-
-
-										<td>id</td>
-										<td>codigo</td>
-										<td>origen</td>
-										<td>destino</td>
-										<td>aerolinea</td>
+										<td>ID</td>
+										<td>Código</td>
+										<td>Origen</td>
+										<td>Destino</td>
+										<td>Aerolinea</td>
 										<td>costo</td>
-										<td>millasReales</td>
-										<td>millasPasajeros</td>
-										<td>fecha</td>
-										<td>horaDespegue</td>
-										<td>horaAterrizaje</td>
-										<td>tieneEscala</td>
+										<td>Millas Reales</td>
+										<td>Millas Pasajeros</td>
+										<td>Fecha</td>
+										<td>Hora Despegue</td>
+										<td>Hora Aterrizaje</td>
+										<td>Escala</td>
 										<td>#</td>
 
 
@@ -127,8 +131,8 @@
 									<tr th:each="obj : ${pagina.conteudo}">
 										<td th:text="${obj.id}"></td>
 										<td th:text="${obj.codigo}"></td>
-										<td th:text="${obj.origen.Id}"></td>
-										<td th:text="${obj.destino.Id}"></td>
+										<td th:text="${obj.origen.getAeropuerto().getNombre()}"></td>
+										<td th:text="${obj.destino.getAeropuerto().getNombre()}"></td>
 										<td th:text="${obj.aerolinea.Id}"></td>
 										<td th:text="${obj.costo}"></td>
 										<td th:text="${obj.millasReales}"></td>
@@ -143,11 +147,10 @@
 												th:action="@{/vuelo/delete/{code}(code=${obj.id})}">
 												<input type="hidden" name="_method" value="DELETE" /> <a
 													class="btn btn-link btn-xs"
-													th:href="@{/vuelo/{code}(code=${obj.id})}" title="Editar"
+													th:href="@{/vuelo/edit/{code}(code=${obj.id})}" title="Editar"
 													rel="tooltip" data-placement="top"> <span
 													class="glyphicon glyphicon-pencil"></span>
 												</a>
-
 
 												<button class="btn btn-link btn-xs" title="Delete"
 													type="submit" data-placement="top">

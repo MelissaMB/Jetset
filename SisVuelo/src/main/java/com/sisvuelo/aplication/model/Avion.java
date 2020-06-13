@@ -53,6 +53,18 @@ public class Avion {
 		this.estado = estado;
 	}
 
+	@Override
+	public String toString() {
+		return "Avion{" +
+				"id=" + id +
+				", modelo=" + modelo +
+				", aerolinea=" + aerolinea +
+				", nombre='" + nombre + '\'' +
+				", anioFabricacion=" + anioFabricacion +
+				", estado=" + estado +
+				'}';
+	}
+
 	public Integer getId() {
 		return id;
 	}

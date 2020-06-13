@@ -1,5 +1,7 @@
 package com.sisvuelo.aplication.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -36,21 +38,41 @@ public class Vuelo {
     @Column(name = "millas_pasajeros", nullable = false)
     private double millasPasajeros;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha", updatable = true, nullable = true)
     private Date fecha;
 
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "hora_despegue", updatable = true, nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date horaDespegue;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "hora_aterrizaje", updatable = true, nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date horaAterrizaje;
 
     @Column(name = "tiene_escala", nullable = false)
     private boolean tieneEscala;
 
     public Vuelo() {
+    }
+
+    @Override
+    public String toString() {
+        return "Vuelo{" +
+                "id=" + id +
+                ", codigo='" + codigo + '\'' +
+                ", origen=" + origen +
+                ", destino=" + destino +
+                ", aerolinea=" + aerolinea +
+                ", costo=" + costo +
+                ", millasReales=" + millasReales +
+                ", millasPasajeros=" + millasPasajeros +
+                ", fecha=" + fecha +
+                ", horaDespegue=" + horaDespegue +
+                ", horaAterrizaje=" + horaAterrizaje +
+                ", tieneEscala=" + tieneEscala +
+                '}';
     }
 
     public Vuelo(Integer id, String codigo, Destino origen, Destino destino, Aerolinea aerolinea, double costo, double millasReales, double millasPasajeros, Date fecha, Date horaDespegue, Date horaAterrizaje, boolean tieneEscala) {

@@ -3,13 +3,11 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="'layout/MainlyLayout'">
-
-
 <section layout:fragment="content">
     <div class="container-fluid">
         <br/>
 
-        <form class="form-horizontal" method="POST" action="/vuelo/create"
+        <form class="form-horizontal" th:method="POST" action="#" th:action="@{'/vuelo/edit/61'}"
               th:object="${vuelo}">
             <body>
 
@@ -45,8 +43,6 @@
                     </div>
 
 
-
-
                     <div class="panel-body">
                         <input type="hidden" th:field="*{id}" id="id"/>
                         <div class="form-group"
@@ -54,7 +50,7 @@
                             <label for="aerolinea" class="col-sm-2 col-xs-12  control-label">Aerolinea
                             </label>
                             <div class="col-sm-4 col-xs-12 ">
-                                <select class="form-control" id="aerolinea" th:field="*{aerolinea}" >
+                                <select class="form-control" id="aerolinea" th:field="*{aerolinea}">
                                     <option value="">Select</option>
                                     <option th:each="gclass : ${aerolineaList}"
                                             th:value="${gclass.id}" th:text="${gclass.nombreCorto}"></option>
@@ -82,7 +78,8 @@
                                     <select class="form-control" th:field="*{origen}">
                                         <option value="">Select</option>
                                         <option th:each="origen : ${origenList}"
-                                                th:value="${origen.id}" th:text="${origen.getAeropuerto().getNombre()}"></option>
+                                                th:value="${origen.id}"
+                                                th:text="${origen.getAeropuerto().getNombre()}"></option>
                                     </select>
 
                                 </div>
@@ -96,7 +93,8 @@
                                     <select class="form-control" th:field="*{destino}">
                                         <option value="">Select</option>
                                         <option th:each="destino : ${destinoList}"
-                                                th:value="${destino.id}" th:text="${destino.getAeropuerto().getNombre()}"></option>
+                                                th:value="${destino.id}"
+                                                th:text="${destino.getAeropuerto().getNombre()}"></option>
                                     </select>
 
                                 </div>
@@ -149,7 +147,7 @@
                                 <label for="horaDespegue"
                                        class="col-sm-2 col-xs-12  control-label">HoraDespegue </label>
                                 <div class="col-sm-4 col-xs-12 ">
-                                    <input type="time" class="form-control"
+                                    <input type="datetime-local" class="form-control"
                                            th:field="*{horaDespegue}" id="horaDespegue"/>
                                 </div>
                             </div>
@@ -160,7 +158,7 @@
                                        class="col-sm-2 col-xs-12  control-label">HoraAterrizaje
                                 </label>
                                 <div class="col-sm-4 col-xs-12 ">
-                                    <input type="time" class="form-control"
+                                    <input type="datetime-local" class="form-control"
                                            th:field="*{horaAterrizaje}" id="horaAterrizaje"/>
                                 </div>
                             </div>
@@ -187,32 +185,24 @@
             </div>
 
             </body>
-
         </form>
-
     </div>
-
 </section>
-`
+
 
 <section layout:fragment="javascript-extra">
- <script>
+    <script>
 
-     $(document).ready(function () {
-         var id=$("#id").val();
-         var aerolinea=$("#aerolinea").val();
+        $(document).ready(function () {
 
-         if(id!=null){
-          //   location.replace("/vuelo/"+ id+"?aerolinea="+ aerolinea);
-         }
-     })
+        })
 
-     $("#aerolinea").change(function (event) {
-         var aerolinea=$("#aerolinea").val();
-         window.location.href="/vuelo/create?aerolinea="+ aerolinea;
+        $("#aerolinea").change(function (event) {
+            var aerolinea = $("#aerolinea").val();
+            window.location.href = "/vuelo/create?aerolinea=" + aerolinea;
 
-    });
- </script>
+        });
+    </script>
 
 </section>
 

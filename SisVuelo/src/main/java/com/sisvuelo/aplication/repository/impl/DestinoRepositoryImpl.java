@@ -3,6 +3,7 @@ package com.sisvuelo.aplication.repository.impl;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.sisvuelo.aplication.model.Ciudad;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -11,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.util.StringUtils;
 
 import com.sisvuelo.aplication.repository.helper.DestinoHelper;
@@ -39,6 +41,7 @@ public class DestinoRepositoryImpl implements DestinoHelper {
 
 		return new PageImpl<>(criteria.list(), pageable, total(destinoFilter));
 	}
+
 
 	private Long total(DestinoFilter destinoFilter) {
 

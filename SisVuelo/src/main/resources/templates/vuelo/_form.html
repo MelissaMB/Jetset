@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+        <div style="margin-top: 50px;">
+
+            <div th:fragment="mensagemGeral" class="alert alert-success"
+                 th:if="${!#strings.isEmpty(message)}">
+                <span th:text="${message}"></span>
+            </div>
+
+            <div th:fragment="mensagemErro" class="alert alert-danger"
+                 th:if="${!#strings.isEmpty(messageErro)}">
+                <span th:text="${messageErro}"></span>
+            </div>
+
+            <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                <div th:each="detailedError : ${#fields.detailedErrors()}">
+                    <span th:text="${detailedError.message}"></span>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="clearfix">
+
+                        <div class="clearfix">
+                            <h2 style="float: left;" th:text="${title}"></h2>
+                            <a style="float: right;" class="btn btn-link aw-link-panel"
+                               href="/vuelo/list">Vuelo List</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="panel-body">
+                    <input type="hidden" th:field="*{id}" id="id"/>
+                    <div class="form-group"
+                         th:classappend="${#fields.hasErrors('aerolinea')} ? has-error">
+                        <label for="aerolinea" class="col-sm-2 col-xs-12  control-label">Aerolinea
+                        </label>
+                        <div class="col-sm-4 col-xs-12 ">
+                            <select class="form-control" id="aerolinea" th:field="*{aerolinea}" >
+                                <option value="">Select</option>
+                                <option th:each="gclass : ${aerolineaList}"
+                                        th:value="${gclass.id}" th:text="${gclass.nombreCorto}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div th:if="${tieneAerolinea}">
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('codigo')} ? has-error">
+                            <label for="codigo" class="col-sm-2 col-xs-12  control-label">Codigo
+                            </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <input type="text" class="form-control" th:field="*{codigo}"
+                                       id="codigo"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('origen')} ? has-error">
+                            <label for="origen" class="col-sm-2 col-xs-12  control-label">Origen
+                            </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <select class="form-control" th:field="*{origen}">
+                                    <option value="">Select</option>
+                                    <option th:each="origen : ${origenList}"
+                                            th:value="${origen.id}" th:text="${origen.getAeropuerto().getNombre()}"></option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('destino')} ? has-error">
+                            <label for="destino" class="col-sm-2 col-xs-12  control-label">Destino
+                            </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <select class="form-control" th:field="*{destino}">
+                                    <option value="">Select</option>
+                                    <option th:each="destino : ${destinoList}"
+                                            th:value="${destino.id}" th:text="${destino.getAeropuerto().getNombre()}"></option>
+                                </select>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('costo')} ? has-error">
+                            <label for="costo" class="col-sm-2 col-xs-12  control-label">Costo
+                            </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <input type="text" class="form-control" th:field="*{costo}"
+                                       id="costo"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('millasReales')} ? has-error">
+                            <label for="millasReales"
+                                   class="col-sm-2 col-xs-12  control-label">MillasReales </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <input type="text" class="form-control"
+                                       th:field="*{millasReales}" id="millasReales"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('millasPasajeros')} ? has-error">
+                            <label for="millasPasajeros"
+                                   class="col-sm-2 col-xs-12  control-label">MillasPasajeros
+                            </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <input type="text" class="form-control"
+                                       th:field="*{millasPasajeros}" id="millasPasajeros"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('fecha')} ? has-error">
+                            <label for="fecha" class="col-sm-2 col-xs-12  control-label">Fecha
+                            </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <input type="date" class="form-control" th:field="*{fecha}"
+                                       id="fecha"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('horaDespegue')} ? has-error">
+                            <label for="horaDespegue"
+                                   class="col-sm-2 col-xs-12  control-label">HoraDespegue </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <input type="datetime-local" class="form-control"
+                                       th:field="*{horaDespegue}" id="horaDespegue"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('horaAterrizaje')} ? has-error">
+                            <label for="horaAterrizaje"
+                                   class="col-sm-2 col-xs-12  control-label">HoraAterrizaje
+                            </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <input type="datetime-local" class="form-control"
+                                       th:field="*{horaAterrizaje}" id="horaAterrizaje"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('tieneEscala')} ? has-error">
+                            <label for="tieneEscala"
+                                   class="col-sm-2 col-xs-12  control-label">TieneEscala </label>
+                            <div class="col-sm-4 col-xs-12 ">
+                                <input type="checkbox" th:field="*{tieneEscala}"
+                                       id="tieneEscala"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary" th:text="${btn}"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

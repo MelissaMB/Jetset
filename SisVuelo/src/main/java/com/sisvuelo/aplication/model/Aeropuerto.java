@@ -60,6 +60,21 @@ public class Aeropuerto {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Aeropuerto{" +
+				"id=" + id +
+				", ciudad=" + ciudad +
+				", codigo='" + codigo + '\'' +
+				", nombre='" + nombre + '\'' +
+				", telefono='" + telefono + '\'' +
+				", Responsable='" + Responsable + '\'' +
+				", numeroBahias=" + numeroBahias +
+				", numeroHangares=" + numeroHangares +
+				", estado=" + estado +
+				'}';
+	}
+
 	public boolean isEstado() {
 		return estado;
 	}

@@ -1,5 +1,7 @@
 package com.sisvuelo.aplication.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -42,7 +44,8 @@ public class Aerolinea {
 	
 	@Column(name = "email", nullable = true, length = 50)
 	private String email;
-	
+
+
 	@Column(name = "fecha_fundacion", updatable = true, nullable = true)
 	private Date fechaFundacion;
 	
@@ -65,6 +68,21 @@ public class Aerolinea {
 		this.email = email;
 		this.fechaFundacion = fechaFundacion;
 		this.estado = estado;
+	}
+
+	@Override
+	public String toString() {
+		return "Aerolinea{" +
+				"id=" + id +
+				", pais=" + pais +
+				", codigo='" + codigo + '\'' +
+				", nombreCorto='" + nombreCorto + '\'' +
+				", nombreLargo='" + nombreLargo + '\'' +
+				", representante='" + representante + '\'' +
+				", email='" + email + '\'' +
+				", fechaFundacion=" + fechaFundacion +
+				", estado=" + estado +
+				'}';
 	}
 
 	public Integer getId() {

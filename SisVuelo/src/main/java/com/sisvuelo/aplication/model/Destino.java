@@ -28,6 +28,15 @@ public class Destino {
         this.aeropuerto = aeropuerto;
     }
 
+    @Override
+    public String toString() {
+        return "Destino{" +
+                "id=" + id +
+                ", aerolinea=" + aerolinea +
+                ", aeropuerto=" + aeropuerto +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

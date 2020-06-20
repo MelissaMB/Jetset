@@ -46,6 +46,8 @@ public class UsuarioController {
 
 	@GetMapping("/create")
 	public ModelAndView create(Usuario usuario) {
+
+
 		ModelAndView mv = new ModelAndView("usuario/create");
 		if (usuario.getId() == null) {
 			mv.addObject("title", "Usuario create");
@@ -68,9 +70,9 @@ public class UsuarioController {
 		if (errors.hasErrors()) {
 			return create(usuario);
 		}
-
-		usuarioService.save(usuario);
-		attributes.addFlashAttribute("message", msgSucessoCriacao);
+        System.out.println(usuario);
+		//usuarioService.save(usuario);
+		//attributes.addFlashAttribute("message", msgSucessoCriacao);
 		return new ModelAndView("redirect:/usuario/create");
 
 	}
@@ -79,8 +81,6 @@ public class UsuarioController {
 	public ModelAndView edit(@PathVariable("code") Integer code) {
 		Usuario usuario = new Usuario();
 		usuario = usuarioRepository.findById(code).get();
-	
-
 		return create(usuario);
 
 	}

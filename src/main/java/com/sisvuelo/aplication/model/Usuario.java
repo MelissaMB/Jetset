@@ -1,6 +1,7 @@
 package com.sisvuelo.aplication.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,20 +40,22 @@ public class Usuario {
     @Column(name = "fecha_creacion", updatable = false, nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
-	
-	
+
+	@Column (name="estado", nullable = false )
+	private Integer estado;
 
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(Integer id, String email, String password, Date fechaCreacion, Rol rol) {
+	public Usuario(Integer id, String email, String password, Date fechaCreacion, Rol rol, Integer estado) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.fechaCreacion = fechaCreacion;
 		this.rol = rol;
+		this.estado=estado;
 	}
 
 	public Integer getId() {
@@ -95,6 +98,25 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-	
-	
+	public Integer getEstado() { return estado; }
+
+	public void setEstado(Integer estado) { this.estado = estado; }
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Usuario usuario = (Usuario) o;
+		return Objects.equals(id, usuario.id) &&
+				Objects.equals(rol, usuario.rol) &&
+				Objects.equals(email, usuario.email) &&
+				Objects.equals(password, usuario.password) &&
+				Objects.equals(fechaCreacion, usuario.fechaCreacion) &&
+				Objects.equals(estado, usuario.estado);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, rol, email, password, fechaCreacion, estado);
+	}
 }

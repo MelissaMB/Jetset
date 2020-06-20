@@ -19,7 +19,7 @@ public class Rol implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO, generator ="native")
 	private Integer id;
 	
-	@Column(name="nombre_rol")
+	@Column(name="nombre")
 	private String nombre;
 	
 	@Column(name="descripcion")

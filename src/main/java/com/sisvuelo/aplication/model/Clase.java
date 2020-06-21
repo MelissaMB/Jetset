@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @Table(name = "TB_Clase")
 public class Clase {
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	@Column(name = "id_Clase")

@@ -71,6 +71,7 @@ public class Reserva {
 		this.usuario = usuario;
 	}
 
+	
 	public EstatusReserva getEstatusReserva() {
 		return estatusReserva;
 	}

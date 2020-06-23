@@ -78,10 +78,10 @@ public class ModeloController {
 	public ModelAndView edit(@PathVariable("code") Integer code) {
 		Modelo modelo = new Modelo();
 		modelo = modeloRepository.findById(code).get();
-
 		return create(modelo);
 
 	}
+
 
 	@GetMapping("/list")
 	public ModelAndView search(ModeloFilter modeloFilter, BindingResult result,

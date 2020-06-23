@@ -31,8 +31,8 @@ public class Usuario {
 	@JoinColumn(name="id_rol", nullable=false)
 	private Rol rol;
 	
-	@Column (name="email", nullable = false, length = 150 )
-	private String email;
+	@Column (name="username", nullable = false, length = 150 )
+	private String username;
 	
 	@Column (name="password", nullable = false, length = 8 )
 	private String password;
@@ -48,10 +48,10 @@ public class Usuario {
 		super();
 	}
 
-	public Usuario(Integer id, String email, String password, Date fechaCreacion, Rol rol, Integer estado) {
+	public Usuario(Integer id, String username, String password, Date fechaCreacion, Rol rol, Integer estado) {
 		super();
 		this.id = id;
-		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.fechaCreacion = fechaCreacion;
 		this.rol = rol;
@@ -66,13 +66,7 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public String getPassword() {
 		return password;
@@ -102,6 +96,14 @@ public class Usuario {
 
 	public void setEstado(Integer estado) { this.estado = estado; }
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -109,7 +111,7 @@ public class Usuario {
 		Usuario usuario = (Usuario) o;
 		return Objects.equals(id, usuario.id) &&
 				Objects.equals(rol, usuario.rol) &&
-				Objects.equals(email, usuario.email) &&
+				Objects.equals(username, usuario.username) &&
 				Objects.equals(password, usuario.password) &&
 				Objects.equals(fechaCreacion, usuario.fechaCreacion) &&
 				Objects.equals(estado, usuario.estado);
@@ -117,6 +119,6 @@ public class Usuario {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, rol, email, password, fechaCreacion, estado);
+		return Objects.hash(id, rol, username, password, fechaCreacion, estado);
 	}
 }

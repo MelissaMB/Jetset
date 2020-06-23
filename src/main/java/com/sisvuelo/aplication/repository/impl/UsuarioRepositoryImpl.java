@@ -55,8 +55,8 @@ public class UsuarioRepositoryImpl implements UsuarioHelper {
 				criteria.add(Restrictions.eq("id", usuarioFilter.getId()));
 			}
 
-           if (!StringUtils.isEmpty(usuarioFilter.getEmail())) {
-				criteria.add(Restrictions.ilike("email", usuarioFilter.getEmail(), MatchMode.ANYWHERE));
+           if (!StringUtils.isEmpty(usuarioFilter.getUsername())) {
+				criteria.add(Restrictions.ilike("username", usuarioFilter.getUsername(), MatchMode.ANYWHERE));
 			}
 			
 

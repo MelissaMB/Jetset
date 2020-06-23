@@ -10,7 +10,7 @@ import com.sisvuelo.aplication.repository.helper.UsuarioHelper;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>,UsuarioHelper {
 
-	
+	Usuario findByUsername(String username);
 
 }
 

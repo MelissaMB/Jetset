@@ -14,7 +14,7 @@ public class Vuelo {
     @Column(name = "id_vuelo")
     private Integer id;
 
-    @Column(name = "codigo", nullable = false, length = 10)
+    @Column(name = "codigo", nullable = false, length = 25)
     private String codigo;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -74,6 +74,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Envio de email-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
         <dependency>

@@ -44,7 +44,7 @@
 
 							<div class="container">
 								<div class="form-group"
-									th:classappend="${#fields.hasErrors('email')} ? has-error">
+									th:classappend="${#fields.hasErrors('username')} ? has-error">
 
 
 									<div class="form-group"
@@ -75,16 +75,18 @@
 								<thead>
 									<tr>
 										<td>id</td>
-										<td>email</td>
-										<td>rol</td>
+										<td>Usuario</td>
+										<td>Rol</td>
+										<td>Estado</td>
 										<td>#</td>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="obj : ${pagina.conteudo}">
 										<td th:text="${obj.id}"></td>
-										<td th:text="${obj.email}"></td>
+										<td th:text="${obj.username}"></td>
 										<td th:text="${obj.rol.nombre}"></td>
+										<td th:text="${obj.estado==1}? 'ACTIVO': 'INHABILITADO'"></td>
 										<td class="text-center">
 
 											

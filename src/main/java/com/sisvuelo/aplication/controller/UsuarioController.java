@@ -71,8 +71,8 @@ public class UsuarioController {
 			return create(usuario);
 		}
         System.out.println(usuario);
-		//usuarioService.save(usuario);
-		//attributes.addFlashAttribute("message", msgSucessoCriacao);
+		usuarioService.save(usuario);
+		attributes.addFlashAttribute("message", msgSucessoCriacao);
 		return new ModelAndView("redirect:/usuario/create");
 
 	}

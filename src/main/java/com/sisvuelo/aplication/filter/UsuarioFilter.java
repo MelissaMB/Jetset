@@ -12,6 +12,15 @@ public class UsuarioFilter {
     private String password;
     private Date fechaCreacion;
     private Rol rol;
+    private Integer estado;
+
+    public Integer getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
 
     public String getUsername() {
         return username;

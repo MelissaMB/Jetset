@@ -72,6 +72,9 @@ public class UsuarioRepositoryImpl implements UsuarioHelper {
             if (usuarioFilter.getRol() != null) {
 				criteria.add(Restrictions.eq("rol", usuarioFilter.getRol()));
 			}
+			if (usuarioFilter.getEstado() != null) {
+				criteria.add(Restrictions.eq("estado", usuarioFilter.getEstado()));
+			}
 
 
 

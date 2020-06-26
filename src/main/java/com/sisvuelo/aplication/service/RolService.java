@@ -13,6 +13,8 @@ import com.sisvuelo.aplication.model.Rol;
 import com.sisvuelo.aplication.repository.RolRepository;
 import com.sisvuelo.aplication.filter.RolFilter;
 
+import java.util.Optional;
+
 @Service
 public class RolService {
 
@@ -43,5 +45,7 @@ public class RolService {
 		}
 
 	}
+
+
 
 }

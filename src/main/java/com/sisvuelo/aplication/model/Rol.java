@@ -1,6 +1,7 @@
 package com.sisvuelo.aplication.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +19,8 @@ public class Rol implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO, generator ="native")
 	private Integer id;
-	
+
+
 	@Column(name="nombre")
 	private String nombre;
 	
@@ -26,7 +28,7 @@ public class Rol implements Serializable {
 	private String descripcion;
 	
 	public Rol() {
-		super();
+
 	}
 
 	public Rol(Integer id, String nombre, String descripcion) {
@@ -63,7 +65,28 @@ public class Rol implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Rol{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Rol)) return false;
+		Rol rol = (Rol) o;
+		return id.equals(rol.id) &&
+				nombre.equals(rol.nombre) &&
+				descripcion.equals(rol.descripcion);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nombre, descripcion);
+	}
 }

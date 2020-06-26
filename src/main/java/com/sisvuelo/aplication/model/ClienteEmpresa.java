@@ -3,43 +3,29 @@ package com.sisvuelo.aplication.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TB_CLIENTE_EMPRESA")
-public class ClienteEmpresa {
+@DiscriminatorValue(value ="empresa" )
+public class ClienteEmpresa extends Pasajero{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @Column(name ="NIT" )
-    private Integer nit;
 
-    @Column(name = "NOMBRE_EMPRESA", length = 250, nullable = false)
+
+    @Column(name = "NOMBRE_EMPRESA", length = 250, nullable = true)
     private String nombreEmpresa;
 
-    @Column(name = "NIC_EMPRESA", length = 10, nullable = false)
+    @Column(name = "NIC_EMPRESA", length = 10, nullable = true)
     private Integer nic;
 
-    @Column(name = "NOMBRE_CONTACTP", length = 250, nullable = false)
+    @Column(name = "NOMBRE_CONTACTO", length = 250, nullable = true)
     private String nombreContacto;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_PASAJERO", nullable = false)
-    private Pasajero pasajero;
 
     public ClienteEmpresa() {
     }
 
-    public ClienteEmpresa(Integer nit, String nombreEmpresa, Integer nic, String nombreContacto) {
-        this.nit = nit;
+    public ClienteEmpresa(String telefonoFijo, String telefonoMovil, String email, String nombreEmpresa, Integer nic, String nombreContacto) {
+        super(telefonoFijo, telefonoMovil, email);
         this.nombreEmpresa = nombreEmpresa;
         this.nic = nic;
         this.nombreContacto = nombreContacto;
-    }
-
-    public Integer getNit() {
-        return nit;
-    }
-
-    public void setNit(Integer nit) {
-        this.nit = nit;
     }
 
     public String getNombreEmpresa() {

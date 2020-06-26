@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/MainlyLayout'">
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="clearfix">
+
+                    <div class="clearfix">
+                        <h2 style="float: left;" th:text="${title}"></h2>
+                        <a style="float: right;" class="btn btn-link aw-link-panel"
+                           href="/vuelo/list">Vuelo List</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-sm-4 col-xs-12 ">
+                    <select class="form-control" id="selectType">
+                        <option selected>Seleccionar tipo Pasajero</option>
+                        <option value="1">Empresa</option>
+                        <option value="0">Persona</option>
+                    </select>
+                </div>
+
+                <div class="container-fluid">
+                    <br/>
+                    <form id="form-persona" hidden="true" class="form-horizontal" method="POST"
+                          th:object="${pasajero}">
+
+                        <div style="margin-top: 50px;">
+
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="col-sm-6 col-xs-12 ">
+                                        <div class="form-group">
+
+                                            <label for="primerNombre" class="col-sm-2 col-xs-12  control-label">Numero viajero
+                                            </label>
+                                            <div class="col-sm-4 col-xs-12 ">
+                                                <input type="text" class="form-control" th:field="*{numeroViajero}"
+                                                       id="primerNombre"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section layout:fragment="javascript-extra">
+    <script>
+        $(document).ready(function () {
+
+        })
+
+        $("#selectType").on('change', function() {
+            let tipoPasajero =  $("#selectType").val();
+             if(tipoPasajero==1){
+                 $("#form-empresa").show();
+                 $("#form-persona").hide();
+             }
+             else{
+                 $("#form-persona").show();
+                 $("#form-empresa").hide();
+             }
+
+
+        });
+    </script>
+</section>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/MainlyLayout'">
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <br/>
+        <form class="form-horizontal" method="post" action="/cliente/natural/create" th:object="${clienteNatural}">
+            <div style="margin-top: 50px;">
+
+
+                <div th:fragment="mensagemGeral" class="alert alert-success" th:if="${!#strings.isEmpty(message)}">
+                    <span th:text="${message}"></span>
+                </div>
+
+                <div th:fragment="mensagemErro" class="alert alert-danger" th:if="${!#strings.isEmpty(messageErro)}">
+                    <span th:text="${messageErro}"></span>
+                </div>
+
+                <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                    <div th:each="detailedError : ${#fields.detailedErrors()}">
+                        <span th:text="${detailedError.message}"></span>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <h2 style="float: left;" th:text="${title}"></h2>
+                            <a style="float: right;" class="btn btn-link aw-link-panel" href="/aeropuerto/list">Aeropuerto
+                                List</a>
+                        </div>
+
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('primerNombre')} ? has-error">
+
+                            <div class="col-sm-6 col-xs-12 ">
+                                <input type="text" placeholder="Primer nombre" class="form-control"
+                                       th:field="*{primerNombre}"
+                                       id="primerNombre"/>
+                            </div>
+                            <div class="form-group" th:classappend="${#fields.hasErrors('segundoNomnbre')} ? has-error">
+                                <div class="col-sm-6 col-xs-12 ">
+                                    <input type="text" placeholder="Segundo nombre" class="form-control"
+                                           th:field="*{segundoNomnbre}"
+                                           id="segundoNombre"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('primerApellido')} ? has-error">
+
+                            <div class="col-sm-6 col-xs-12 ">
+                                <input type="text" placeholder="Primer apellido" class="form-control"
+                                       th:field="*{primerApellido}"
+                                       id="primerApellido"/>
+                            </div>
+                            <div class="form-group" th:classappend="${#fields.hasErrors('segundoApellido')} ? has-error">
+                                <div class="col-sm-6 col-xs-12 ">
+                                    <input type="text" placeholder="Segundo apeliido" class="form-control"
+                                           th:field="*{segundoApellido}"
+                                           id="segundoApellido"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('genero')} ? has-error">
+
+                            <div class="col-sm-6 col-xs-12 ">
+                                <select class="form-control" th:field="*{genero}">
+                                    <option value="">Seleccionar genero</option>
+                                    <option th:each="genero : ${generoList}" th:value="${genero.id}"
+                                            th:text="${genero.nombre}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group" th:classappend="${#fields.hasErrors('estadoCivil')} ? has-error">
+                                <div class="col-sm-6 col-xs-12 ">
+                                    <select class="form-control" th:field="*{estadoCivil}">
+                                        <option value="">Seleccionar estado civil</option>
+                                        <option th:each="estado : ${estadoCivilList}" th:value="${estado.id}"
+                                                th:text="${estado.nombre}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('tipoDocumento')} ? has-error">
+
+                            <div class="col-sm-6 col-xs-12 ">
+                                <select class="form-control" th:field="*{genero}">
+                                    <option value="">Seleccionar tipo de Documento</option>
+                                    <option th:each="documento : ${tipoDocumentList}" th:value="${documento.id}"
+                                            th:text="${documento.nombre}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group" th:classappend="${#fields.hasErrors('numeroDocumento')} ? has-error">
+                                <div class="col-sm-6 col-xs-12 ">
+                                    <input placeholder="Numero de documento" type="number" class="form-control" id="numeroDocumento" th:field="*{numeroDocumento}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('telefonoFijo')} ? has-error">
+
+                            <div class="col-sm-6 col-xs-12 ">
+                                <input type="text" maxlength="8" placeholder="Telefono Fijo" class="form-control" th:field="*{telefonoFijo}" id="telefonoFijo"/>
+                                <small  class="form-text text-muted">Debe de tener 8 digitos</small>
+                            </div>
+                            <div class="form-group" th:classappend="${#fields.hasErrors('telefonoMovil')} ? has-error">
+                                <div class="col-sm-6 col-xs-12 ">
+                                    <input type="text" maxlength="8" placeholder="Telefono movil" class="form-control" th:field="*{telefonoMovil}" id="telefonoMovil"/>
+                                    <small id="emailHelp" class="form-text text-muted">Debe de tener 8 digitos</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">
+                            <div class="col-sm-6 col-xs-12 ">
+                                <input type="email"  placeholder="Email" class="form-control" th:field="*{email}" id="email"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary" th:text="${btn}"></button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+        </form>
+    </div>
+
+</section>
+
+</html>

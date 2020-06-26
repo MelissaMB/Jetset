@@ -20,7 +20,7 @@ public class RegistroUsuarioService {
      @Transactional
      public void RegistrarUsuario(String email, Rol rol){
          Usuario usuario= new Usuario();
-         usuario.setUsername("meli.gaby0895@gmail.com");
+         usuario.setUsername(email);
          usuario.setRol(rol);
          usuario.setPassword("Jetset$");
          usuario.setEstado(1);

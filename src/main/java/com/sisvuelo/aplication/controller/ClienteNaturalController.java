@@ -61,13 +61,14 @@ public class ClienteNaturalController {
     @PostMapping("/create")
     public ModelAndView save(@Validated ClienteNatural clienteNatural, Errors errors, RedirectAttributes attributes){
 
+       Rol rol = new Rol();
+       rol = rolRepository.findById(7).get();
        String from = clienteNatural.getEmail();
        String to = "vuelo@jetset.com";
        String subject = "Creación de usuario" + clienteNatural.getPrimerNombre()+ " "+clienteNatural.getPrimerApellido();
-       String body = "\n\nSu usuario es: "+ clienteNatural.getEmail()+"\nPassword temporal: Jetset$2020";
-       Rol rol = new Rol();
-       rol = rolRepository.findById(7).get();
-       System.out.println(rol);
+       String body = "\n\nSu usuario es: "+ clienteNatural.getEmail()+"\nPassword temporal: Jetset$";
+
+
 
        if(errors.hasErrors()){
            return create(clienteNatural);

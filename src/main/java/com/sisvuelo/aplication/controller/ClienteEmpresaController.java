@@ -2,7 +2,12 @@ package com.sisvuelo.aplication.controller;
 
 import com.sisvuelo.aplication.model.ClienteEmpresa;
 import com.sisvuelo.aplication.model.ClienteNatural;
+import com.sisvuelo.aplication.model.Rol;
 import com.sisvuelo.aplication.repository.ClienteEmpresaRepository;
+import com.sisvuelo.aplication.repository.RolRepository;
+import com.sisvuelo.aplication.service.RegistroUsuarioService;
+import com.sisvuelo.aplication.service.RolService;
+import com.sisvuelo.aplication.service.email.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -18,8 +23,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ClienteEmpresaController {
 
     @Autowired
-    private ClienteEmpresaRepository clienteEmpresaRepository;
-    private String msgSucessCreate= "Pasajero empresa creado con éxito";
+    ClienteEmpresaRepository clienteEmpresaRepository;
+    @Autowired
+    MailService mailService;
+    @Autowired
+    RegistroUsuarioService registroUsuarioService;
+    @Autowired
+    RolRepository rolRepository;
+    @Autowired
+    RolService rolService;
+
+    private String msgSucessCreate= "Pasajero empresa creado con éxito.Se ha enviado a la cuenta de correo electronico sus credenciales";
 
 
   @GetMapping("/create")
@@ -34,10 +48,19 @@ public class ClienteEmpresaController {
     }
     @PostMapping("/create")
     public ModelAndView save(@Validated ClienteEmpresa clienteEmpresa, Errors errors, RedirectAttributes attributes){
-      if(errors.hasErrors()){
+        Rol rol = new Rol();
+        rol = rolRepository.findById(7).get();
+        String from = clienteEmpresa.getEmail();
+        String to = "vuelo@jetset.com";
+        String subject = "Creación de usuario" + clienteEmpresa.getNombreEmpresa();
+        String body = "\n\nSu usuario es: "+ clienteEmpresa.getEmail()+"\nPassword temporal: Jetset$";
+
+        if(errors.hasErrors()){
           return create(clienteEmpresa);
       }
-      clienteEmpresaRepository.save(clienteEmpresa);
+        clienteEmpresaRepository.save(clienteEmpresa);
+        mailService.sendMail(from, to, subject, body);
+        registroUsuarioService.RegistrarUsuario(from,rol);
       attributes.addFlashAttribute("message",msgSucessCreate );
       return new ModelAndView("redirect:/cliente/empresa/create");
     }

@@ -25,19 +25,14 @@ public class EstadoVuelo {
 	@Column(name = "Estado_Vuelo", nullable = false, length = 50)
 	private String estado_Vuelo;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_vuelo", nullable = false)
-	private Vuelo vuelo;
-
 	public EstadoVuelo() {
 		super();
 	}
 
-	public EstadoVuelo(Integer id, String estado_Vuelo, Vuelo vuelo) {
+	public EstadoVuelo(Integer id, String estado_Vuelo) {
 		super();
 		this.id = id;
 		this.estado_Vuelo = estado_Vuelo;
-		this.vuelo = vuelo;
 	}
 
 	public Integer getId() {
@@ -54,14 +49,6 @@ public class EstadoVuelo {
 
 	public void setEstado_Vuelo(String estado_Vuelo) {
 		this.estado_Vuelo = estado_Vuelo;
-	}
-
-	public Vuelo getVuelo() {
-		return vuelo;
-	}
-
-	public void setVuelo(Vuelo vuelo) {
-		this.vuelo = vuelo;
 	}
 
 }

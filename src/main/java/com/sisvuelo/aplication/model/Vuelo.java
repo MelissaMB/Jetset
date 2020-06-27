@@ -28,6 +28,10 @@ public class Vuelo {
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_aerolinea", nullable = false)
     private Aerolinea aerolinea;
+    
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_estado_vuelo", nullable = false)
+	private EstadoVuelo estadovuelo;
 
     @Column(name = "Costo", nullable = false)
     private double costo;
@@ -50,6 +54,10 @@ public class Vuelo {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "hora_aterrizaje", updatable = true, nullable = true)
     private Date horaAterrizaje;
+    
+    @Column(name = "hora_aterrizaje_programada", updatable = true, nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date horaAterrizajeProgramada;
 
     @Column(name = "tiene_escala", nullable = false)
     private boolean tieneEscala;
@@ -129,7 +137,15 @@ public class Vuelo {
     public void setAerolinea(Aerolinea aerolinea) {
         this.aerolinea = aerolinea;
     }
+    
+    public EstadoVuelo getEstadovuelo() {
+		return estadovuelo;
+	}
 
+	public void setEstadovuelo(EstadoVuelo estadovuelo) {
+		this.estadovuelo = estadovuelo;
+	}
+	
     public double getCosto() {
         return costo;
     }
@@ -177,6 +193,14 @@ public class Vuelo {
     public void setHoraAterrizaje(Date horaAterrizaje) {
         this.horaAterrizaje = horaAterrizaje;
     }
+
+    public Date getHoraAterrizajeProgramada() {
+ 		return horaAterrizajeProgramada;
+ 	}
+
+ 	public void setHoraAterrizajeProgramada(Date horaAterrizajeProgramada) {
+ 		this.horaAterrizajeProgramada = horaAterrizajeProgramada;
+ 	}
 
     public boolean isTieneEscala() {
         return tieneEscala;

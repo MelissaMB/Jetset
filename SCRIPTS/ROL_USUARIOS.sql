@@ -1,0 +1,105 @@
+--------------------------------------------------------
+-- Archivo creado  - sábado-junio-27-2020   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence NATIVE
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BAD115"."NATIVE"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence PAIS_ID_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BAD115"."PAIS_ID_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Table TB_USUARIO
+--------------------------------------------------------
+
+  CREATE TABLE "BAD115"."TB_USUARIO" 
+   (	"ID_USUARIO" NUMBER(10,0), 
+	"ESTADO" NUMBER(10,0), 
+	"FECHA_CREACION" DATE, 
+	"PASSWORD" VARCHAR2(20 CHAR), 
+	"USERNAME" VARCHAR2(150 CHAR), 
+	"ID_ROL" NUMBER(10,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table TB_ROL
+--------------------------------------------------------
+
+  CREATE TABLE "BAD115"."TB_ROL" 
+   (	"ID" NUMBER(10,0), 
+	"DESCRIPCION" VARCHAR2(255 CHAR), 
+	"NOMBRE" VARCHAR2(255 CHAR)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+REM INSERTING into BAD115.TB_USUARIO
+SET DEFINE OFF;
+Insert into BAD115.TB_USUARIO (ID_USUARIO,ESTADO,FECHA_CREACION,PASSWORD,USERNAME,ID_ROL) values (7,1,null,'{noop}jetset2020','sisvuelo@jetset.sv.com',1);
+Insert into BAD115.TB_USUARIO (ID_USUARIO,ESTADO,FECHA_CREACION,PASSWORD,USERNAME,ID_ROL) values (8,1,null,'{noop}jetset2020','juanperez@gmail.com',3);
+Insert into BAD115.TB_USUARIO (ID_USUARIO,ESTADO,FECHA_CREACION,PASSWORD,USERNAME,ID_ROL) values (9,1,null,'{noop}jetset2020','aerolinea@avianca.com.sv',6);
+Insert into BAD115.TB_USUARIO (ID_USUARIO,ESTADO,FECHA_CREACION,PASSWORD,USERNAME,ID_ROL) values (10,1,null,'{noop}jetset2020','eldorado@jetset.com.sv',5);
+Insert into BAD115.TB_USUARIO (ID_USUARIO,ESTADO,FECHA_CREACION,PASSWORD,USERNAME,ID_ROL) values (11,1,null,'{noop}jetset2020','sisvuelo@jetset.sv.com',4);
+REM INSERTING into BAD115.TB_ROL
+SET DEFINE OFF;
+Insert into BAD115.TB_ROL (ID,DESCRIPCION,NOMBRE) values (1,'Administrar funciones del sistema','Administrador');
+Insert into BAD115.TB_ROL (ID,DESCRIPCION,NOMBRE) values (2,'Administrador de base de datos','DBA');
+Insert into BAD115.TB_ROL (ID,DESCRIPCION,NOMBRE) values (3,'Cliente de naturaleza empresa y cliente natural','Pasajero');
+Insert into BAD115.TB_ROL (ID,DESCRIPCION,NOMBRE) values (4,'Encargado de la gestión de vuelos','AdminVuelo');
+Insert into BAD115.TB_ROL (ID,DESCRIPCION,NOMBRE) values (5,'Administra las gestiones del aeropuerto','AdminAeropuerto');
+Insert into BAD115.TB_ROL (ID,DESCRIPCION,NOMBRE) values (6,'Administra las diferentes aerolineas','AdminAerolinea');
+--------------------------------------------------------
+--  DDL for Index SYS_C0017221
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "BAD115"."SYS_C0017221" ON "BAD115"."TB_USUARIO" ("ID_USUARIO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0017212
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "BAD115"."SYS_C0017212" ON "BAD115"."TB_ROL" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  Constraints for Table TB_USUARIO
+--------------------------------------------------------
+
+  ALTER TABLE "BAD115"."TB_USUARIO" ADD PRIMARY KEY ("ID_USUARIO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "BAD115"."TB_USUARIO" MODIFY ("ID_ROL" NOT NULL ENABLE);
+  ALTER TABLE "BAD115"."TB_USUARIO" MODIFY ("USERNAME" NOT NULL ENABLE);
+  ALTER TABLE "BAD115"."TB_USUARIO" MODIFY ("PASSWORD" NOT NULL ENABLE);
+  ALTER TABLE "BAD115"."TB_USUARIO" MODIFY ("ESTADO" NOT NULL ENABLE);
+  ALTER TABLE "BAD115"."TB_USUARIO" MODIFY ("ID_USUARIO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table TB_ROL
+--------------------------------------------------------
+
+  ALTER TABLE "BAD115"."TB_ROL" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "BAD115"."TB_ROL" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Ref Constraints for Table TB_USUARIO
+--------------------------------------------------------
+
+  ALTER TABLE "BAD115"."TB_USUARIO" ADD CONSTRAINT "FK6MXBMHTHGOW2Y4DV0L13YNGC5" FOREIGN KEY ("ID_ROL")
+	  REFERENCES "BAD115"."TB_ROL" ("ID") ENABLE;

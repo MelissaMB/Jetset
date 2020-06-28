@@ -16,6 +16,8 @@ import javax.persistence.Table;
 //import javax.persistence.Temporal;
 //import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "TB_BitacoraReserva")
 public class BitacoraReserva {
@@ -29,8 +31,8 @@ public class BitacoraReserva {
 	@JoinColumn(name = "id_reserva", nullable = false)
 	private Reserva reserva;
 	
-	@Column(name="id_B_usuario", nullable=true)
-	private Integer usuario;
+	@Column(name="id_B_pasajero", nullable=true)
+	private Integer pasajero;
 	
 	@Column(name="id_B_estatus_reserva", nullable=true)
 	private Integer estatusReserva;
@@ -44,21 +46,35 @@ public class BitacoraReserva {
     @Column(name = "fecha_Bitacora", updatable = true, nullable = true)
  //   @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
+    
+    @Column(name = "cantidad", nullable = false)
+	private Integer cantidad;
+    
+	@Column(name = "numero_equipaje", nullable = false)
+	private Integer numeroEquipaje;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "fecha_reserva", updatable = true, nullable = true)
+	private Date fechaReserva;
 
 	public BitacoraReserva() {
 		super();
 	}
 
-	public BitacoraReserva(Integer id, Reserva reserva, Integer usuario, Integer estatusReserva,
-			Integer vuelo, Integer precio, Date fecha) {
+	public BitacoraReserva(Integer id, Reserva reserva,Integer pasajero, Integer estatusReserva,
+			Integer vuelo, Integer precio, Date fecha,Integer cantidad, Integer numeroEquipaje,
+			Date fechaReserva) {
 		super();
 		this.id = id;
 		this.reserva = reserva;
-		this.usuario = usuario;
+		this.pasajero = pasajero;
 		this.estatusReserva = estatusReserva;
 		this.vuelo = vuelo;
 		this.precio = precio;
 		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.numeroEquipaje = numeroEquipaje;
+		this.fechaReserva = fechaReserva;
 	}
 
 	public Integer getId() {
@@ -77,13 +93,13 @@ public class BitacoraReserva {
 		this.reserva = reserva;
 	}
 
-	public Integer getUsuario() {
-		return usuario;
+	public Integer getPasajero() {
+		return pasajero;
 	}
 	
 
-	public void setUsuario(Integer usuario) {
-		this.usuario = usuario;
+	public void setUsuario(Integer pasajero) {
+		this.pasajero = pasajero;
 	}
 
 	public Integer getEstatusReserva() {
@@ -109,6 +125,30 @@ public class BitacoraReserva {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+    
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public Integer getNumeroEquipaje() {
+		return numeroEquipaje;
+	}
+
+	public void setNumeroEquipaje(Integer numeroEquipaje) {
+		this.numeroEquipaje = numeroEquipaje;
+	}
+
+	public Date getFechaReserva() {
+		return fechaReserva;
+	}
+
+	public void setFechaReserva(Date fechaReserva) {
+		this.fechaReserva = fechaReserva;
+	}
 	
     
 }

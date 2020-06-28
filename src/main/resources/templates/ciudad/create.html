@@ -7,7 +7,7 @@
 <section layout:fragment="content">
     <div class="container-fluid">
         <br/>
-        <form class="form-horizontal" method="POST" action="/ciudad/create" th:object="${ciudad}">
+        <form class="form-horizontal" method="POST" th:action="@{/ciudad/create}" th:object="${ciudad}">
 
             <div style="margin-top: 50px;">
 

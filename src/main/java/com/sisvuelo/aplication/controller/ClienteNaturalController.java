@@ -69,7 +69,6 @@ public class ClienteNaturalController {
        String body = "\n\nSu usuario es: "+ clienteNatural.getEmail()+"\nPassword temporal: Jetset$";
 
 
-
        if(errors.hasErrors()){
            return create(clienteNatural);
        }

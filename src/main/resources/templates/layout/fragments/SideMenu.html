@@ -32,14 +32,14 @@
 				<div class="menu_section">
 					<h3>General</h3>
 					<ul class="nav side-menu">
-						<li><a><i class="fa fa-users"></i> Seguridad <span
+						<li sec:authorize="hasAnyAuthority('Administrador')" ><a><i class="fa fa-users"></i> Seguridad <span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="/rol/list">Roles</a></li>
 								<li><a href="/usuario/list">Usuarios</a></li>
 							</ul>
 						</li>
-						<li><a><i class="fa fa-plane"></i>Aviones<span
+						<li sec:authorize="hasAnyAuthority('AdminVuelo', 'Administrador')"><a><i class="fa fa-plane"></i>Aviones<span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="/avion/list">Aviones</a></li>
@@ -47,14 +47,14 @@
 								<li><a href="/modelo/list">Modelo</a></li>
 							</ul>
 						</li>
-						<li><a><i class="fa fa-suitcase"></i> Aerolinea <span
+						<li sec:authorize="hasAnyAuthority('AdminAerolinea', 'Administrador')"><a><i class="fa fa-suitcase"></i> Aerolinea <span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="/aerolinea/list">Aerolineas</a></li>
 							</ul>
 						</li>
 
-						<li><a><i class="fa fa-globe"></i> Aeropuerto <span
+						<li sec:authorize="hasAnyAuthority('AdminAeropuerto', 'Administrador')"><a><i class="fa fa-globe"></i> Aeropuerto <span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="/aeropuerto/list">Aeropuertos</a></li>
@@ -62,7 +62,7 @@
 							</ul>
 						</li>
 
-						<li><a><i class="fa fa-globe"></i> Vuelos <span
+						<li sec:authorize="hasAnyAuthority('Pasajero', 'Administrador')"><a><i class="fa fa-globe"></i> Vuelos <span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="/destino/list">Destinos</a></li>
@@ -70,7 +70,7 @@
 							</ul>
 						</li>
 
-						<li><a><i class="fa fa-map-marker"></i> Paises <span
+						<li sec:authorize="hasAnyAuthority('AdminAeropuerto', 'Administrador')"><a><i class="fa fa-map-marker"></i> Paises <span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="/pais/list">Paises</a></li>

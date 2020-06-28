@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <br/>
 
-        <form class="form-horizontal" method="POST" action="/vuelo/create"
+        <form class="form-horizontal" method="POST" th:action="@{/vuelo/create}"
               th:object="${vuelo}">
             <body>
 

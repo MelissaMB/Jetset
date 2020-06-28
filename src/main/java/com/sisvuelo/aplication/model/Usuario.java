@@ -34,7 +34,7 @@ public class Usuario {
 	@Column (name="username", nullable = false, length = 150 )
 	private String username;
 	
-	@Column (name="password", nullable = false, length = 8 )
+	@Column (name="password", nullable = false, length = 20)
 	private String password;
 	
     @Column(name = "fecha_creacion", updatable = false, nullable = true)

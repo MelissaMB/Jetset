@@ -24,15 +24,25 @@ public class DataBaseWebSecurity extends WebSecurityConfigurerAdapter {
                         "inner join TB_ROL r on u.ID_ROL=r.ID " +
                         "where u.username = ?");
     }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/resources/**,", "/templates/**", "/static/**" , "/layout/**", "/vendors/**").permitAll()
+                .antMatchers("/cliente/empresa/**", "/logout","/cliente/natural/**").permitAll()
+                .antMatchers("/usuario/**").hasAnyAuthority("Administrador", "DBA")
+                .antMatchers("/rol/**").hasAnyAuthority("Administrador", "DBA")
+                .antMatchers("/vuelo/**").hasAnyAuthority("AdminVuelo", "Pasajero")
+                .antMatchers("/aeropuerto/**").hasAnyAuthority("AdminAeropuerto")
+                .antMatchers("/aerolinea/**").hasAnyAuthority("AAdminAerolinea")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/login")
+                .permitAll();
 
-   /* @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                .anyRequest().authenticated();
-    }*/
+
+    }
+
+
 
    /* @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -59,7 +69,7 @@ public class DataBaseWebSecurity extends WebSecurityConfigurerAdapter {
 
     }*/
 
-    @Override
+  /*  @Override
     public void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()

@@ -17,7 +17,7 @@
 					<li class=""><a href="javascript:;"
 						class="user-profile dropdown-toggle" data-toggle="dropdown"
 						aria-expanded="false"> <img th:src="@{/layout/images/img.png}"
-							alt="" />John Doe <span class=" fa fa-angle-down"></span>
+							alt="" /><span th:if="${session.usuario != null}" class="text-light" th:text="${session.usuario.username}"> <span class=" fa fa-angle-down"></span>
 					</a>
 						<ul class="dropdown-menu dropdown-usermenu pull-right">
 							<li><a href="javascript:;"> Profile</a></li>
@@ -38,7 +38,7 @@
 							role="menu">
 							<li><a> <span class="image"><img
 										src="/production/images/img.jpg" alt="Profile Image" /></span> <span>
-										<span>John Smith</span> <span class="time">3 mins ago</span>
+										<span th:if="${session.usuario != null}" class="text-light" th:text="${session.usuario.username}"></span>&nbsp; </span> <span class="time">3 mins ago</span>
 								</span> <span class="message"> Film festivals used to be
 										do-or-die moments for movie makers. They were where... </span>
 							</a></li>

@@ -29,6 +29,11 @@ public class UsuarioService {
 	public Page<Usuario> filter(UsuarioFilter usuarioFilter, Pageable pageable) {
 		return usuarioRepository.filtrar(usuarioFilter, pageable);
 	}
+    @Transactional
+	Usuario buscarPorUsername(String username){
+		usuarioRepository.findByUsername(username);
+		return null;
+	}
 
 	@Transactional
 	public void delete(Usuario usuario) {

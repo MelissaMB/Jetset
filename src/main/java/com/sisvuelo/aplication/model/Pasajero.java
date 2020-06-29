@@ -20,6 +20,8 @@ public class Pasajero {
     @Column(name = "EMAIL", nullable = true, length = 50)
     protected String email;
 
+
+
     public Pasajero() {
     }
 

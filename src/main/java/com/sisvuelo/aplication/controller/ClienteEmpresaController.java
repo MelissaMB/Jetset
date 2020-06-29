@@ -3,6 +3,7 @@ package com.sisvuelo.aplication.controller;
 import com.sisvuelo.aplication.model.ClienteEmpresa;
 import com.sisvuelo.aplication.model.ClienteNatural;
 import com.sisvuelo.aplication.model.Rol;
+import com.sisvuelo.aplication.model.Usuario;
 import com.sisvuelo.aplication.repository.ClienteEmpresaRepository;
 import com.sisvuelo.aplication.repository.RolRepository;
 import com.sisvuelo.aplication.service.RegistroUsuarioService;
@@ -49,7 +50,7 @@ public class ClienteEmpresaController {
     @PostMapping("/create")
     public ModelAndView save(@Validated ClienteEmpresa clienteEmpresa, Errors errors, RedirectAttributes attributes){
         Rol rol = new Rol();
-        rol = rolRepository.findById(7).get();
+        rol = rolRepository.findById(3).get();
         String from = clienteEmpresa.getEmail();
         String to = "vuelo@jetset.com";
         String subject = "Creación de usuario" + clienteEmpresa.getNombreEmpresa();
@@ -58,10 +59,12 @@ public class ClienteEmpresaController {
         if(errors.hasErrors()){
           return create(clienteEmpresa);
       }
-        clienteEmpresaRepository.save(clienteEmpresa);
+
         mailService.sendMail(from, to, subject, body);
-        registroUsuarioService.RegistrarUsuario(from,rol);
-      attributes.addFlashAttribute("message",msgSucessCreate );
-      return new ModelAndView("redirect:/cliente/empresa/create");
+        Usuario usuario=  registroUsuarioService.RegistrarUsuario(from,rol);
+        clienteEmpresa.setUsuario(usuario);
+        clienteEmpresaRepository.save(clienteEmpresa);
+        attributes.addFlashAttribute("message",msgSucessCreate );
+        return new ModelAndView("redirect:/cliente/empresa/create");
     }
 }

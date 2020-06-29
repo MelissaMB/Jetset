@@ -3,6 +3,7 @@ package com.sisvuelo.aplication.controller;
 
 import com.sisvuelo.aplication.model.ClienteNatural;
 import com.sisvuelo.aplication.model.Rol;
+import com.sisvuelo.aplication.model.Usuario;
 import com.sisvuelo.aplication.repository.*;
 import com.sisvuelo.aplication.service.RegistroUsuarioService;
 import com.sisvuelo.aplication.service.RolService;
@@ -72,9 +73,11 @@ public class ClienteNaturalController {
        if(errors.hasErrors()){
            return create(clienteNatural);
        }
-       clienteNaturalRepository.save(clienteNatural);
+
        mailService.sendMail(from, to, subject, body);
-       registroUsuarioService.RegistrarUsuario(from,rol);
+       Usuario usuario=registroUsuarioService.RegistrarUsuario(from,rol);
+       clienteNatural.setUsuario(usuario);
+       clienteNaturalRepository.save(clienteNatural);
        attributes.addFlashAttribute("message", msgSucessCreate);
        return new ModelAndView("redirect:/cliente/natural/create");
     }

@@ -18,7 +18,7 @@ public class RegistroUsuarioService {
      UsuarioRepository usuarioRepository;
 
      @Transactional
-     public void RegistrarUsuario(String email, Rol rol){
+     public Usuario RegistrarUsuario(String email, Rol rol){
          Usuario usuario= new Usuario();
          usuario.setUsername(email);
          usuario.setRol(rol);
@@ -26,7 +26,7 @@ public class RegistroUsuarioService {
          usuario.setEstado(1);
          usuarioRepository.save(usuario);
 
-
+         return usuario;
      }
 
 

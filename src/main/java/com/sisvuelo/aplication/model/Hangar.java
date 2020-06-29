@@ -18,27 +18,20 @@ public class Hangar {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	@Column(name = "id_hangar")
 	private Integer id;
-	
-	@Column(name = "codigo_hangar", nullable = false, length = 10)
-	private String codigo;
 
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_ciudad", nullable = false)
+	@JoinColumn(name = "id_aeropuerto", nullable = false)
 	private Aeropuerto aeropuerto;
 	
 	@Column(name = "estado_hangar", nullable = false)
 	private boolean estado;
 	
-	@Column(name = "capacidad", nullable = false)
-	private Integer capacidad;
 
-	public Hangar(Integer id, String codigo, Aeropuerto aeropuerto, boolean estado, Integer capacidad) {
+	public Hangar(Integer id, Aeropuerto aeropuerto, boolean estado) {
 		super();
 		this.id = id;
-		this.codigo = codigo;
 		this.aeropuerto = aeropuerto;
 		this.estado = estado;
-		this.capacidad = capacidad;
 	}
 
 	public Hangar() {
@@ -51,14 +44,6 @@ public class Hangar {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public Aeropuerto getAeropuerto() {
@@ -77,14 +62,5 @@ public class Hangar {
 		this.estado = estado;
 	}
 
-	public Integer getCapacidad() {
-		return capacidad;
-	}
-
-	public void setCapacidad(Integer capacidad) {
-		this.capacidad = capacidad;
-	}
-	
-	
 
 }

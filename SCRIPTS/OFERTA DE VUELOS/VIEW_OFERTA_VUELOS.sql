@@ -1,0 +1,33 @@
+--------------------------------------------------------
+-- Archivo creado  - domingo-junio-28-2020   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for View VIEW_OFERTA_VUELOS
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE VIEW "BAD115"."VIEW_OFERTA_VUELOS" ("ID_VUELO", "VUELO", "ID_AEROLINEA", "AEROLINEA", "ESCALAS", "ORIGEN", "DESTINO", "HORA_ATERRIZAJE", "DURACION", "HORA_DESPEGUE", "ID_CLASE", "CLASE", "PRECIO", "DISPONIBLES") AS 
+  SELECT
+  V.ID_VUELO AS Id_Vuelo,
+  V.CODIGO AS Vuelo,
+  V.ID_AEROLINEA AS Id_Aerolinea,
+  AL.NOMBRE_CORTO AS Aerolinea,
+  CASE V.TIENE_ESCALA WHEN 0 THEN 'No' WHEN 1 THEN 'Sí' END AS Escalas,
+  FN_AEROPUERTO_POR_DESTINO(v.ID_ORIGEN) AS Origen,
+  FN_AEROPUERTO_POR_DESTINO(V.ID_DESTINO) AS Destino,
+  V.HORA_ATERRIZAJE_PROGRAMADA AS Hora_Aterrizaje,
+  FN_DURACION_VUELO(V.HORA_ATERRIZAJE, V.HORA_DESPEGUE) AS Duracion,
+  V.HORA_DESPEGUE AS Hora_Despegue,
+  PR.ID_CLASE AS Id_Clase,
+  CL.NOMBRE_CLASE AS Clase,
+  PR.PRECIO AS Precio,
+  (FN_CAPACIDAD_POR_AVION_Y_CLASE(V.ID_AVION, PR.ID_CLASE) - FN_RESERVAS_POR_VUELO_Y_CLASE(V.ID_VUELO, PR.ID_CLASE)) Disponibles
+
+FROM TB_VUELO V
+LEFT JOIN TB_AEROLINEA AL
+      ON AL.ID_AEROLINEA= V.ID_AEROLINEA
+LEFT JOIN TB_AVION AV     
+      ON AV.ID= V.ID_AVION
+LEFT JOIN TB_PRECIO PR
+      ON PR.ID_VUELO= V.ID_VUELO
+RIGHT JOIN TB_CLASE CL
+      ON CL.ID_CLASE= PR.ID_CLASE;

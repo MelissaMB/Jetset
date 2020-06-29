@@ -118,6 +118,18 @@ public class Usuario {
 	}
 
 	@Override
+	public String toString() {
+		return "Usuario{" +
+				"id=" + id +
+				", rol=" + rol +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", fechaCreacion=" + fechaCreacion +
+				", estado=" + estado +
+				'}';
+	}
+
+	@Override
 	public int hashCode() {
 		return Objects.hash(id, rol, username, password, fechaCreacion, estado);
 	}

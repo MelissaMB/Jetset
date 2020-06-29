@@ -6,7 +6,7 @@
 </head>
 <body>
 <section layout:fragment="content">
-	<h1> Estamos en proceso de desarollo</h1> 
+	<h1> Bienvenid@ <span th:if="${session.usuario != null}" class="text-light" th:text="${session.usuario.username}"> </h1>
 	<i class="fa fa-plane fa-5x" aria-hidden="true"></i>
 </section>
 	

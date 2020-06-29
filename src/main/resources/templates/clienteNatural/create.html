@@ -2,7 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="'layout/MainlyLayout'">
+      layout:decorator="'layout/fragments/login/LayoutLogin'">
 <section layout:fragment="content">
     <div class="container-fluid">
         <br/>
@@ -28,8 +28,8 @@
                     <div class="panel-heading">
                         <div class="clearfix">
                             <h2 style="float: left;" th:text="${title}"></h2>
-                            <a style="float: right;" class="btn btn-link aw-link-panel" href="/aeropuerto/list">Aeropuerto
-                                List</a>
+                            <a style="float: right;" class="btn btn-link aw-link-panel" href="/login"><span class="glyphicon glyphicon-user"></span>Login</a>
+
                         </div>
 
                     </div>

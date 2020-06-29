@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- Image and text -->
+
+<body>
+<div class="top_nav" th:fragment="TopBarLogin">
+    <nav class="navbar navbar-dark bg-dark">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="navbar-brand" href="#">
+                    <img th:src="@{/layout/images/logo.png}" width="40" height="40" class="d-inline-block align-top"
+                         alt="">Registrarse
+                </a>
+            </li>
+            <li  class="nav-item">
+                <a class="nav-link" href="/cliente/natural/create">Pasajero</a>
+            </li>
+            <li  class="nav-item">
+                <a class="nav-link" href="/cliente/empresa/create">Empresa</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+</body>

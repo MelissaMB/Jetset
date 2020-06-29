@@ -21,7 +21,7 @@ public class Pasajero {
     protected String email;
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario ;
+    protected Usuario usuario ;
 
 
 

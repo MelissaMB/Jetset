@@ -25,7 +25,7 @@
         <link th:href="@{/layout/css/login.css}" rel="stylesheet"/>
     </head>
     <body>
-
+        <div th:replace="layout/fragments/login/TopBarLogin :: TopBarLogin"></div>
         <div class="container">
             <div class="d-flex justify-content-center h-100">
                 <div class="card">
@@ -37,6 +37,8 @@
                             <span><i class="fab fa-twitter-square"></i></span>
                         </div>
                     </div>
+
+
                     <div class="card-body">
                         <form  method="post" th:action="@{/login}">
                             <div class="input-group form-group">

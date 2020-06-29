@@ -63,16 +63,36 @@
                         </div>
 
 
+
                         <div th:if="${tieneAerolinea}">
                             <div class="form-group"
-                                 th:classappend="${#fields.hasErrors('codigo')} ? has-error">
-                                <label for="codigo" class="col-sm-2 col-xs-12  control-label">Codigo
+                                 th:classappend="${#fields.hasErrors('avion')} ? has-error">
+                                <label for="avion" class="col-sm-2 col-xs-12  control-label">Avión
                                 </label>
                                 <div class="col-sm-4 col-xs-12 ">
-                                    <input type="text" class="form-control" th:field="*{codigo}"
-                                           id="codigo"/>
+                                    <select class="form-control" th:field="*{avion}">
+                                        <option value="">Select</option>
+                                        <option th:each="avion : ${avionesList}"
+                                                th:value="${avion.id}" th:text="${avion.getNombre()}"></option>
+                                    </select>
+
                                 </div>
                             </div>
+
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('estadovuelo')} ? has-error">
+                                <label for="estadovuelo" class="col-sm-2 col-xs-12  control-label">Estado vuelo
+                                </label>
+                                <div class="col-sm-4 col-xs-12 ">
+                                    <select class="form-control" th:field="*{estadovuelo}">
+                                        <option value="">Select</option>
+                                        <option th:each="estadovuelo : ${estadoVueloList}"
+                                                th:value="${estadovuelo.id}" th:text="${estadovuelo.getEstado_Vuelo()}"></option>
+                                    </select>
+
+                                </div>
+                            </div>
+
 
                             <div class="form-group"
                                  th:classappend="${#fields.hasErrors('origen')} ? has-error">
@@ -149,7 +169,7 @@
                                 <label for="horaDespegue"
                                        class="col-sm-2 col-xs-12  control-label">HoraDespegue </label>
                                 <div class="col-sm-4 col-xs-12 ">
-                                    <input type="time" class="form-control"
+                                    <input type="datetime-local" class="form-control"
                                            th:field="*{horaDespegue}" id="horaDespegue"/>
                                 </div>
                             </div>
@@ -160,7 +180,7 @@
                                        class="col-sm-2 col-xs-12  control-label">HoraAterrizaje
                                 </label>
                                 <div class="col-sm-4 col-xs-12 ">
-                                    <input type="time" class="form-control"
+                                    <input type="datetime-local" class="form-control"
                                            th:field="*{horaAterrizaje}" id="horaAterrizaje"/>
                                 </div>
                             </div>

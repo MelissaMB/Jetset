@@ -3,6 +3,7 @@ package com.sisvuelo.aplication.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.sisvuelo.aplication.model.*;
+import com.sisvuelo.aplication.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,11 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisvuelo.aplication.filter.VueloFilter;
-import com.sisvuelo.aplication.repository.VueloRepository;
 import com.sisvuelo.aplication.service.VueloService;
 
-import com.sisvuelo.aplication.repository.DestinoRepository;import com.sisvuelo.aplication.repository.DestinoRepository;
-import com.sisvuelo.aplication.repository.AerolineaRepository;
+import com.sisvuelo.aplication.repository.DestinoRepository;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Collections;
@@ -46,6 +45,8 @@ public class VueloController {
 	@Autowired private DestinoRepository origenRepository;
 	@Autowired private DestinoRepository destinoRepository;
 	@Autowired private AerolineaRepository aerolineaRepository;
+	@Autowired private AvionRepository avionRepository;
+	@Autowired private EstadoVueloRepository estadoVueloRepository;
 
 	@GetMapping("/create")
 	public ModelAndView create(Vuelo vuelo, @RequestParam (required = false) Integer aerolinea) {
@@ -56,10 +57,13 @@ public class VueloController {
 		boolean tieneAerolinea=false;
 
 		List<Destino> destinos= Collections.<Destino>emptyList();
+		List<Avion> aviones= Collections.<Avion>emptyList();
+
 
 		if(aerolinea!=null){
 			 Optional<Aerolinea> aerolinaObj= aerolineaRepository.findById(aerolinea);
 			 destinos=destinoRepository.findDestinoByAerolinea(aerolinaObj);
+			 aviones=avionRepository.findAvionByAerolinea(aerolinaObj);
 			tieneAerolinea=true;
 		}
 
@@ -68,7 +72,9 @@ public class VueloController {
 		mv.addObject("btn", "Create");
 		mv.addObject("origenList",destinos);
 		mv.addObject("destinoList",destinos);
+		mv.addObject("avionesList",aviones);
 		mv.addObject("aerolineaList",aerolineaRepository.findAll());
+		mv.addObject("estadoVueloList",estadoVueloRepository.findAll());
 		mv.addObject("aerolinea",aerolinea);
 		mv.addObject("tieneAerolinea",tieneAerolinea);
 
@@ -98,11 +104,13 @@ public class VueloController {
 
 		boolean tieneAerolinea=true;
 		List<Destino> destinos= Collections.<Destino>emptyList();
+		List<Avion> aviones= Collections.<Avion>emptyList();
 
 		Vuelo vuelo = vueloRepository.findById(code).get();
 		ModelAndView mv = new ModelAndView("vuelo/edit");
 		Optional<Aerolinea> aerolinea = Optional.of(vuelo.getAerolinea());
 		destinos=destinoRepository.findDestinoByAerolinea(aerolinea);
+		aviones=avionRepository.findAvionByAerolinea(aerolinea);
 
 		//Obtener destinos en base a aerolinea del vuelo o parámetro aerolinea
 
@@ -111,7 +119,9 @@ public class VueloController {
 		mv.addObject("btn", "Edit");
 		mv.addObject("origenList",destinos);
 		mv.addObject("destinoList",destinos);
+		mv.addObject("avionList",aviones);
 		mv.addObject("aerolineaList",aerolineaRepository.findAll());
+		mv.addObject("estadoVueloList",estadoVueloRepository.findAll());
 		mv.addObject("aerolinea",aerolinea);
 		mv.addObject("tieneAerolinea",tieneAerolinea);
 

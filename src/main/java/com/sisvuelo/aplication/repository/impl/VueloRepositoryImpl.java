@@ -71,6 +71,9 @@ public class VueloRepositoryImpl implements VueloHelper {
             if (vueloFilter.getAerolinea() != null) {
 				criteria.add(Restrictions.eq("aerolinea", vueloFilter.getAerolinea()));
 			}
+			if (vueloFilter.getAvion() != null) {
+				criteria.add(Restrictions.eq("avion", vueloFilter.getAvion()));
+			}
 
             if (vueloFilter.getCosto() != 0) {
 				criteria.add(Restrictions.eq("costo", vueloFilter.getCosto()));

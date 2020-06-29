@@ -41,7 +41,8 @@ public class AvionController {
 
 	private String msgSucessoCriacao = "Avion created successfully !";
 	
-	@Autowired private ModeloRepository modeloRepository;@Autowired private AerolineaRepository aerolineaRepository;
+	@Autowired private ModeloRepository modeloRepository;
+	@Autowired private AerolineaRepository aerolineaRepository;
 
 	@GetMapping("/create")
 	public ModelAndView create(Avion avion) {
@@ -56,7 +57,8 @@ public class AvionController {
 		mv.addObject(avion);
 	
 		
-		mv.addObject("modeloList",modeloRepository.findAll());mv.addObject("aerolineaList",aerolineaRepository.findAll());
+		mv.addObject("modeloList",modeloRepository.findAll());
+		mv.addObject("aerolineaList",aerolineaRepository.findAll());
 
 		return mv;
 	}

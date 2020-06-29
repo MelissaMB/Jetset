@@ -24,11 +24,11 @@ public class Precio {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	@Column(name = "id_Precio")
 	private Integer id;
-	
+
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="id_capacidad", nullable=false)
-	private Capacidad capacidad;
-	
+	@JoinColumn(name="id_clase", nullable=false)
+	private Clase clase;
+
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="id_vuelo", nullable=false)
 	private Vuelo vuelo;
@@ -40,10 +40,10 @@ public class Precio {
 		super();
 	}
 
-	public Precio(Integer id, Capacidad capacidad, Vuelo vuelo, float precio) {
+	public Precio(Integer id, Clase clase, Vuelo vuelo, float precio) {
 		super();
 		this.id = id;
-		this.capacidad = capacidad;
+		this.clase = clase;
 		this.vuelo = vuelo;
 		this.precio = precio;
 	}
@@ -56,12 +56,12 @@ public class Precio {
 		this.id = id;
 	}
 
-	public Capacidad getCapacidad() {
-		return capacidad;
+	public Clase getClase() {
+		return clase;
 	}
 
-	public void setCapacidad(Capacidad capacidad) {
-		this.capacidad = capacidad;
+	public void setClase(Clase clase) {
+		this.clase = clase;
 	}
 
 	public Vuelo getVuelo() {

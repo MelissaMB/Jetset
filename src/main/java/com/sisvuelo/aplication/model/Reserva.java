@@ -40,8 +40,8 @@ public class Reserva {
 	private Vuelo vuelo;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="id_Precio", nullable=false)
-	private Precio precio;
+	@JoinColumn(name="id_clase", nullable=false)
+	private Clase clase;
 
 	@Column(name = "cantidad", nullable = false)
 	private Integer cantidad;
@@ -57,12 +57,12 @@ public class Reserva {
 		super();
 	}
 
-	public Reserva(Integer id, Pasajero pasajero, EstatusReserva estatusReserva, Vuelo vuelo, Precio precio, Integer cantidad, Integer numeroEquipaje, Date fechaReserva) {
+	public Reserva(Integer id, Pasajero pasajero, EstatusReserva estatusReserva, Vuelo vuelo, Clase clase, Integer cantidad, Integer numeroEquipaje, Date fechaReserva) {
 		this.id = id;
 		this.pasajero = pasajero;
 		this.estatusReserva = estatusReserva;
 		this.vuelo = vuelo;
-		this.precio = precio;
+		this.clase = clase;
 		this.cantidad = cantidad;
 		this.numeroEquipaje = numeroEquipaje;
 		this.fechaReserva = fechaReserva;
@@ -124,12 +124,11 @@ public class Reserva {
 		this.estatusReserva = estatusReserva;
 	}
 
-	public Precio getPrecio() {
-		return precio;
+	public Clase getClase() {
+		return clase;
 	}
 
-	public void setPrecio(Precio precio) {
-		this.precio = precio;
+	public void setClase(Clase clase) {
+		this.clase = clase;
 	}
-
 }

@@ -24,7 +24,7 @@ public class Aeropuerto {
 	@JoinColumn(name = "id_ciudad", nullable = false)
 	private Ciudad ciudad;
 	
-	@Column(name = "codigo_aeropuerto", nullable = false, length = 10)
+	@Column(name = "codigo_aeropuerto", nullable = true, length = 10)
 	private String codigo;
 	
 	@Column(name = "nombre_aeropuerto", nullable = false, length = 250)

@@ -14,7 +14,7 @@ public class Vuelo {
     @Column(name = "id_vuelo")
     private Integer id;
 
-    @Column(name = "codigo", nullable = false, length = 25)
+    @Column(name = "codigo", nullable = true, length = 25)
     private String codigo;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -28,6 +28,10 @@ public class Vuelo {
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_aerolinea", nullable = false)
     private Aerolinea aerolinea;
+
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id", nullable = false)
+    private Avion avion;
     
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_estado_vuelo", nullable = false)
@@ -51,13 +55,12 @@ public class Vuelo {
     @Column(name = "hora_despegue", updatable = true, nullable = true)
     private Date horaDespegue;
 
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "hora_aterrizaje", updatable = true, nullable = true)
-    private Date horaAterrizaje;
-    
-    @Column(name = "hora_aterrizaje_programada", updatable = true, nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date horaAterrizajeProgramada;
+    private Date horaAterrizaje;
+
 
     @Column(name = "tiene_escala", nullable = false)
     private boolean tieneEscala;
@@ -73,6 +76,8 @@ public class Vuelo {
                 ", origen=" + origen +
                 ", destino=" + destino +
                 ", aerolinea=" + aerolinea +
+                ", avion=" + avion +
+                ", estadovuelo=" + estadovuelo +
                 ", costo=" + costo +
                 ", millasReales=" + millasReales +
                 ", millasPasajeros=" + millasPasajeros +
@@ -83,12 +88,14 @@ public class Vuelo {
                 '}';
     }
 
-    public Vuelo(Integer id, String codigo, Destino origen, Destino destino, Aerolinea aerolinea, double costo, double millasReales, double millasPasajeros, Date fecha, Date horaDespegue, Date horaAterrizaje, boolean tieneEscala) {
+    public Vuelo(Integer id, String codigo, Destino origen, Destino destino, Aerolinea aerolinea, Avion avion, EstadoVuelo estadovuelo, double costo, double millasReales, double millasPasajeros, Date fecha, Date horaDespegue, Date horaAterrizaje, Date horaAterrizajeProgramada, boolean tieneEscala) {
         this.id = id;
         this.codigo = codigo;
         this.origen = origen;
         this.destino = destino;
         this.aerolinea = aerolinea;
+        this.avion = avion;
+        this.estadovuelo = estadovuelo;
         this.costo = costo;
         this.millasReales = millasReales;
         this.millasPasajeros = millasPasajeros;
@@ -96,6 +103,14 @@ public class Vuelo {
         this.horaDespegue = horaDespegue;
         this.horaAterrizaje = horaAterrizaje;
         this.tieneEscala = tieneEscala;
+    }
+
+    public Avion getAvion() {
+        return avion;
+    }
+
+    public void setAvion(Avion avion) {
+        this.avion = avion;
     }
 
     public Integer getId() {
@@ -193,14 +208,6 @@ public class Vuelo {
     public void setHoraAterrizaje(Date horaAterrizaje) {
         this.horaAterrizaje = horaAterrizaje;
     }
-
-    public Date getHoraAterrizajeProgramada() {
- 		return horaAterrizajeProgramada;
- 	}
-
- 	public void setHoraAterrizajeProgramada(Date horaAterrizajeProgramada) {
- 		this.horaAterrizajeProgramada = horaAterrizajeProgramada;
- 	}
 
     public boolean isTieneEscala() {
         return tieneEscala;

@@ -19,16 +19,29 @@ public class Pasajero {
     protected String telefonoMovil;
     @Column(name = "EMAIL", nullable = true, length = 50)
     protected String email;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario ;
 
 
 
     public Pasajero() {
     }
 
-    public Pasajero(String telefonoFijo, String telefonoMovil, String email) {
+    public Pasajero(Integer numeroViajero, String telefonoFijo, String telefonoMovil, String email, Usuario usuario) {
+        this.numeroViajero = numeroViajero;
         this.telefonoFijo = telefonoFijo;
         this.telefonoMovil = telefonoMovil;
         this.email = email;
+        this.usuario = usuario;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Integer getNumeroViajero() {

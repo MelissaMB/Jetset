@@ -42,8 +42,8 @@ public class ClienteNatural extends Pasajero {
     public ClienteNatural() {
     }
 
-    public ClienteNatural(String telefonoFijo, String telefonoMovil, String email, Integer numeroDocumento, Integer nit, String primerNombre, String segundoNomnbre, String primerApellido, String segundoApellido, EstadoCivil estadoCivil, Genero genero, TipoDocumento tipoDocumento, String fechaNacimiento) {
-        super(telefonoFijo, telefonoMovil, email);
+    public ClienteNatural(Integer numeroViajero, String telefonoFijo, String telefonoMovil, String email, Usuario usuario, Integer numeroDocumento, Integer nit, String primerNombre, String segundoNomnbre, String primerApellido, String segundoApellido, EstadoCivil estadoCivil, Genero genero, TipoDocumento tipoDocumento, String fechaNacimiento) {
+        super(numeroViajero, telefonoFijo, telefonoMovil, email, usuario);
         this.numeroDocumento = numeroDocumento;
         this.nit = nit;
         this.primerNombre = primerNombre;

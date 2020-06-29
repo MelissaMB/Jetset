@@ -21,8 +21,8 @@ public class ClienteEmpresa extends Pasajero{
     public ClienteEmpresa() {
     }
 
-    public ClienteEmpresa(String telefonoFijo, String telefonoMovil, String email, String nombreEmpresa, Integer nic, String nombreContacto) {
-        super(telefonoFijo, telefonoMovil, email);
+    public ClienteEmpresa(Integer numeroViajero, String telefonoFijo, String telefonoMovil, String email, Usuario usuario, String nombreEmpresa, Integer nic, String nombreContacto) {
+        super(numeroViajero, telefonoFijo, telefonoMovil, email, usuario);
         this.nombreEmpresa = nombreEmpresa;
         this.nic = nic;
         this.nombreContacto = nombreContacto;

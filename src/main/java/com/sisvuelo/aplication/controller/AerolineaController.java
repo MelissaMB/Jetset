@@ -54,6 +54,8 @@ public class AerolineaController {
 			mv.addObject("title", "Aerolinea edit");
 			mv.addObject("btn", "Edit");
 		}
+		System.out.println(aerolinea);
+
 		mv.addObject(aerolinea);
 	
 		

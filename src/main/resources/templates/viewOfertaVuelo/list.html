@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/MainlyLayout'">
+<head>
+    <title>Oferta</title>
+
+</head>
+<body>
+
+<section layout:fragment="content">
+    <div class="container-fluid">
+    </div>
+
+<table class="table table-bordered table-striped "
+       style="margin-top: 60px;">
+    <thead>
+    <tr>
+        <td>Identi</td>
+        <td>Id vuelo</td>
+        <td>Vuelo</td>
+        <td>Id Aerolinea</td>
+        <td>Aerolinea</td>
+        <td>Escalas</td>
+        <td>Origen</td>
+        <td>Destino</td>
+        <td>Hora aterrizaje</td>
+        <td>Duracion</td>
+        <td>Hora despegue</td>
+        <td>ID clase</td>
+        <td>Clase</td>
+        <td>Precio</td>
+        <td>Disponibles</td>
+        <td>#</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="obj : ${pagina.conteudo}">
+        <td th:text="${obj.getIdent()}"></td>
+        <td th:text="${obj.getIdVuelo()}"></td>
+        <td th:text="${obj.getVuelo()}"></td>
+        <td th:text="${obj.getIdAerolinea()}"></td>
+        <td th:text="${obj.getAerolinea()}"></td>
+        <td th:text="${obj.getEscalas()}"></td>
+        <td th:text="${obj.getHoraAterrizaje()}"></td>
+        <td th:text="${obj.getDuracion()}"></td>
+        <td th:text="${obj.getHoraDespegue()}"></td>
+        <td th:text="${obj.getIdClase()}"></td>
+        <td th:text="${obj.getClase()}"></td>
+        <td th:text="${obj.getDisponibles()}"></td>
+        <td class="text-center">
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+</section>
+</body>
+</html>

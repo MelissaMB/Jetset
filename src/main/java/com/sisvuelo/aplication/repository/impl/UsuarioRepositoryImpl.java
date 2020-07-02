@@ -50,8 +50,8 @@ public class UsuarioRepositoryImpl implements UsuarioHelper {
 
 	private void addFilter(UsuarioFilter usuarioFilter, Criteria criteria) {
 		if (usuarioFilter != null) {
-			
-                      if (usuarioFilter.getId() != null) {
+
+			if (usuarioFilter.getId() != null) {
 				criteria.add(Restrictions.eq("id", usuarioFilter.getId()));
 			}
 

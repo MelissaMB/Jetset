@@ -36,6 +36,8 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+
+
 	private String msgDeleteSucesso = "Usuario deleted successfully !";
 
 	private String msgDeleteError = "Usuario an error has occurred !";

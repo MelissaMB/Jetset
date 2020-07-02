@@ -7,8 +7,7 @@
 <section layout:fragment="content">
 	<div class="container-fluid">
 		<br />
-		<form class="form-horizontal" method="POST" th:action="@{/aerolinea/create}"
-			>
+		<form class="form-horizontal" method="POST" th:action="@{/aerolinea/create}" th:object="${aerolinea}">
 
 			<div style="margin-top: 50px;">
 

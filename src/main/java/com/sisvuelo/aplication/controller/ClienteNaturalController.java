@@ -63,7 +63,7 @@ public class ClienteNaturalController {
     public ModelAndView save(@Validated ClienteNatural clienteNatural, Errors errors, RedirectAttributes attributes){
 
        Rol rol = new Rol();
-       rol = rolRepository.findById(3).get();
+       rol = rolRepository.findById(1).get();
        String from = clienteNatural.getEmail();
        String to = "vuelo@jetset.com";
        String subject = "Creación de usuario" + clienteNatural.getPrimerNombre()+ " "+clienteNatural.getPrimerApellido();

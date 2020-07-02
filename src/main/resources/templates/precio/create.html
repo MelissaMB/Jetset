@@ -7,7 +7,7 @@
 <section layout:fragment="content">
 	<div class="container-fluid">
 		<br />
-		<form class="form-horizontal" method="POST" action="/precio/create" th:object="${precio}">
+		<form class="form-horizontal" method="POST" th:action="@{/precio/create}" th:object="${precio}">
 
 			<div style="margin-top: 50px;">
 
@@ -45,7 +45,7 @@
 	<div class="col-sm-4 col-xs-12 ">
 		<select class="form-control" th:field="*{clase}">
 			<option value="">Select</option>
-			<option th:each="gclass : ${claseList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+			<option th:each="gclass : ${claseList}" th:value="${gclass.id}" th:text="${gclass.nombreClase}"></option>
 		</select>
 
 	</div>
@@ -57,7 +57,7 @@
 	<div class="col-sm-4 col-xs-12 ">
 		<select class="form-control" th:field="*{vuelo}">
 			<option value="">Select</option>
-			<option th:each="gclass : ${vueloList}" th:value="${gclass.id}" th:text="${gclass.id}"></option>
+			<option th:each="gclass : ${vueloList}" th:value="${gclass.id}" th:text="${gclass.codigo}"></option>
 		</select>
 
 	</div>

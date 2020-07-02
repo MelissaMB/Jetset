@@ -32,10 +32,10 @@ public class Vuelo {
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id", nullable = false)
     private Avion avion;
-    
+
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_estado_vuelo", nullable = false)
-	private EstadoVuelo estadovuelo;
+    @JoinColumn(name = "id_estado_vuelo", nullable = false)
+    private EstadoVuelo estadovuelo;
 
     @Column(name = "Costo", nullable = false)
     private double costo;
@@ -152,15 +152,15 @@ public class Vuelo {
     public void setAerolinea(Aerolinea aerolinea) {
         this.aerolinea = aerolinea;
     }
-    
-    public EstadoVuelo getEstadovuelo() {
-		return estadovuelo;
-	}
 
-	public void setEstadovuelo(EstadoVuelo estadovuelo) {
-		this.estadovuelo = estadovuelo;
-	}
-	
+    public EstadoVuelo getEstadovuelo() {
+        return estadovuelo;
+    }
+
+    public void setEstadovuelo(EstadoVuelo estadovuelo) {
+        this.estadovuelo = estadovuelo;
+    }
+
     public double getCosto() {
         return costo;
     }

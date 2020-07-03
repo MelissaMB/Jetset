@@ -50,14 +50,15 @@ public class ReservaController {
 	@Autowired private UsuarioRepository usuarioRepository;
 
 	@GetMapping("/create/{vuelo}/{clase}/{usuario}")
-	public void create(@PathVariable("vuelo") Integer idvuelo, @PathVariable("clase") Integer idclase, @PathVariable("usuario") Integer idusuario ) {
+	public String create(@PathVariable("vuelo") Integer idvuelo, @PathVariable("clase") Integer idclase, @PathVariable("usuario") Integer idusuario ) {
 
-
-		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date(System.currentTimeMillis());
+		System.out.println(idclase);
+		System.out.println(idvuelo);
+		System.out.println(idusuario);
 
 		Optional<Vuelo> optionalVuelo =vueloRepository.findById(idvuelo);
 		Vuelo vuelo = optionalVuelo.get();
+		System.out.println(vuelo);
 
 		Optional <Clase> optionalClase =claseRepository.findById(idclase);
 		Clase clase = optionalClase.get();
@@ -70,20 +71,24 @@ public class ReservaController {
 
 		Optional <EstatusReserva> estatusReservaOptional =estatusReservaRepository.findById(1);
 		EstatusReserva estatusReserva= estatusReservaOptional.get();
+		System.out.println(estatusReserva);
+
 		Pasajero pasajero = pasajeroRepository.findByUsuario(usuario);
 		System.out.println(pasajero);
 
 
 		Reserva reserva = new Reserva();
 		reserva.setClase(clase);
-		//reserva.setPasajero(pasajero);
+	    reserva.setPasajero(pasajero);
 		reserva.setVuelo(vuelo);
 		reserva.setEstatusReserva(estatusReserva);
-		reserva.setFechaReserva(date);
+
 		reserva.setCantidad(1);
 		reserva.setNumeroEquipaje(1);
 
 		reservaService.save(reserva);
+
+		return "redirect:/oferta/vuelo/list";
 
 	}
 

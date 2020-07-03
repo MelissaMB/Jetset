@@ -75,6 +75,13 @@
 							</ul>
 						</li>
 
+						<li sec:authorize="hasAnyAuthority('AdminAeropuerto', 'Administrador')"><a><i class="fa fa-map-marker"></i> Rservas <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/reserva/list">Paises</a></li>
+							</ul>
+						</li>
+
 						<li sec:authorize="hasAnyAuthority('AdminAeropuerto', 'Administrador')"><a><i class="fa fa-map-marker"></i> Paises <span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
@@ -82,6 +89,9 @@
 								<li><a href="/ciudad/list">Ciudades</a></li>
 							</ul>
 						</li>
+
+
+
 
 					</ul>
 				</div>

@@ -87,7 +87,6 @@ public class VueloController {
 		System.out.println(errors);
 		System.out.println(vuelo);
 
-
 		if (errors.hasErrors()) {
 			return create(vuelo,1);
 		}

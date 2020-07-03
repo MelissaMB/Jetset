@@ -7,11 +7,13 @@ import com.sisvuelo.aplication.model.ViewOfertaVuelo;
 import com.sisvuelo.aplication.repository.helper.ViewOfertaVueloHelper;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,8 +49,8 @@ public class ViewOfertaVueloRepositoryImpl implements ViewOfertaVueloHelper {
 
     private void addFilter(ViewOfertaVueloFilter viewOfertaVueloFilter, Criteria criteria){
         if(viewOfertaVueloFilter!= null){
-            if(viewOfertaVueloFilter.getIdent()!=null){
-                criteria.add(Restrictions.eq("identificador", viewOfertaVueloFilter.getIdent()));
+            if (!StringUtils.isEmpty(viewOfertaVueloFilter.getVuelo())) {
+                criteria.add(Restrictions.ilike("vuelo", viewOfertaVueloFilter.getVuelo(), MatchMode.ANYWHERE));
             }
         }
     }

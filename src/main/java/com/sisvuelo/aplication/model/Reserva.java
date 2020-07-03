@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Optional;
 //import javax.persistence.Temporal;
 //import javax.persistence.TemporalType;
 
@@ -28,24 +29,24 @@ public class Reserva {
 	private Integer id;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="id_pasajero", nullable=false)
+	@JoinColumn(name="id_pasajero", nullable=true)
 	private Pasajero pasajero;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="id_estatus_reserva", nullable=false)
+	@JoinColumn(name="id_estatus_reserva", nullable=true)
 	private EstatusReserva estatusReserva;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="id_vuelo", nullable=false)
+	@JoinColumn(name="id_vuelo", nullable=true)
 	private Vuelo vuelo;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="id_clase", nullable=false)
+	@JoinColumn(name="id_clase", nullable=true)
 	private Clase clase;
 
-	@Column(name = "cantidad", nullable = false)
+	@Column(name = "cantidad", nullable = true)
 	private Integer cantidad;
-	@Column(name = "numero_equipaje", nullable = false)
+	@Column(name = "numero_equipaje", nullable = true)
 	private Integer numeroEquipaje;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fecha_reserva", updatable = true, nullable = true)

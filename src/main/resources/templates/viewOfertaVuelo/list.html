@@ -5,57 +5,216 @@
       layout:decorator="'layout/MainlyLayout'">
 <head>
     <title>Oferta</title>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 <body>
-
 <section layout:fragment="content">
     <div class="container-fluid">
-    </div>
+        <div style="margin-top: 60px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="clearfix">
+                        <h2 style="float: left;">Oferta de Vuelo</h2>
+                    </div>
+                </div>
 
-<table class="table table-bordered table-striped "
-       style="margin-top: 60px;">
-    <thead>
-    <tr>
-        <td>Identi</td>
-        <td>Id vuelo</td>
-        <td>Vuelo</td>
-        <td>Id Aerolinea</td>
-        <td>Aerolinea</td>
-        <td>Escalas</td>
-        <td>Origen</td>
-        <td>Destino</td>
-        <td>Hora aterrizaje</td>
-        <td>Duracion</td>
-        <td>Hora despegue</td>
-        <td>ID clase</td>
-        <td>Clase</td>
-        <td>Precio</td>
-        <td>Disponibles</td>
-        <td>#</td>
-    </tr>
-    </thead>
+                <div class="panel-body">
 
-    <tbody>
-    <tr th:each="obj : ${pagina.conteudo}">
-        <td th:text="${obj.getIdent()}"></td>
-        <td th:text="${obj.getIdVuelo()}"></td>
-        <td th:text="${obj.getVuelo()}"></td>
-        <td th:text="${obj.getIdAerolinea()}"></td>
-        <td th:text="${obj.getAerolinea()}"></td>
-        <td th:text="${obj.getEscalas()}"></td>
-        <td th:text="${obj.getHoraAterrizaje()}"></td>
-        <td th:text="${obj.getDuracion()}"></td>
-        <td th:text="${obj.getHoraDespegue()}"></td>
-        <td th:text="${obj.getIdClase()}"></td>
-        <td th:text="${obj.getClase()}"></td>
-        <td th:text="${obj.getDisponibles()}"></td>
-        <td class="text-center">
-        </td>
-    </tr>
-    </tbody>
 
-</table>
+                    <form class="form-horizontal" method="GET" action="/oferta/vuelo/list"
+                          th:object="${viewOfertaVueloFilter}">
+
+                        <div th:fragment="mensagemGeral" class="alert alert-success"
+                             th:if="${!#strings.isEmpty(message)}">
+                            <span th:text="${message}"></span>
+                        </div>
+
+                        <div th:fragment="mensagemErro" class="alert alert-danger"
+                             th:if="${!#strings.isEmpty(messageErro)}">
+                            <span th:text="${messageErro}"></span>
+                        </div>
+
+                        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                            <div th:each="detailedError : ${#fields.detailedErrors()}">
+                                <span th:text="${detailedError.message}"></span>
+                            </div>
+                        </div>
+                        <div class="container">
+
+
+                            <div class="form-group" th:classappend="${#fields.hasErrors('vuelo')} ? has-error">
+                                <label for="vuelo" class="col-sm-2 col-xs-12  control-label">Código vuelo
+                                </label>
+                                <div class="col-sm-4 col-xs-12 ">
+                                    <input type="text" class="form-control" th:field="*{vuelo}" id="vuelo"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <br>
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn  btn-primary">Search</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </form>
+
+                    <div class="table-responsive" th:if="${pagina != null}">
+                        <table class="table table-bordered table-striped "
+                               style="margin-top: 60px;">
+                            <thead>
+                            <tr>
+                                <td>Identi</td>
+                                <td>Id vuelo</td>
+                                <td>Vuelo</td>
+                                <td>Id Aerolinea</td>
+                                <td>Aerolinea</td>
+                                <td>Escalas</td>
+                                <td>Origen</td>
+                                <td>Destino</td>
+                                <td>Hora aterrizaje</td>
+                                <td>Duracion</td>
+                                <td>Hora despegue</td>
+                                <td>ID clase</td>
+                                <td>Clase</td>
+                                <td>Precio</td>
+                                <td>Disponibles</td>
+                                <td>Reserva</td>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="obj : ${pagina.conteudo}">
+                                <td th:text="${obj.getIdent()}"></td>
+                                <td th:text="${obj.getIdVuelo()}"></td>
+                                <td th:text="${obj.getVuelo()}"></td>
+                                <td th:text="${obj.getIdAerolinea()}"></td>
+                                <td th:text="${obj.getAerolinea()}"></td>
+                                <td th:text="${obj.getEscalas()}"></td>
+                                <td th:text="${obj.getOrigen()}"></td>
+                                <td th:text="${obj.getDestino()}"></td>
+                                <td th:text="${obj.getHoraAterrizaje()}"></td>
+                                <td th:text="${obj.getDuracion()}"></td>
+                                <td th:text="${obj.getHoraDespegue()}"></td>
+                                <td th:text="${obj.getIdClase()}"></td>
+                                <td th:text="${obj.getClase()}"></td>
+                                <td th:text="${obj.getPrecio()}"></td>
+                                <td th:text="${obj.getDisponibles()}"></td>
+                                <td>
+                                    <button id="btn-reserva" type="button"
+                                            th:attr="data-origen=${obj.getOrigen()},
+                                                     data-destino=${obj.getDestino()},
+                                                     data-precio=${obj.getPrecio()},
+                                                     data-clase=${obj.getClase()},
+                                                     data-aerolinea=${obj.getAerolinea()},
+                                                     data-vuelo=${obj.getVuelo()},
+                                                     data-id-vuelo=${obj.getIdVuelo()},
+                                                     data-id-clase=${obj.getIdClase()},
+                                                     data-usuario=${session.usuario.id}"
+                                            class="btn btn-primary btn-sm">Reservar
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header" style="padding:35px 50px;">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4><span class="glyphicon glyphicon-lock"></span> Detalle de Reserva</h4>
+                                    </div>
+                                    <div class="modal-body" style="padding:40px 50px;">
+                                        <p><strong>Vuelo:</strong><label id="label-vuelo"></label></p>
+                                        <p><strong>Aerolinea:</strong><label id="label-aerolinea"></label></p>
+                                        <p><strong>Origen:</strong><label id="label-origen"></label></p>
+                                        <p><strong>Destino:</strong><label id="label-destino"></label></p>
+                                        <p><strong>Clase:</strong><label id="label-clase"></label></p>
+
+                                        <button type="submit" id="btn-reservar" class="btn btn-success btn-block"><span
+                                                class="glyphicon glyphicon-off"></span> Reservar
+                                        </button>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" id="btn-cancel"
+                                                class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
+                                                class="glyphicon glyphicon-remove"></span> Cancel
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </section>
+
+
+<section layout:fragment="javascript-extra">
+    <script>
+        $(document).ready(function () {
+
+                $(".btn").on("click", function () {
+                    let vuelo = $(this).data('vuelo');
+                    let aerolinea = $(this).data('aerolinea');
+                    let origen = $(this).data('origen');
+                    let destino = $(this).data('destino');
+                    let clase = $(this).data('clase');
+                    let idvuelo = $(this).data('id-vuelo');
+                    let idclase = $(this).data('id-clase');
+                    let idusuario = $(this).data('usuario');
+
+
+                    $("#myModal").modal();
+                    $("#label-vuelo").text(vuelo);
+                    $("#label-aerolinea").text(aerolinea);
+                    $("#label-origen").text(origen);
+                    $("#label-destino").text(destino);
+                    $("#label-clase").text(clase);
+                    $("#id-vuelo").text(vuelo);
+
+                    $("#btn-reservar").on("click", {vuelo: idvuelo, clase:idclase, usuario:idusuario}, Reserva);
+
+
+                });
+
+                function Reserva(event) {
+                    let vuelo = event.data.vuelo;
+                    let clase = event.data.clase;
+                    let usuario = event.data.usuario;
+
+                    let url = "/reserva/create/"+vuelo+"/"+clase+"/"+usuario;
+                    axios.get(url)
+                        .then(function (response) {
+                            console.log(response);
+                        }).catch(function (error) {
+                        console.log(error);
+                    })
+                }
+
+
+            }
+        )
+
+
+    </script>
+
+</section>
+
 </body>
 </html>

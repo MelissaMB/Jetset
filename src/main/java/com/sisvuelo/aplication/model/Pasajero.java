@@ -76,4 +76,14 @@ public class Pasajero {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Pasajero{" +
+                "numeroViajero=" + numeroViajero +
+                ", telefonoFijo='" + telefonoFijo + '\'' +
+                ", telefonoMovil='" + telefonoMovil + '\'' +
+                ", email='" + email + '\'' +
+                ", usuario=" + usuario +
+                '}';
+    }
 }

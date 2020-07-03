@@ -2,6 +2,8 @@ package com.sisvuelo.aplication.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sisvuelo.aplication.model.*;
+import com.sisvuelo.aplication.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,12 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisvuelo.aplication.filter.ReservaFilter;
-import com.sisvuelo.aplication.model.Reserva;
-import com.sisvuelo.aplication.repository.ReservaRepository;
 import com.sisvuelo.aplication.service.ReservaService;
 
-import com.sisvuelo.aplication.repository.PasajeroRepository;import com.sisvuelo.aplication.repository.EstatusReservaRepository;import com.sisvuelo.aplication.repository.VueloRepository;import com.sisvuelo.aplication.repository.ClaseRepository;
-import com.sisvuelo.aplication.model.PageWrapper;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/reserva/")
@@ -40,48 +41,53 @@ public class ReservaController {
 	private String msgDeleteError = "Reserva an error has occurred !";
 
 	private String msgSucessoCriacao = "Reserva created successfully !";
-	
-	@Autowired private PasajeroRepository pasajeroRepository;@Autowired private EstatusReservaRepository estatusReservaRepository;@Autowired private VueloRepository vueloRepository;@Autowired private ClaseRepository claseRepository;
 
-	@GetMapping("/create")
-	public ModelAndView create(Reserva reserva) {
-		ModelAndView mv = new ModelAndView("reserva/create");
-		if (reserva.getId() == null) {
-			mv.addObject("title", "Reserva create");
-			mv.addObject("btn", "Create");
-		} else {
-			mv.addObject("title", "Reserva edit");
-			mv.addObject("btn", "Edit");
-		}
-		mv.addObject(reserva);
-	
-		
-		mv.addObject("pasajeroList",pasajeroRepository.findAll());mv.addObject("estatusReservaList",estatusReservaRepository.findAll());mv.addObject("vueloList",vueloRepository.findAll());mv.addObject("claseList",claseRepository.findAll());
 
-		return mv;
-	}
+	@Autowired private PasajeroRepository pasajeroRepository;
+	@Autowired private EstatusReservaRepository estatusReservaRepository;
+	@Autowired private VueloRepository vueloRepository;
+	@Autowired private ClaseRepository claseRepository;
+	@Autowired private UsuarioRepository usuarioRepository;
 
-	@PostMapping("/create")
-	public ModelAndView save(@Validated Reserva reserva, Errors errors, RedirectAttributes attributes) {
+	@GetMapping("/create/{vuelo}/{clase}/{usuario}")
+	public void create(@PathVariable("vuelo") Integer idvuelo, @PathVariable("clase") Integer idclase, @PathVariable("usuario") Integer idusuario ) {
 
-		if (errors.hasErrors()) {
-			return create(reserva);
-		}
+
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date(System.currentTimeMillis());
+
+		Optional<Vuelo> optionalVuelo =vueloRepository.findById(idvuelo);
+		Vuelo vuelo = optionalVuelo.get();
+
+		Optional <Clase> optionalClase =claseRepository.findById(idclase);
+		Clase clase = optionalClase.get();
+		System.out.println(optionalClase);
+
+		Optional <Usuario> optionalUsuario =usuarioRepository.findById(idusuario);
+		Usuario usuario = optionalUsuario.get();
+		System.out.println("hola");
+		System.out.println(usuario);
+
+		Optional <EstatusReserva> estatusReservaOptional =estatusReservaRepository.findById(1);
+		EstatusReserva estatusReserva= estatusReservaOptional.get();
+		Pasajero pasajero = pasajeroRepository.findByUsuario(usuario);
+		System.out.println(pasajero);
+
+
+		Reserva reserva = new Reserva();
+		reserva.setClase(clase);
+		//reserva.setPasajero(pasajero);
+		reserva.setVuelo(vuelo);
+		reserva.setEstatusReserva(estatusReserva);
+		reserva.setFechaReserva(date);
+		reserva.setCantidad(1);
+		reserva.setNumeroEquipaje(1);
 
 		reservaService.save(reserva);
-		attributes.addFlashAttribute("message", msgSucessoCriacao);
-		return new ModelAndView("redirect:/reserva/create");
 
 	}
 
-	@GetMapping("/{code}")
-	public ModelAndView edit(@PathVariable("code") Integer code) {
-		Reserva reserva = new Reserva();
-		reserva = reservaRepository.findById(code).get();
 
-		return create(reserva);
-
-	}
 
 	@GetMapping("/list")
 	public ModelAndView search(ReservaFilter reservaFilter, BindingResult result,

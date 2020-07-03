@@ -1,21 +1,22 @@
 --------------------------------------------------------
--- Archivo creado  - sábado-junio-27-2020   
+-- Archivo creado  - jueves-julio-02-2020   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for View VIEW_ITINERARIO
 --------------------------------------------------------
 
-  CREATE OR REPLACE FORCE VIEW "BAD115"."VIEW_ITINERARIO" ("Aerolinea", "IdVuelo", "Vuelo", "Origen", "Destino", "Hora Programada", "Hora Real", "Estado") AS 
+  CREATE OR REPLACE FORCE VIEW "BAD115"."VIEW_ITINERARIO" ("AEROLINEA", "ID_VUELO", "CODIGO", "ORIGEN", "DESTINO", "HORA_ATERRIZAJE", "HORA_REAL", "ESTADO_VUELO") AS 
   SELECT
-	TB_AEROLINEA.NOMBRE_CORTO AS "Aerolinea",
-	TB_VUELO.ID_VUELO AS "IdVuelo",
-	TB_VUELO.CODIGO AS "Vuelo",
-	FN_AEROPUERTO_POR_DESTINO(TB_VUELO.ID_ORIGEN) AS "Origen",
-	FN_AEROPUERTO_POR_DESTINO(TB_VUELO.ID_DESTINO) AS "Destino",
-	TB_VUELO.HORA_ATERRIZAJE AS "Hora Programada",
-	CURRENT_TIMESTAMP AS "Hora Real",
-	TB_ESTADO_VUELO.ESTADO_VUELO AS "Estado"
-	FROM TB_VUELO
+	TB_AEROLINEA.NOMBRE_CORTO AS Aerolinea,
+	TB_VUELO.ID_VUELO AS id_vuelo,
+	TB_VUELO.CODIGO AS codigo,
+	FN_AEROPUERTO_POR_DESTINO(TB_VUELO.ID_ORIGEN) AS origen,
+	FN_AEROPUERTO_POR_DESTINO(TB_VUELO.ID_DESTINO) AS destino,
+	TB_VUELO.HORA_ATERRIZAJE AS hora_aterrizaje,
+	CURRENT_TIMESTAMP AS hora_real,
+	TB_ESTADO_VUELO.ESTADO_VUELO AS estado_vuelo
+	
+  FROM TB_VUELO
 	LEFT JOIN TB_AEROLINEA ON TB_VUELO.ID_AEROLINEA=TB_AEROLINEA.ID_AEROLINEA
 	LEFT JOIN TB_DESTINO ON TB_VUELO.ID_DESTINO=TB_DESTINO.ID_DESTINO --AND TB_VUELO.ID_ORIGEN=TB_DESTINO.ID_DESTINO
 	LEFT JOIN TB_AEROPUERTO ON TB_DESTINO.ID_AEROPUERTO= TB_AEROPUERTO.ID_AEROPUERTO

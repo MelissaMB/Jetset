@@ -1,5 +1,5 @@
 --------------------------------------------------------
--- Archivo creado  - sábado-junio-27-2020   
+-- Archivo creado  - jueves-julio-02-2020   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Procedure SP_ITINERARIO
@@ -15,13 +15,13 @@ vMensaje1		VARCHAR2(100) := 'Vuelo PROGRAMADO y RETRASADO';
 vMensaje2		VARCHAR2(100) := 'Vuelo PROGRAMADO y A TIEMPO';
 
 CURSOR C_ITINERARIO IS
-  SELECT "IdVuelo" IdVuelo, "Estado" Estado, "Hora Programada" HoraProgramada
+  SELECT id_vuelo, estado_vuelo, hora_aterrizaje
     FROM VIEW_ITINERARIO
-   WHERE "Aerolinea" LIKE pAerolinea
-     AND "Origen"    LIKE pOrigen
-     AND "Destino"   LIKE pDestino
-     AND "IdVuelo"   LIKE pCodigo
-     AND "Hora Programada"     LIKE pFecha;
+   WHERE Aerolinea LIKE pAerolinea
+     AND origen    LIKE pOrigen
+     AND destino   LIKE pDestino
+     AND id_vuelo   LIKE pCodigo
+     AND hora_aterrizaje LIKE pFecha;
 
 BEGIN
 	OPEN C_ITINERARIO;

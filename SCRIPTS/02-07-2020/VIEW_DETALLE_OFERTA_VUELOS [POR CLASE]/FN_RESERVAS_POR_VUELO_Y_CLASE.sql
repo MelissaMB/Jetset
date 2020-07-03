@@ -1,5 +1,5 @@
 --------------------------------------------------------
--- Archivo creado  - domingo-junio-28-2020   
+-- Archivo creado  - jueves-julio-02-2020   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Function FN_RESERVAS_POR_VUELO_Y_CLASE
@@ -11,7 +11,7 @@ RETURN INT
 IS
 V_RESERVAS INT;
 BEGIN
-  SELECT SUM(CANTIDAD)
+  SELECT NVL (SUM(CANTIDAD),0)
     INTO V_RESERVAS
     FROM TB_RESERVA
    WHERE ID_VUELO = P_ID_VUELO

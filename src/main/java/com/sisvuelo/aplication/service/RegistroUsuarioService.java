@@ -17,15 +17,15 @@ public class RegistroUsuarioService {
 
      @Autowired
      UsuarioRepository usuarioRepository;
- //    @Autowired
-  //   PasswordEncoder passwordEncoder;
+     @Autowired
+     PasswordEncoder passwordEncoder;
 
      @Transactional
      public Usuario RegistrarUsuario(String email, Rol rol){
          Usuario usuario= new Usuario();
          usuario.setUsername(email);
          usuario.setRol(rol);
-         usuario.setPassword("jetset2020");
+         usuario.setPassword(passwordEncoder.encode("jetset2020"));
          usuario.setEstado(1);
          usuarioRepository.save(usuario);
 

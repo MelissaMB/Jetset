@@ -75,10 +75,17 @@
 							</ul>
 						</li>
 
-						<li sec:authorize="hasAnyAuthority('AdminAeropuerto', 'Administrador')"><a><i class="fa fa-map-marker"></i> Rservas <span
+						<li sec:authorize="hasAnyAuthority('Administrador')"><a><i class="fa fa-map"></i> Reservas <span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
-								<li><a href="/reserva/list">Paises</a></li>
+								<li><a href="/reserva/list">Reservas</a></li>
+							</ul>
+						</li>
+
+						<li sec:authorize="hasAnyAuthority('Pasajero', 'Administrador')"><a><i class="fa fa-map-marker"></i> Intinerario <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/oferta/vuelo/list">Itinerario</a></li>
 							</ul>
 						</li>
 

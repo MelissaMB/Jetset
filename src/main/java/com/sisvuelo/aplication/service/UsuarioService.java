@@ -21,6 +21,8 @@ public class UsuarioService {
     @Autowired
 	private UsuarioRepository usuarioRepository;
 
+
+
 	@Transactional
 	public void save(Usuario usuario) {
 		usuarioRepository.save(usuario);

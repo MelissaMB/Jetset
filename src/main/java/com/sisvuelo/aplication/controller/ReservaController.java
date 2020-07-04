@@ -101,7 +101,10 @@ public class ReservaController {
 		ModelAndView mv = new ModelAndView("reserva/list");
 		mv.addObject("pagina", new PageWrapper<>(reservaService.filter(reservaFilter, pageable),httpServletRequest));
         
-		mv.addObject("pasajeroList",pasajeroRepository.findAll());mv.addObject("estatusReservaList",estatusReservaRepository.findAll());mv.addObject("vueloList",vueloRepository.findAll());mv.addObject("claseList",claseRepository.findAll());
+		mv.addObject("pasajeroList",pasajeroRepository.findAll());
+		mv.addObject("estatusReservaList",estatusReservaRepository.findAll());
+		mv.addObject("vueloList",vueloRepository.findAll());
+		mv.addObject("claseList",claseRepository.findAll());
 		return mv;
 	}
 

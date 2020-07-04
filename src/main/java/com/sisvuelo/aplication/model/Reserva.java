@@ -48,6 +48,7 @@ public class Reserva {
 	private Integer cantidad;
 	@Column(name = "numero_equipaje", nullable = true)
 	private Integer numeroEquipaje;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fecha_reserva", updatable = true, nullable = true)
 	private Date fechaReserva;

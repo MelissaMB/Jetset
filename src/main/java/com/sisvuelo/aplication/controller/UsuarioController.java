@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -35,6 +36,11 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+
+    @Autowired
+	PasswordEncoder passwordEncoder;
+
+
 
 
 
@@ -73,6 +79,9 @@ public class UsuarioController {
 			return create(usuario);
 		}
         System.out.println(usuario);
+        String password = usuario.getPassword();
+        String encriptado = passwordEncoder.encode(password);
+        usuario.setPassword(encriptado);
 		usuarioService.save(usuario);
 		attributes.addFlashAttribute("message", msgSucessoCriacao);
 		return new ModelAndView("redirect:/usuario/create");

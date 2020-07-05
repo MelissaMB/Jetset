@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/MainlyLayout'">
+
+<head>
+    <title>Reserva</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <div style="margin-top: 60px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="clearfix">
+                        <h2 style="float: left;">Reserva Empresa List</h2>
+
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <!-- Search form -->
+                    <div class="col-lg-5 col-xs-10">
+                        <div class="active-cyan-3 active-cyan-4 mb-4">
+                            <input class="form-control" id="myInput" type="text" placeholder="Search" aria-label="Search"
+                                   style=" border: 1px solid #4dd0e1; box-shadow: 0 0 0 1px #4dd0e1;">
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div class="table-responsive" th:if="${pagina != null}">
+                        <table class="table table-bordered table-striped " style="margin-top: 60px;">
+                            <thead>
+                            <tr>
+                                <td>id</td>
+                                <td>Empresa</td>
+                                <td>Estado</td>
+                                <td>vuelo</td>
+                                <td>clase</td>
+                                <td>cantidad</td>
+                                <td>Equipaje</td>
+                                <td>#</td>
+
+
+                            </tr>
+                            </thead>
+                            <tbody id="myTable">
+                            <tr th:each="obj : ${reservaList}">
+                                <td th:text="${obj.id}"></td>
+                                <td th:text="${obj.pasajero.nombreEmpresa}"></td>
+                                <td th:text="${obj.estatusReserva.estatus}"></td>
+                                <td th:text="${obj.vuelo.codigo}"></td>
+                                <td th:text="${obj.clase.nombreClase}"></td>
+                                <td th:text="${obj.cantidad}"></td>
+                                <td th:text="${obj.numeroEquipaje}">
+                                <td class="text-center">
+
+                                    <form method="POST" th:action="@{/reserva/delete/{code}(code=${obj.id})}">
+                                        <input type="hidden" name="_method" value="DELETE"/>
+
+                                        <a class="btn btn-link btn-xs" th:href="@{/reserva/{code}(code=${obj.id})}"
+                                           title="Editar" rel="tooltip"
+                                           data-placement="top">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+
+
+                                        <button class="btn btn-link btn-xs" title="Delete" type="submit"
+                                                data-placement="top">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </form>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td colspan="12" th:if="${#lists.isEmpty(pagina.conteudo)}">No records found</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="col-sm-12  text-center" th:if="${not #lists.isEmpty(pagina.conteudo)}">
+                            <nav>
+                                <ul class="center pagination" th:if="${not pagina.vazia}"
+                                    th:with="paginaAtual=${pagina.atual}">
+                                    <li th:if="${not pagina.primeira}" th:class="${pagina.primeira} ? disabled">
+                                        <a th:href="${pagina.urlParaPagina(paginaAtual - 1)}"
+                                           th:remove="${pagina.primeira} ? tag">
+                                            <i>
+                                                <</i>
+                                        </a>
+                                    </li>
+
+                                    <li th:if="${(paginaAtual - 2) > 0}">
+                                        <a th:href="${pagina.urlParaPagina(0)}">1
+                                            <span>...</span>
+                                        </a>
+                                    </li>
+
+                                    <th:block th:each="p : ${#numbers.sequence(1, pagina.total)}"
+                                              th:with="numeroPagina = ${p - 1} ">
+                                        <li th:if="${(p + 1 >= paginaAtual and p - 1 <= paginaAtual + 2)}"
+                                            th:class="${paginaAtual == numeroPagina} ? 'active deep-purple darken-4' : 'waves-effect' ">
+                                            <a th:href="${pagina.urlParaPagina(numeroPagina)}" th:text="${p}">1</a>
+                                        </li>
+                                    </th:block>
+
+                                    <li th:if="${(paginaAtual + 3) < pagina.total}">
+                                        <a th:href="${pagina.urlParaPagina(pagina.total - 1)}"> ...
+                                            <span th:text="${pagina.total}"></span>
+                                        </a>
+                                    </li>
+
+                                    <li th:class="${pagina.ultima} ? disabled">
+                                        <a th:if="${not pagina.ultima}"
+                                           th:href="${pagina.urlParaPagina(paginaAtual + 1)}"
+                                           th:remove="${pagina.ultima} ? tag">
+                                            <i>></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</section>
+<th:block layout:fragment="javascript-extra">
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+</th:block>
+</body>
+
+</html>

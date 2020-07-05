@@ -22,49 +22,17 @@
                 </div>
 
                 <div class="panel-body">
-
-
-                    <form class="form-horizontal" method="GET" action="/oferta/vuelo/list"
-                          th:object="${viewOfertaVueloFilter}">
-
-                        <div th:fragment="mensagemGeral" class="alert alert-success"
-                             th:if="${!#strings.isEmpty(message)}">
-                            <span th:text="${message}"></span>
+                    <!-- Search form -->
+                    <div class="col-lg-5 col-xs-10">
+                        <div class="active-cyan-3 active-cyan-4 mb-4">
+                            <input class="form-control" id="myInput" type="text" placeholder="Search" aria-label="Search"
+                                   style=" border: 1px solid #4dd0e1; box-shadow: 0 0 0 1px #4dd0e1;">
                         </div>
+                    </div>
 
-                        <div th:fragment="mensagemErro" class="alert alert-danger"
-                             th:if="${!#strings.isEmpty(messageErro)}">
-                            <span th:text="${messageErro}"></span>
-                        </div>
-
-                        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-                            <div th:each="detailedError : ${#fields.detailedErrors()}">
-                                <span th:text="${detailedError.message}"></span>
-                            </div>
-                        </div>
-                        <div class="container">
+                    <br><br>
 
 
-                            <div class="form-group" th:classappend="${#fields.hasErrors('vuelo')} ? has-error">
-                                <label for="vuelo" class="col-sm-2 col-xs-12  control-label">Código vuelo
-                                </label>
-                                <div class="col-sm-4 col-xs-12 ">
-                                    <input type="text" class="form-control" th:field="*{vuelo}" id="vuelo"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <br>
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn  btn-primary">Search</button>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-                    </form>
 
                     <div class="table-responsive" th:if="${pagina != null}">
                         <table class="table table-bordered table-striped "
@@ -87,7 +55,7 @@
                             </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody id="myTable">
                             <tr th:each="obj : ${pagina.conteudo}">
                                 <td th:text="${obj.getIdent()}"></td>
                                 <td th:text="${obj.getVuelo()}"></td>
@@ -203,6 +171,12 @@
 <section layout:fragment="javascript-extra">
     <script>
         $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
 
             $(".btn").on("click", function () {
                 let vuelo = $(this).data('vuelo');

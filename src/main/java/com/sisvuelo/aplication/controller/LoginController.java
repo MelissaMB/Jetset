@@ -11,7 +11,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login(){
 
-        return"layout/login";
+        return"login/login";
     }
 
     @GetMapping("/logout")
@@ -19,4 +19,10 @@ public class LoginController {
 
         return new RedirectView("/login");
     }
+
+   /* @GetMapping("/forgot/password")
+    public String forgotPassword(){
+
+        return ""
+    }*/
 }

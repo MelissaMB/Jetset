@@ -6,10 +6,14 @@ import com.sisvuelo.aplication.repository.helper.PasajeroHelper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Repository
 public interface PasajeroRepository extends JpaRepository<Pasajero, Integer>, PasajeroHelper {
 
    Pasajero findByUsuario( Usuario usuario);
+
+
+
 }

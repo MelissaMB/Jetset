@@ -7,6 +7,7 @@ import com.sisvuelo.aplication.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -48,6 +49,8 @@ public class ReservaController {
 	@Autowired private VueloRepository vueloRepository;
 	@Autowired private ClaseRepository claseRepository;
 	@Autowired private UsuarioRepository usuarioRepository;
+	@Autowired private ClienteNaturalRepository clienteNaturalRepository;
+	@Autowired private ClienteEmpresaRepository clienteEmpresaRepository;
 
 	@GetMapping("/create/{vuelo}/{clase}/{usuario}")
 	public String create(@PathVariable("vuelo") Integer idvuelo, @PathVariable("clase") Integer idclase, @PathVariable("usuario") Integer idusuario ) {
@@ -94,7 +97,7 @@ public class ReservaController {
 
 
 
-	@GetMapping("/list")
+	@GetMapping("/list/sinusar")
 	public ModelAndView search(ReservaFilter reservaFilter, BindingResult result,
 			@PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
 		System.out.println(reservaService);
@@ -107,6 +110,61 @@ public class ReservaController {
 		mv.addObject("claseList",claseRepository.findAll());
 		return mv;
 	}
+
+	@GetMapping("/list/pasajero")
+	public ModelAndView searchPasajero(ReservaFilter reservaFilter, BindingResult result,
+							   @PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
+		System.out.println(reservaService);
+		ModelAndView mv = new ModelAndView("reserva/pasajeroList");
+		mv.addObject("pagina", new PageWrapper<>(reservaService.filter(reservaFilter, pageable),httpServletRequest));
+
+		mv.addObject("pasajeroList",clienteNaturalRepository.findAll());
+		mv.addObject("estatusReservaList",estatusReservaRepository.findAll());
+		mv.addObject("vueloList",vueloRepository.findAll());
+		mv.addObject("claseList",claseRepository.findAll());
+		return mv;
+	}
+
+	@GetMapping("/list/empresa")
+	public ModelAndView searchEmpresa(ReservaFilter reservaFilter, BindingResult result,
+									   @PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
+		System.out.println(reservaService);
+		ModelAndView mv = new ModelAndView("reserva/empresaList");
+		mv.addObject("pagina", new PageWrapper<>(reservaService.filter(reservaFilter, pageable),httpServletRequest));
+		mv.addObject("reservaList", reservaRepository.findAll());
+		mv.addObject("empresaList",clienteEmpresaRepository.findAll());
+		mv.addObject("estatusReservaList",estatusReservaRepository.findAll());
+		mv.addObject("vueloList",vueloRepository.findAll());
+		mv.addObject("claseList",claseRepository.findAll());
+		return mv;
+	}
+
+	@GetMapping("/list")
+	public ModelAndView MisReservaciones(Authentication auth) {
+
+		String username = auth.getName();
+
+		ModelAndView mv = new ModelAndView("reserva/misReservas");
+		Usuario usuario = usuarioRepository.findByUsername(username);
+		ClienteNatural clienteNatural= clienteNaturalRepository.findByUsuario(usuario);
+		ClienteEmpresa clienteEmpresa= clienteEmpresaRepository.findByUsuario(usuario);
+
+		if(clienteNatural!=null){
+			Pasajero pasajero = pasajeroRepository.findByUsuario(clienteNatural.getUsuario());
+			mv.addObject("reservaList",reservaRepository.findByPasajero(pasajero));
+			System.out.println(reservaRepository.findByPasajero(pasajero));
+		}else {
+			Pasajero pasajero = pasajeroRepository.findByUsuario(clienteEmpresa.getUsuario());
+			mv.addObject("reservaList",reservaRepository.findByPasajero(pasajero));
+			System.out.println(reservaRepository.findByPasajero(pasajero));
+		}
+
+
+		return mv;
+	}
+
+
+
 
 	@DeleteMapping("/delete/{code}")
 	public ModelAndView delete(@PathVariable("code") Integer code, RedirectAttributes attributes) {

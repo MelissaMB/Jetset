@@ -1,0 +1,11 @@
+runtime: java
+env: flex
+runtime_config:
+  jdk: openjdk8
+handlers:
+- url: /.*
+  script: this field is required, but ignored
+resources:
+  cpu: 1
+  memory_gb: 4 
+  disk_size_gb: 10

@@ -32,19 +32,18 @@
 
                     <br><br>
 
-                    <div class="table-responsive" th:if="${pagina != null}">
+                    <div class="table-responsive">
                         <table class="table table-bordered table-striped " style="margin-top: 60px;">
                             <thead>
                             <tr>
 
 
                                 <td>id</td>
-                                <td>pasajero</td>
+                                <td>Origen </td>
+                                <td>Destino </td>
                                 <td>Estado</td>
                                 <td>vuelo</td>
                                 <td>clase</td>
-                                <td>cantidad</td>
-                                <td>Equipaje</td>
                                 <td>#</td>
 
 
@@ -53,12 +52,11 @@
                             <tbody id="myTable">
                             <tr th:each="obj : ${reservaList}">
                                 <td th:text="${obj.id}"></td>
-                                <td th:text="${obj.pasajero.primerNombre} +' '+ ${obj.pasajero.primerApellido}"></td>
+                                <td th:text="${obj.vuelo.origen.aeropuerto.ciudad.nombre}"></td>
+                                <td th:text="${obj.vuelo.destino.aeropuerto.ciudad.nombre}"></td>
                                 <td th:text="${obj.estatusReserva.estatus}"></td>
                                 <td th:text="${obj.vuelo.codigo}"></td>
                                 <td th:text="${obj.clase.nombreClase}"></td>
-                                <td th:text="${obj.cantidad}"></td>
-                                <td th:text="${obj.numeroEquipaje}">
                                 <td class="text-center">
 
                                     <form method="POST" th:action="@{/reserva/delete/{code}(code=${obj.id})}">

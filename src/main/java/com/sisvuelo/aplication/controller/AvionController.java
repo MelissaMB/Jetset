@@ -96,7 +96,7 @@ public class AvionController {
 		return mv;
 	}
 
-	@DeleteMapping("/delete/{code}")
+	@RequestMapping(value="/delete/{code}")
 	public ModelAndView delete(@PathVariable("code") Integer code, RedirectAttributes attributes) {
 		System.out.println(code);
 		Avion avion = new Avion();

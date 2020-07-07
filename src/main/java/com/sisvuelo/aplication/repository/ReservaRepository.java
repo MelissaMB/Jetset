@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.sisvuelo.aplication.model.Reserva;
 import com.sisvuelo.aplication.repository.helper.ReservaHelper;
 
+import java.util.List;
 
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer>,ReservaHelper {
 
-	Reserva findByPasajero(Pasajero pasajero);
+	List<Reserva> findByPasajero(Pasajero pasajero);
 
 }
 

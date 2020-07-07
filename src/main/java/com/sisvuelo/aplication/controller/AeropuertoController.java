@@ -95,7 +95,7 @@ public class AeropuertoController {
 		return mv;
 	}
 
-	@DeleteMapping("/delete/{code}")
+	@RequestMapping(value="/delete/{code}")
 	public ModelAndView delete(@PathVariable("code") Integer code, RedirectAttributes attributes) {
 		System.out.println(code);
 		Aeropuerto aeropuerto = new Aeropuerto();

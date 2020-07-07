@@ -143,20 +143,24 @@ public class ReservaController {
 	public ModelAndView MisReservaciones(Authentication auth) {
 
 		String username = auth.getName();
+		System.out.println(username);
 
 		ModelAndView mv = new ModelAndView("reserva/misReservas");
 		Usuario usuario = usuarioRepository.findByUsername(username);
+	//	Optional<Usuario> usuarioOpcional = usuarioRepository.fin(12);
+		//Usuario usuario =usuarioOpcional.get();
+
 		ClienteNatural clienteNatural= clienteNaturalRepository.findByUsuario(usuario);
 		ClienteEmpresa clienteEmpresa= clienteEmpresaRepository.findByUsuario(usuario);
 
-		if(clienteNatural!=null){
+	 	if(clienteNatural!=null){
 			Pasajero pasajero = pasajeroRepository.findByUsuario(clienteNatural.getUsuario());
 			mv.addObject("reservaList",reservaRepository.findByPasajero(pasajero));
-			System.out.println(reservaRepository.findByPasajero(pasajero));
-		}else {
+
+
+	     }else {
 			Pasajero pasajero = pasajeroRepository.findByUsuario(clienteEmpresa.getUsuario());
 			mv.addObject("reservaList",reservaRepository.findByPasajero(pasajero));
-			System.out.println(reservaRepository.findByPasajero(pasajero));
 		}
 
 
@@ -166,7 +170,7 @@ public class ReservaController {
 
 
 
-	@DeleteMapping("/delete/{code}")
+	@RequestMapping(value="/delete/{code}")
 	public ModelAndView delete(@PathVariable("code") Integer code, RedirectAttributes attributes) {
 		System.out.println(code);
 		Reserva reserva = new Reserva();

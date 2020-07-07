@@ -124,4 +124,16 @@ public class UsuarioController {
 		return new ModelAndView("redirect:/usuario/list");
 	}
 
+
+    @GetMapping("/desabled/{code}/{estado}")
+	public ModelAndView enable(@PathVariable("code") Integer code, @PathVariable("estado") Integer estado){
+		System.out.println(code);
+		System.out.println(estado);
+		Optional<Usuario> usuarioOptinal= usuarioRepository.findById(code);
+		Usuario usuario =usuarioOptinal.get();
+		usuario.setEstado(estado);
+		usuarioService.save(usuario);
+		return new ModelAndView("redirect:/usuario/list");
+	}
+
 }

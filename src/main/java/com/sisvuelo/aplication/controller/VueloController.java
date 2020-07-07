@@ -147,7 +147,7 @@ public class VueloController {
 	}
 
 
-	@RequestMapping(value = "/delete/{code}", method = {RequestMethod.GET, RequestMethod.PUT})
+	@RequestMapping(value="/delete/{code}")
 	public ModelAndView delete(@PathVariable("code") Integer code, RedirectAttributes attributes) {
 		System.out.println(code);
 		Vuelo vuelo = new Vuelo();

@@ -44,6 +44,20 @@
 
                         <div class="container">
 
+
+
+                            <div class="form-group" th:classappend="${#fields.hasErrors('vuelo')} ? has-error">
+                                <label for="vuelo" class="col-sm-2 col-xs-12  control-label">Vuelo
+                                </label>
+                                <div class="col-sm-8 col-xs-12 ">
+                                    <select class="form-control" th:field="*{vuelo}">
+                                        <option value="">Select</option>
+                                        <option th:each="gclass : ${vueloList}" th:value="${gclass.id}"
+                                                th:text="${gclass.codigo}+' - ' + ${gclass.origen.getAeropuerto().getNombre()} +' - ' + ${gclass.destino.getAeropuerto().getNombre()}"></option>
+                                    </select>
+
+                                </div>
+                            </div>
                             <div class="form-group" th:classappend="${#fields.hasErrors('clase')} ? has-error">
                                 <label for="clase" class="col-sm-2 col-xs-12  control-label">Clase
                                 </label>
@@ -52,19 +66,6 @@
                                         <option value="">Select</option>
                                         <option th:each="gclass : ${claseList}" th:value="${gclass.id}"
                                                 th:text="${gclass.nombreClase}"></option>
-                                    </select>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group" th:classappend="${#fields.hasErrors('vuelo')} ? has-error">
-                                <label for="vuelo" class="col-sm-2 col-xs-12  control-label">Vuelo
-                                </label>
-                                <div class="col-sm-4 col-xs-12 ">
-                                    <select class="form-control" th:field="*{vuelo}">
-                                        <option value="">Select</option>
-                                        <option th:each="gclass : ${vueloList}" th:value="${gclass.id}"
-                                                th:text="${gclass.codigo}"></option>
                                     </select>
 
                                 </div>

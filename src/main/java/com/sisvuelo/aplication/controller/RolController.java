@@ -95,7 +95,7 @@ public class RolController {
 		return mv;
 	}
 
-	@DeleteMapping(value="/delete/{code}")
+	@RequestMapping(value="/delete/{code}")
 	public ModelAndView delete(@PathVariable("code") Integer code, RedirectAttributes attributes) {
 		System.out.println(code);
 		Rol rol = new Rol();

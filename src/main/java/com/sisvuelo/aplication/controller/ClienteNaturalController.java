@@ -32,26 +32,28 @@ public class ClienteNaturalController {
     GeneroRepository generoRepository;
     @Autowired
     EstadoCivilRepository estadoCivilRepository;
-
     @Autowired
     RolRepository rolRepository;
-
     @Autowired
     MailService mailService;
     @Autowired
     RegistroUsuarioService registroUsuarioService;
     @Autowired
     RolService rolService;
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     private Rol rol;
 
-    private String msgSucessCreate= "Pasajero creado con éxito. Se ha enviado un correo electronico con sus credenciales.";
+    private String msgSucessCreate = "Pasajero creado con éxito. Se ha enviado un correo electronico con sus credenciales.";
+    private String msgExistUser = "Usuario existente. Ingresar uno nuevo por favor.";
 
-   @GetMapping("/create")
+
+    @GetMapping("/create")
     public ModelAndView create(ClienteNatural clienteNatural) {
         ModelAndView mv = new ModelAndView("clienteNatural/create");
         mv.addObject(clienteNatural);
-        mv.addObject("tipoDocumentList",tipoDocumentoRepository.findAll());
+        mv.addObject("tipoDocumentList", tipoDocumentoRepository.findAll());
         mv.addObject("generoList", generoRepository.findAll());
         mv.addObject("estadoCivilList", estadoCivilRepository.findAll());
         mv.addObject("title", "Registro Pasajero");
@@ -59,27 +61,41 @@ public class ClienteNaturalController {
         return mv;
 
     }
+
     @PostMapping("/create")
-    public ModelAndView save(@Validated ClienteNatural clienteNatural, Errors errors, RedirectAttributes attributes){
+    public ModelAndView save(@Validated ClienteNatural clienteNatural, Errors errors, RedirectAttributes attributes) {
 
-       Rol rol = new Rol();
-       rol = rolRepository.findById(3).get();
-       String from = clienteNatural.getEmail();
-       String to = "vuelo@jetset.com";
-       String subject = "Creación de usuario" + clienteNatural.getPrimerNombre()+ " "+clienteNatural.getPrimerApellido();
-       String body = "\n\nSu usuario es: "+ clienteNatural.getEmail()+"\nPassword temporal: Jetset$";
+        Rol rol = new Rol();
+        rol = rolRepository.findById(3).get();
+        String email = clienteNatural.getEmail();
+        String to = "vuelo@jetset.com";
+        String subject = "Creación de usuario" + clienteNatural.getPrimerNombre() + " " + clienteNatural.getPrimerApellido();
+        String body = "\n\nSu usuario es: " + clienteNatural.getEmail() + "\nPassword temporal: jetset2020";
 
 
-       if(errors.hasErrors()){
-           return create(clienteNatural);
-       }
+        if (errors.hasErrors()) {
+            return create(clienteNatural);
+        }
 
-       mailService.sendMail(from, to, subject, body);
-       Usuario usuario=registroUsuarioService.RegistrarUsuario(from,rol);
-       clienteNatural.setUsuario(usuario);
-       clienteNaturalRepository.save(clienteNatural);
-       attributes.addFlashAttribute("message", msgSucessCreate);
-       return new ModelAndView("redirect:/cliente/natural/create");
+        Usuario usuarioExist = usuarioRepository.findByUsername(email);
+        System.out.println(email);
+        System.out.println(usuarioExist);
+        System.out.println(usuarioExist.getId() == null);
+        if (usuarioExist.getId() == null) {
+
+            mailService.sendMail(email, to, subject, body);
+            Usuario usuario = registroUsuarioService.RegistrarUsuario(email, rol);
+            clienteNatural.setUsuario(usuario);
+            clienteNaturalRepository.save(clienteNatural);
+            attributes.addFlashAttribute("message", msgSucessCreate);
+
+        } else {
+            attributes.addFlashAttribute("message", msgExistUser);
+        }
+
+        return new ModelAndView("redirect:/cliente/natural/create");
+
+
     }
 
 }

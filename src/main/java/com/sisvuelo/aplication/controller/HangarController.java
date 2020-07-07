@@ -94,7 +94,7 @@ public class HangarController {
 		return mv;
 	}
 
-	@DeleteMapping("/delete/{code}")
+	@RequestMapping(value="/delete/{code}")
 	public ModelAndView delete(@PathVariable("code") Integer code, RedirectAttributes attributes) {
 		Hangar hangar = new Hangar();
 		hangar.setId(code);

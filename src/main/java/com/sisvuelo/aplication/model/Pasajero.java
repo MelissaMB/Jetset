@@ -10,7 +10,7 @@ public class Pasajero {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native" )
     @Column(name = "ID_PASAJERO")
     private Integer numeroViajero;
     @Column(name = "TELEFONO_FIJO", nullable = true, length = 8)

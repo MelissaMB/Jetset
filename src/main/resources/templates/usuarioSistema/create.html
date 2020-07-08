@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/fragments/login/LayoutLogin'">
+
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <br/>
+        <form class="form-horizontal" method="POST" th:action="@{/usuario/sistema/create}"
+              th:object="${usuarioSistema}">
+
+            <div style="margin-top: 50px;">
+
+                <div th:fragment="mensagemGeral" class="alert alert-success"
+                     th:if="${!#strings.isEmpty(message)}">
+                    <span th:text="${message}"></span>
+                </div>
+
+                <div th:fragment="mensagemErro" class="alert alert-danger"
+                     th:if="${!#strings.isEmpty(messageErro)}">
+                    <span th:text="${messageErro}"></span>
+                </div>
+
+                <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                    <div th:each="detailedError : ${#fields.detailedErrors()}">
+                        <span th:text="${detailedError.message}"></span>
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+
+                            <div class="clearfix">
+                                <h2 style="float: left;" th:text="${title}"></h2>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <input type="hidden" th:field="*{id}"/>
+
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('primerNombre')} ? has-error">
+                            <div class="col-sm-6 col-xs-12 ">
+                                <input type="text" class="form-control" th:field="*{primerNombre}"
+                                       id="primerNombre" placeholder="Primer Nombre"/>
+                            </div>
+
+                            <div class="form-group" th:classappend="${#fields.hasErrors('segundoNombre')} ? has-error">
+
+                                <div class="col-sm-6 col-xs-12 ">
+                                    <input type="text" class="form-control" th:field="*{segundoNombre}"
+                                           id="segundoNombre"
+                                           placeholder="Segundo Nombre"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('primerApellido')} ? has-error">
+
+                            <div class="col-sm-6 col-xs-12 ">
+                                <input type="text" class="form-control"
+                                       th:field="*{primerApellido}" id="primerApellidos" placeholder="Primer Apellido"/>
+                            </div>
+
+
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('segundoApellido')} ? has-error">
+                                <div class="col-sm-6 col-xs-12 ">
+                                    <input type="text" class="form-control"
+                                           th:field="*{segundoApellido}" id="segundoApellido"
+                                           placeholder="Segundo Apellido"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">
+                            <div class="col-sm-6 col-xs-12 ">
+                                <input type="text" placeholder="Email" class="form-control" th:field="*{email}"
+                                       id="email"/>
+                            </div>
+
+                            <div class="form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
+
+                                <div class="col-sm-6 col-xs-12 ">
+                                    <select class="form-control" th:field="*{sexo}">
+                                        <option value="">Seleccionar sexo</option>
+                                        <option value="F">Femenino</option>
+                                        <option value="M">Masculino</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('descripcion')} ? has-error">
+                            <div class="col-sm-12 col-xs-12 ">
+                                <textarea type="text" class="form-control"
+                                          placeholder="Descripcion de peticion de solicitud de acceso al sistema"
+                                          th:field="*{descripcion}" id="descripcion"></textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary" th:text="${btn}"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+</body>
+
+</html>

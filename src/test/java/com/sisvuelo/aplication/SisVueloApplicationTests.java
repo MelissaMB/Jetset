@@ -13,8 +13,8 @@ class SisVueloApplicationTests {
 
 	@Test
 	public void generate() throws IOException, URISyntaxException  {
-	//JeasierAplication app = new JeasierAplication();
-	// app.generateCrud("com.sisvuelo.aplication.model.ViewOfertaVuelo", new Gentelella());
+//JeasierAplication app = new JeasierAplication();
+ //app.generateCrud("com.sisvuelo.aplication.model.UsuarioSistema", new Gentelella());
 	}
 
 }

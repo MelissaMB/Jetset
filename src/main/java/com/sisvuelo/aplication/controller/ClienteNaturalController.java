@@ -69,7 +69,7 @@ public class ClienteNaturalController {
         rol = rolRepository.findById(3).get();
         String email = clienteNatural.getEmail();
         String to = "vuelo@jetset.com";
-        String subject = "Creación de usuario" + clienteNatural.getPrimerNombre() + " " + clienteNatural.getPrimerApellido();
+        String subject = "Creación de usuario " + clienteNatural.getPrimerNombre() + " " + clienteNatural.getPrimerApellido();
         String body = "\n\nSu usuario es: " + clienteNatural.getEmail() + "\nPassword temporal: jetset2020";
 
 
@@ -78,10 +78,8 @@ public class ClienteNaturalController {
         }
 
         Usuario usuarioExist = usuarioRepository.findByUsername(email);
-        System.out.println(email);
-        System.out.println(usuarioExist);
-        System.out.println(usuarioExist.getId() == null);
-        if (usuarioExist.getId() == null) {
+
+
 
             mailService.sendMail(email, to, subject, body);
             Usuario usuario = registroUsuarioService.RegistrarUsuario(email, rol);
@@ -89,9 +87,6 @@ public class ClienteNaturalController {
             clienteNaturalRepository.save(clienteNatural);
             attributes.addFlashAttribute("message", msgSucessCreate);
 
-        } else {
-            attributes.addFlashAttribute("message", msgExistUser);
-        }
 
         return new ModelAndView("redirect:/cliente/natural/create");
 

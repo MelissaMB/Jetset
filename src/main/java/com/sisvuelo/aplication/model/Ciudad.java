@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Ciudad {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name = "id_ciudad")
 	private Integer id;
 

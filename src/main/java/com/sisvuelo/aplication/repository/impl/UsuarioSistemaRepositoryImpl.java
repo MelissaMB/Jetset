@@ -17,10 +17,21 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class UsuarioSistemaRepositoryImpl implements UsuarioSistemaHelper {
     @PersistenceContext
     private EntityManager manager;
+
+
+    @SuppressWarnings("unchecked")
+    public List<UsuarioSistema> getListByUserIsNull(){
+        TypedQuery q = manager.createQuery("SELECT u FROM UsuarioSistema u  where u.usuario is null", UsuarioSistema.class);
+        List UsuarioSistema = q.getResultList();
+
+        return getListByUserIsNull();
+    }
 
    @SuppressWarnings("unchecked")
     public Page<UsuarioSistema> filtrar(UsuarioSistemaFilter usuarioSistemaFilter, Pageable pageable) {

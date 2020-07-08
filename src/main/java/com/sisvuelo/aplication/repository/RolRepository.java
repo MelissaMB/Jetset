@@ -16,5 +16,6 @@ public interface RolRepository extends JpaRepository<Rol, Integer>,RolHelper {
 
     Rol findByNombre(String nombre);
 
+
 }
 

@@ -5,6 +5,8 @@ import com.sisvuelo.aplication.filter.UsuarioSistemaFilter;
 import com.sisvuelo.aplication.model.*;
 import com.sisvuelo.aplication.repository.*;
 import com.sisvuelo.aplication.service.AeropuertoService;
+import com.sisvuelo.aplication.service.GenerarUsuarioService;
+import com.sisvuelo.aplication.service.RegistroUsuarioService;
 import com.sisvuelo.aplication.service.UsuarioSistemaService;
 import com.sisvuelo.aplication.service.email.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuario/sistema/")
@@ -35,11 +38,16 @@ public class UsuarioSistemaController {
     private RolRepository rolRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
-
     @Autowired
     MailService mailService;
+    @Autowired
+    GenerarUsuarioService generarUsuarioService;
+    @Autowired
+    RegistroUsuarioService registroUsuarioService;
+
 
     private String msgDeleteSucesso = "Registro deleted successfully !";
+    private String msgEnroll = "Usuario registrado !";
 
     private String msgDeleteError = "Registro an error has occurred !";
 
@@ -59,7 +67,7 @@ public class UsuarioSistemaController {
         mv.addObject(usuarioSistema);
 
 
-        mv.addObject("usuarioList", usuarioSistemaRepository.findAll());
+        mv.addObject("usuarioList", usuarioSistemaRepository.findByUsuario_RolIsNull());
 
         return mv;
     }
@@ -70,7 +78,7 @@ public class UsuarioSistemaController {
         String emailAdmin = "sysmteadmin@jetset.com.sv";
         String subject = "Solicitud de acceso";
         String body = "Se ha registrado una solicitud de acceso nueva  \n"
-                     + "Solicitante: "+ usuarioSistema.getPrimerNombre() + " " + usuarioSistema.getSegundoApellido();
+                + "Solicitante: " + usuarioSistema.getPrimerNombre() + " " + usuarioSistema.getSegundoApellido();
         if (errors.hasErrors()) {
             return create(usuarioSistema);
         }
@@ -82,12 +90,31 @@ public class UsuarioSistemaController {
 
     }
 
-    @GetMapping("/{code}")
-    public ModelAndView edit(@PathVariable("code") Integer code) {
+    @GetMapping("/list/{code}/{rolId}")
+    public ModelAndView edit(@PathVariable("code") Integer code, @PathVariable("rolId") Integer rolId, RedirectAttributes attributes) {
+
         UsuarioSistema usuarioSistema = new UsuarioSistema();
         usuarioSistema = usuarioSistemaRepository.findById(code).get();
+        Rol rol = new Rol();
+        rol = rolRepository.findById(rolId).get();
 
-        return create(usuarioSistema);
+        String username = generarUsuarioService.GenerarUsuario(usuarioSistema.getPrimerNombre(), usuarioSistema.getPrimerApellido());
+        Usuario usuario= registroUsuarioService.RegistrarUsuario(username,rol);
+
+        usuarioSistema.setUsuario(usuario);
+        usuarioSistemaRepository.save(usuarioSistema);
+        attributes.addFlashAttribute("message", msgEnroll);
+
+
+        String emailAdmin = "sysmteadmin@jetset.com.sv";
+        String subject = "Solicitud de acceso";
+        String body = "Su solicitud ha sido aprobada. A continuacion, sus credenciales:  \n"
+                + "Username: " + username + "\n"
+                + "Password temporal: " + "jetset2020";
+
+        mailService.sendMail(emailAdmin, usuarioSistema.getEmail(), subject, body);
+
+        return new ModelAndView("redirect:/usuario/sistema/list");
 
     }
 
@@ -97,8 +124,9 @@ public class UsuarioSistemaController {
         System.out.println(usuarioSistemaService);
         ModelAndView mv = new ModelAndView("usuarioSistema/list");
         mv.addObject("pagina", new PageWrapper<>(usuarioSistemaService.filter(usuarioSistemaFilter, pageable), httpServletRequest));
-
+        mv.addObject("solicitudesList", usuarioSistemaRepository.findAll());
         mv.addObject("usuarioList", usuarioRepository.findAll());
+        mv.addObject("rolList", rolRepository.findAll());
         return mv;
     }
 

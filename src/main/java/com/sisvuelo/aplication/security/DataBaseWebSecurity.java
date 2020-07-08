@@ -31,9 +31,10 @@ public class DataBaseWebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/resources/**,", "/templates/**", "/static/**" , "/layout/**", "/vendors/**").permitAll()
-                .antMatchers("/cliente/empresa/**","/oferta/**","/usuario/sistema/**", "/logout","/cliente/natural/**").permitAll()
+                .antMatchers("/cliente/empresa/**","/oferta/**","/usuario/sistema/create", "/logout","/cliente/natural/**").permitAll()
                 .antMatchers("/usuario/**").hasAnyAuthority("Administrador", "DBA")
                 .antMatchers("/rol/**").hasAnyAuthority("Administrador", "DBA")
+                .antMatchers("/usuario/sistema/list").hasAnyAuthority("Administrador")
                 .antMatchers("/vuelo/**").hasAnyAuthority("AdminVuelo", "Pasajero","Administrador")
                 .antMatchers("/aeropuerto/**").hasAnyAuthority("Administrador","AdminAeropuerto")
                 .antMatchers("/aerolinea/**").hasAnyAuthority("Administrador","AdminAerolinea")

@@ -5,7 +5,10 @@
       layout:decorator="'layout/MainlyLayout'">
 
 <head>
-    <title>Aerolíneas</title>
+    <title>Solicitudes</title>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 </head>
 
@@ -17,115 +20,47 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="clearfix">
-                        <h2 style="float: left;">Aerolinea List</h2>
-                        <a style="float: right;" class="btn btn-link aw-link-panel"
-                           href="/aerolinea/create">Aerolinea Create</a>
+                        <h2 style="float: left;">Solicitudes de acceso al sistema</h2>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="GET"
-                          action="/aerolinea/list" th:object="${aerolineaFilter}">
 
-                        <div th:fragment="mensagemGeral" class="alert alert-success"
-                             th:if="${!#strings.isEmpty(message)}">
-                            <span th:text="${message}"></span>
-                        </div>
-
-                        <div th:fragment="mensagemErro" class="alert alert-danger"
-                             th:if="${!#strings.isEmpty(messageErro)}">
-                            <span th:text="${messageErro}"></span>
-                        </div>
-
-                        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-                            <div th:each="detailedError : ${#fields.detailedErrors()}">
-                                <span th:text="${detailedError.message}"></span>
-                            </div>
-                        </div>
-
-
-                        <div class="container">
-
-                            <div class="form-group"
-                                 th:classappend="${#fields.hasErrors('pais')} ? has-error">
-                                <label for="pais" class="col-sm-2 col-xs-12  control-label">Pais
-                                </label>
-                                <div class="col-sm-4 col-xs-12 ">
-                                    <select class="form-control" th:field="*{pais}">
-                                        <option value="">Select</option>
-                                        <option th:each="gclass : ${paisList}"
-                                                th:value="${gclass.id}" th:text="${gclass.nombre}"></option>
-                                    </select>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group"
-                                 th:classappend="${#fields.hasErrors('codigo')} ? has-error">
-                                <label for="codigo" class="col-sm-2 col-xs-12  control-label">Codigo
-                                </label>
-                                <div class="col-sm-4 col-xs-12 ">
-                                    <input type="text" class="form-control" th:field="*{codigo}"
-                                           id="codigo" />
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <br>
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn  btn-primary">Search</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="table-responsive" th:if="${pagina != null}">
+                    <div class="table-responsive" >
                         <table class="table table-bordered table-striped "
                                style="margin-top: 60px;">
                             <thead>
                             <tr>
-                                <td>Código</td>
-                                <td>Siglas</td>
                                 <td>Nombre</td>
-                                <td>Pais</td>
-                                <td>Representante</td>
-                                <td>Email</td>
-                                <td>Estado</td>
+                                <td>Apellidos</td>
+                                <td>Sexo</td>
                                 <td>#</td>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="obj : ${pagina.conteudo}">
-                                <td th:text="${obj.codigo}"></td>
-                                <td th:text="${obj.nombreCorto}"></td>
-                                <td th:text="${obj.nombreLargo}"></td>
-                                <td th:text="${obj.pais.codigo}"></td>
-                                <td th:text="${obj.representante}"></td>
-                                <td th:text="${obj.email}"></td>
-                                <td th:text="${obj.estado}"></td>
-                                <td class="text-center">
-
-                                    <form method="POST"
-                                          th:action="@{/aerolinea/delete/{code}(code=${obj.id})}">
-                                        <input type="hidden" name="_method" value="DELETE" /> <a
-                                            class="btn btn-link btn-xs"
-                                            th:href="@{/aerolinea/{code}(code=${obj.id})}"
-                                            title="Editar" rel="tooltip" data-placement="top"> <span
-                                            class="glyphicon glyphicon-pencil"></span>
-                                    </a>
-
-
-                                        <button class="btn btn-link btn-xs" title="Delete"
-                                                type="submit" data-placement="top">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </button>
-                                    </form>
+                            <tr  th:if="${obj.usuario}==null"  th:each="obj : ${solicitudesList}" >
+                                <td  th:text="${obj.primerNombre} + ${obj.SegundoNombre}"></td>
+                                <td  th:text="${obj.primerApellido} +${obj.segundoApellido}"></td>
+                                <td  th:text="${obj.sexo}"></td>
+                                <td>
+                                    <button id="btn-reserva" type="button"
+                                            th:attr="   data-nombre=${obj.getPrimerNombre()},
+                                                        data-nombreS=${obj.getSegundoNombre()},
+                                                        data-apellido=${obj.getPrimerApellido()},
+                                                        data-apellidoS=${obj.getSegundoApellido()},
+                                                        data-sexo=${obj.getSexo()},
+                                                        data-email=${obj.getEmail()},
+                                                        data-detalle=${obj.getDescripcion()},
+                                                        data-id=${obj.getId()}"
+                                            class="btn btn-primary btn-sm">Detalle
+                                    </button>
                                 </td>
 
 
                             </tr>
                             <tr>
                                 <td colspan="12" th:if="${#lists.isEmpty(pagina.conteudo)}">No
-                                    records found</td>
+                                    records found
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -167,16 +102,73 @@
                                 </ul>
                             </nav>
                         </div>
+                        <!--Modal-->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header" style="padding:35px 50px;">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4><span class="glyphicon glyphicon-lock"></span> Solicitud de acceso</h4>
+                                    </div>
+                                    <div class="modal-body" style="padding:40px 50px;">
+                                        <div class="form-group">
+                                            <label><strong>Nombres: </strong></label>
+                                            <label id="label-nombre"></label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><strong>Apellidos: </strong></label>
+                                            <label id="label-apellido"></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><strong>sexo: </strong></label>
+                                            <label id="label-sexo"></label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><strong>email: </strong></label>
+                                            <label id="label-email"></label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><strong>Detalle de solicitud: </strong></label>
+                                            <label id="label-detalle"></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><strong>Rol</strong></label>
+                                            <select class="select form-control">
+                                                <option value="">Select</option>
+                                                <option th:each="gclass : ${rolList}" th:value="${gclass.id}"
+                                                        th:text="${gclass.nombre}"></option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <button type="submit" id="btn-reservar" class="btn btn-success btn-block"><span
+                                                class="glyphicon glyphicon-off"></span> Aceptar
+                                        </button>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" id="btn-cancel"
+                                                class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
+                                                class="glyphicon glyphicon-remove"></span> Cancel
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
 
 
-
             </div>
-
-
-
 
 
         </div>
@@ -185,6 +177,66 @@
 </section>
 <th:block layout:fragment="javascript-extra">
 
+    <script>
+        $(document).ready(function () {
+            $(".btn").on("click", function () {
+                let nombre = $(this).data('nombre');
+                let nombreS = $(this).data('nombreS');
+                let apellido = $(this).data('apellido');
+                let apellidoS = $(this).data('apellidoS');
+                let sexo = $(this).data('sexo');
+                let email = $(this).data('email');
+                let detalle = $(this).data('detalle');
+                let id = $(this).data('id');
+
+
+                $("#myModal").modal();
+                $("#label-nombre").text(nombre);
+                $("#label-apellido").text(apellido);
+                $("#label-sexo").text(sexo);
+                $("#label-email").text(email);
+                $("#label-detalle").text(detalle);
+
+
+                $("#btn-reservar").on("click", {id: id}, Enroll);
+
+            });
+
+            function Enroll(event) {
+                let id = event.data.id;
+                let rol = $("select.select").val();
+
+                Swal.fire({
+                    title: 'Confirmación',
+                    text: "¿Desea aceptar la solicitud?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, aceptar!'
+                }).then((result) => {
+                    if (result.value) {
+                        let url = "/usuario/sistema/list/" + id + "/" + rol;
+                        axios.get(url).then(function (response) {
+                            Swal.fire(
+                                'Registro usuario!',
+                                'Registro de usuario exitoso.',
+                                'success'
+                            )
+                            window.location.reload();
+                        }).catch(function (error) {
+                            console.log(error);
+
+                        })
+
+                    }
+                })
+            }
+
+
+        })
+
+    </script>
 
 
 </th:block>

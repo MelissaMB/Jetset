@@ -16,6 +16,7 @@
         <!-- Bootstrap -->
         <!-- <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}"
                rel="stylesheet"/>-->
+               
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
               id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -27,20 +28,23 @@
     </head>
     <body>
         <div th:replace="layout/fragments/login/TopBarLogin :: TopBarLogin"></div>
+        <div class="d-flex justify-content-center">
+				<img th:src="@{/layout/images/logo.png}" width="150" height="150" />
+	</div>
         <div class="container">
             <div class="d-flex justify-content-center h-100">
-                <div class="card">
+                <div class="card" style="margin-top: 5% !important; margin-bootom: 5% !important;">
                     <div class="card-header">
                         <h3>Sign In</h3>
                         <div class="d-flex justify-content-end social_icon">
                             <span>
-                                <i class="fab fa-facebook-square"></i>
+                                <i class="fab fa-facebook-square" style="color: #D60F84; !important;"></i>
                             </span>
                             <span>
-                                <i class="fab fa-google-plus-square"></i>
+                                <i class="fab fa-google-plus-square" style="color: #D60F84; !important;"></i>
                             </span>
                             <span>
-                                <i class="fab fa-twitter-square"></i>
+                                <i class="fab fa-twitter-square" style="color: #D60F84; !important;"></i>
                             </span>
                         </div>
                     </div>

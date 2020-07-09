@@ -5,10 +5,9 @@
 	<title>Home</title>
 </head>
 <body>
-<section layout:fragment="content">
+<section layout:fragment="content" style="min-height: auto; !important;">
 	<h1> Bienvenido/a <span th:if="${session.usuario != null}" class="text-light" th:text="${session.usuario.username}"> </h1>
-	<img th:src="@{/layout/images/logo-gif.gif}" width="80" height="80" class="d-inline-block align-top"
-		 alt="">
+	<img th:src="@{/layout/images/logo-gif.gif}" width="500" height="500" style="display: block;  margin-left: auto;  margin-right: auto;  width: 50%;">
 </section>
 	
 	<th:block layout:fragment="javascript-extra">

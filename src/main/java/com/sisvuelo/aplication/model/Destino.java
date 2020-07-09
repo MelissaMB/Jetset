@@ -12,11 +12,11 @@ public class Destino {
     private Integer id;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_aeropuerto", nullable = false)
+    @JoinColumn(name = "id_aerolinea", nullable = false)
     private Aerolinea aerolinea;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_aerolinea", nullable = false)
+    @JoinColumn(name = "id_aeropuerto", nullable = false)
     private Aeropuerto aeropuerto;
 
     public Destino() {

@@ -47,6 +47,12 @@
 								<li><a href="/ciudad/list">Ciudades</a></li>
 							</ul>
 						</li>
+						<li sec:authorize="hasAnyAuthority('AdminAerolinea', 'Administrador')"><a><i class="fa fa-suitcase"></i> Aerolinea <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/aerolinea/list">Aerolineas</a></li>
+							</ul>
+						</li>
 
 						<li sec:authorize="hasAnyAuthority('AdminAeropuerto', 'Administrador')"><a><i class="fa fa-plane"></i>Aviones<span
 								class="fa fa-chevron-down"></span></a>
@@ -56,12 +62,7 @@
 								<li><a href="/modelo/list">Modelo</a></li>
 							</ul>
 						</li>
-						<li sec:authorize="hasAnyAuthority('AdminAerolinea', 'Administrador')"><a><i class="fa fa-suitcase"></i> Aerolinea <span
-								class="fa fa-chevron-down"></span></a>
-							<ul class="nav child_menu">
-								<li><a href="/aerolinea/list">Aerolineas</a></li>
-							</ul>
-						</li>
+
 
 						<li sec:authorize="hasAnyAuthority('AdminAeropuerto', 'Administrador')"><a><i class="fa fa-globe"></i> Aeropuerto <span
 								class="fa fa-chevron-down"></span></a>
@@ -74,10 +75,11 @@
 						<li sec:authorize="hasAnyAuthority('AdminVuelo', 'Administrador')"><a><i class="fa fa-globe"></i> Vuelos <span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
-								<li><a href="/destino/list">Destinos</a></li>
-								<li><a href="/vuelo/list">Vuelos</a></li>
-								<li><a href="/capacidad/list">Capacidad</a></li>
 								<li><a href="/clase/list">Clases</a></li>
+								<li><a href="/destino/list">Destinos</a></li>
+								<li><a href="/capacidad/list">Capacidad</a></li>
+								<li><a href="/vuelo/list">Vuelos</a></li>
+								<li><a href="/estadoVuelo/list">Estado vuelo</a></li>
 								<li><a href="/precio/list">Precios</a></li>
 							</ul>
 						</li>

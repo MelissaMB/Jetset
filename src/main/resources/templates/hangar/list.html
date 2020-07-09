@@ -18,8 +18,6 @@
 					<div class="panel-heading">
 						<div class="clearfix">
 							<h2 style="float: left;">Hangar List</h2>
-							<a style="float: right;" class="btn btn-link aw-link-panel"
-								href="/hangar/create">Hangar Create</a>
 						</div>
 					</div>
 					<div class="panel-body">
@@ -48,15 +46,6 @@
 
 							<div class="container">
 
-								<div class="form-group"
-									th:classappend="${#fields.hasErrors('codigo')} ? has-error">
-									<label for="codigo" class="col-sm-2 col-xs-12  control-label">Codigo
-									</label>
-									<div class="col-sm-4 col-xs-12 ">
-										<input type="text" class="form-control" th:field="*{codigo}"
-											id="codigo" />
-									</div>
-								</div>
 
 								<div class="form-group"
 									th:classappend="${#fields.hasErrors('aeropuerto')} ? has-error">
@@ -89,30 +78,20 @@
 								<thead>
 									<tr>
 										<td>id</td>
-										<td>codigo</td>
 										<td>Aeropuerto</td>
 										<td>estado</td>
-										<td>capacidad</td>
 										<td>#</td>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="obj : ${pagina.conteudo}">
 										<td th:text="${obj.id}"></td>
-										<td th:text="${obj.codigo}"></td>
 										<td th:text="${obj.aeropuerto.nombre}"></td>
 										<td th:text="${obj.estado}"></td>
-										<td th:text="${obj.capacidad}"></td>
 										<td class="text-center">
 
 											<form method="POST"
 												th:action="@{/hangar/delete/{code}(code=${obj.id})}">
-												<input type="hidden" name="_method" value="DELETE" /> <a
-													class="btn btn-link btn-xs"
-													th:href="@{/hangar/{code}(code=${obj.id})}" title="Editar"
-													rel="tooltip" data-placement="top"> <span
-													class="glyphicon glyphicon-pencil"></span>
-												</a>
 
 
 												<button class="btn btn-link btn-xs" title="Delete"

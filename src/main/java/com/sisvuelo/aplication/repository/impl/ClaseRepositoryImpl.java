@@ -60,7 +60,6 @@ public class ClaseRepositoryImpl implements ClaseHelper {
 			}
 			
 
-criteria.add(Restrictions.eq("estado", claseFilter.isEstado()));
 			
 
 

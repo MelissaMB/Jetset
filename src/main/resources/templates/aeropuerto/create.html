@@ -44,11 +44,14 @@
                             <label for="ciudad" class="col-sm-2 col-xs-12  control-label">Ciudad
                             </label>
                             <div class="col-sm-4 col-xs-12 ">
-                                <select class="form-control" th:field="*{ciudad}">
-                                    <option value="">Select</option>
-                                    <option th:each="gclass : ${ciudadList}" th:value="${gclass.id}"
-                                            th:text="${gclass.nombre}"></option>
-                                </select>
+                                <input class="form-control" list="ciudades" th:field="*{ciudad}">
+                                 <datalist id="ciudades">
+                                     <option value="">Select</option>
+                                     <option th:each="gclass : ${ciudadList}" th:value="${gclass.id}"
+                                             th:text="${gclass.nombre}"></option>
+                                 </datalist>
+
+
 
                             </div>
                         </div>

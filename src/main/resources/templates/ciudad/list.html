@@ -51,7 +51,7 @@
                                     <select class="form-control" th:field="*{pais}">
                                         <option value="">Select</option>
                                         <option th:each="gclass : ${paisList}" th:value="${gclass.id}"
-                                                th:text="${gclass.id}"></option>
+                                                th:text="${gclass.nombre}"></option>
                                     </select>
 
                                 </div>

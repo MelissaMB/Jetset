@@ -6,7 +6,7 @@
 </head>
 <body>
 <section layout:fragment="content">
-	<h1> Bienvenid@ <span th:if="${session.usuario != null}" class="text-light" th:text="${session.usuario.username}"> </h1>
+	<h1> Bienvenido/a <span th:if="${session.usuario != null}" class="text-light" th:text="${session.usuario.username}"> </h1>
 	<img th:src="@{/layout/images/logo-gif.gif}" width="80" height="80" class="d-inline-block align-top"
 		 alt="">
 </section>
